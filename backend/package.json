@@ -1,0 +1,32 @@
+{
+  "name": "medishorts-backend",
+  "version": "0.1.0",
+  "description": "server side logic to medishorts App",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "./node_modules/.bin/nodemon src/server.js",
+    "lint": "./node_modules/.bin/eslint . --ext .js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Ayo Onamusi",
+  "license": "ISC",
+  "devDependencies": {
+    "@eslint/js": "^9.8.0",
+    "axios": "^1.7.3",
+    "chai": "^5.1.1",
+    "eslint": "^8.57.0",
+    "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "globals": "^15.9.0",
+    "mocha": "^10.7.0",
+    "nodemon": "^3.1.4",
+    "prettier": "^3.3.3"
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "mongoose": "^8.5.2",
+    "uuid": "^10.0.0"
+  }
+}
