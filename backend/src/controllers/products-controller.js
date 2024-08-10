@@ -3,7 +3,7 @@ const uuid = require("uuid").v4;
 const ApiHttpError = require("../models/api-http-error");
 
 const DUMMY_PRODUCTS = require("../dummy_data/productsList/productsList.json");
-const DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
+let DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
 
 const getAllProducts = (req, res , next) => {
   console.log("GET Request received for all products");
@@ -72,7 +72,45 @@ const createProductRequest = (req, res , next) => {
   return res.status(201).json({message: "Product request created successfully", productRequest : newProductRequest});
 }
 
+const updateProductRequestById = (req, res , next) => {
+  const {productRequestId} = req.params; // productRequestId
+  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode , ipuCode, user} = req.body;
+
+  const updatedProductRequest = {...DUMMY_PRODUCT_REQUESTS.find(p => p.productRequestId === productRequestId)};
+  const productRequestIndex = DUMMY_PRODUCT_REQUESTS.findIndex(p => p.productRequestId === productRequestId);
+  updatedProductRequest.productName = productName;
+  updatedProductRequest.genericName = genericName;
+  updatedProductRequest.packSize = packSize;
+  updatedProductRequest.gmsNo = gmsNo;
+  updatedProductRequest.costPrice = costPrice;
+  updatedProductRequest.vatRate = vatRate;
+  updatedProductRequest.manufacturer = manufacturer;
+  updatedProductRequest.legalCategory = legalCategory;
+  updatedProductRequest.barcode = barcode;
+  updatedProductRequest.ipuCode = ipuCode;
+  updatedProductRequest.user = user;
+
+  DUMMY_PRODUCT_REQUESTS[productRequestIndex] = updatedProductRequest;
+
+  console.log("PATCH Request received for a product request");
+  console.log(`Request received from  ${req.headers.host + req.url}` ); 
+  console.log(req.body);
+  return res.status(200).json({message: "Product request updated successfully", productRequest : updatedProductRequest});
+};
+
+
+const deleteProductRequestById = (req, res , next) => {
+  const {productRequestId} = req.params;
+  DUMMY_PRODUCT_REQUESTS = DUMMY_PRODUCT_REQUESTS.filter(p => p.productRequestId !== productRequestId);
+
+  console.log("DELETE Request received for a product request");
+  console.log(`Request received from  ${req.headers.host + req.url}` ); 
+  return res.status(200).json({message: "Product request deleted successfully"});
+};
+
+exports.deleteProductRequestById = deleteProductRequestById;
 exports.createProductRequest = createProductRequest;
 exports.getAllProducts = getAllProducts;
 exports.getProductRequestsByUserId = getProductRequestsByUserId;
 exports.getProductById = getProductById;
+exports.updateProductRequestById = updateProductRequestById;
