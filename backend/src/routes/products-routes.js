@@ -16,4 +16,9 @@ router.get("/:productId" ,placesControllers.getProductById );
 // CREATE A NEW PRODUCT REQUEST
 router.post("/" ,placesControllers.createProductRequest);
 
+// UPDATE A PRODUCT REQUEST BY ID
+router.patch("/:productRequestId" ,placesControllers.updateProductRequestById);
+
+// DELETE A PRODUCT REQUEST BY ID
+router.delete("/:productRequestId" ,placesControllers.deleteProductRequestById);
 module.exports = router;
