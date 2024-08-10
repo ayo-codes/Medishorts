@@ -12,7 +12,7 @@ const app = express();
 //   console.log("Server running on %s" , req.headers.host + req.url);
 // });
 
-app.use(productsRoutes);
+app.use("/api/products",productsRoutes);
 
 app.listen(3000);
 
