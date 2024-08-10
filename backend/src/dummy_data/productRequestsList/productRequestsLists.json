@@ -8,7 +8,7 @@
    "vatRate": 23,
    "manufacturer": "",
    "legalCategory": "",
-   "barcode": "222",
+   "barcode": 222,
    "ipuCode": "",
    "user": "5f5f3b3b1f6b3b001f6b3b00"
 
@@ -22,7 +22,7 @@
    "vatRate": 23,
    "manufacturer": "",
    "legalCategory": "",
-   "barcode": "333",
+   "barcode": 333,
    "ipuCode": "",
    "user": "5f5f3b3b1f6b3b001f6b3b00"
   },
@@ -35,7 +35,7 @@
    "vatRate": 23,
    "manufacturer": "",
    "legalCategory": "",
-   "barcode": "3334",
+   "barcode": 3334,
    "ipuCode": "",
    "user": "5f5f3b3b1f6b3b001f6b3b00"
   },
@@ -48,7 +48,7 @@
    "vatRate": 23,
    "manufacturer": "365 HC",
    "legalCategory": "",
-   "barcode": "2232",
+   "barcode": 2232,
    "ipuCode": 5099627357562,
    "user": "5f5f3b3b1f6b3b001f6b3b00"
   },
@@ -61,7 +61,7 @@
    "vatRate": 23,
    "manufacturer": "365 HC",
    "legalCategory": "",
-   "barcode": "2456",
+   "barcode": 2456,
    "ipuCode": 5099627607117,
     "user": "5f5f3b3b1f6b3b001f6b3b02"
   },
@@ -74,7 +74,7 @@
    "vatRate": 23,
    "manufacturer": "365 HC",
    "legalCategory": "",
-   "barcode": "9845",
+   "barcode": 9845,
    "ipuCode": 5099627606653,
    "user": "5f5f3b3b1f6b3b001f6b3b02"
   },
@@ -87,7 +87,7 @@
    "vatRate": 23,
    "manufacturer": "365 HC",
    "legalCategory": "",
-   "barcode": "4532",
+   "barcode": 4532,
    "ipuCode": 5099627075527
   },
   {

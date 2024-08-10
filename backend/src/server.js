@@ -2,9 +2,9 @@ const express = require("express");
 const bodyParser = require("body-parser"); 
 
 const productsRoutes = require("./routes/products-routes");
+const ApiHttpError = require("./models/api-http-error");
 
 const app = express();
-
 
 
 // app.get("/", (req, res) => {
@@ -12,8 +12,17 @@ const app = express();
 //   console.log("Server running on %s" , req.headers.host + req.url);
 // });
 
+// BODY PARSER MIDDLEWARE
+app.use(bodyParser.json()); 
+ 
 // PRODUCTS ROUTE MIDDLEWARE
 app.use("/api/products",productsRoutes);
+
+// ROUTE NOT FOUND MIDDLEWARE
+app.use((req , res, next ) => {
+  const error = new ApiHttpError("Could not find your route, apologies", 404);
+  return next(error);
+});
 
 // ERROR HANDLING MIDDLEWARE
 app.use((error, req, res, next) => {
