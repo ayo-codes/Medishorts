@@ -13,4 +13,7 @@ router.get("/user/:userId" ,placesControllers.getProductRequestsByUserId );
 // GET A PROUCT BY ID/BARCODE
 router.get("/:productId" ,placesControllers.getProductById );
 
+// CREATE A NEW PRODUCT REQUEST
+router.post("/" ,placesControllers.createProductRequest);
+
 module.exports = router;

@@ -1,3 +1,5 @@
+const uuid = require("uuid").v4;
+
 const ApiHttpError = require("../models/api-http-error");
 
 const DUMMY_PRODUCTS = require("../dummy_data/productsList/productsList.json");
@@ -28,6 +30,8 @@ const getProductRequestsByUserId = (req, res , next) => {
   return res.json({userProductRequest: userProductRequest});
 };
 
+
+
 const getProductById = (req, res , next) => {
   const {productId} = req.params;
   const product = DUMMY_PRODUCTS.find(p => p.barcode === parseInt(productId, 10)); // using barcode for now
@@ -41,6 +45,34 @@ const getProductById = (req, res , next) => {
   return res.json({product: product});
 }
 
+const createProductRequest = (req, res , next) => {
+
+  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode , ipuCode, user} = req.body;
+  const newProductRequest = {
+    productName,
+    genericName,
+    packSize,
+    gmsNo,
+    costPrice,
+    vatRate,
+    manufacturer,
+    legalCategory,
+    barcode,
+    ipuCode,
+    user,
+    productRequestId : uuid()
+  };
+
+  DUMMY_PRODUCT_REQUESTS.push(newProductRequest);
+
+
+  console.log("POST Request received for a new product request");
+  console.log(`Request received from  ${req.headers.host + req.url}` ); 
+  console.log(req.body);
+  return res.status(201).json({message: "Product request created successfully", productRequest : newProductRequest});
+}
+
+exports.createProductRequest = createProductRequest;
 exports.getAllProducts = getAllProducts;
 exports.getProductRequestsByUserId = getProductRequestsByUserId;
 exports.getProductById = getProductById;
