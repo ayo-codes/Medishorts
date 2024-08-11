@@ -1,7 +1,9 @@
 const express = require("express");
 
-const router = express.Router(); 
 const placesControllers = require("../controllers/products-controller");
+
+const router = express.Router(); 
+
 
 
 // GET ALL PRODUCTS

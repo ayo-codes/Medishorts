@@ -2,9 +2,11 @@ const uuid = require("uuid").v4;
 
 const ApiHttpError = require("../models/api-http-error");
 
+// DUMMY DATA
 const DUMMY_PRODUCTS = require("../dummy_data/productsList/productsList.json");
 let DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
 
+// GET ALL PRODUCTS IN THE DATABASE
 const getAllProducts = (req, res , next) => {
   console.log("GET Request received for all products");
   const products = DUMMY_PRODUCTS.slice(0,100);
@@ -16,22 +18,22 @@ const getAllProducts = (req, res , next) => {
   return res.json({products: products});
 };
 
-
+// GET ALL PRODUCT REQUESTS BY USER ID
 const getProductRequestsByUserId = (req, res , next) => {
   const {userId} = req.params;
-  const userProductRequest = DUMMY_PRODUCT_REQUESTS.filter(p => p.user === userId);
+  const userProductRequests = DUMMY_PRODUCT_REQUESTS.filter(p => p.user === userId);
 
-  if (userProductRequest.length === 0) {
+  if (!userProductRequests || userProductRequests.length === 0) {
     return next(new ApiHttpError("Could not find any product requests for the id provided", 404));
   }
 
   console.log("GET Request recevied for a single product by user");
   console.log(`Request received from  ${req.headers.host + req.url}` );
-  return res.json({userProductRequest: userProductRequest});
+  return res.json({userProductRequests: userProductRequests});
 };
 
 
-
+// GET A PRODUCT BY ID/BARCODE
 const getProductById = (req, res , next) => {
   const {productId} = req.params;
   const product = DUMMY_PRODUCTS.find(p => p.barcode === parseInt(productId, 10)); // using barcode for now
@@ -45,6 +47,8 @@ const getProductById = (req, res , next) => {
   return res.json({product: product});
 }
 
+
+// CREATE A NEW PRODUCT REQUEST
 const createProductRequest = (req, res , next) => {
 
   const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode , ipuCode, user} = req.body;
@@ -72,6 +76,7 @@ const createProductRequest = (req, res , next) => {
   return res.status(201).json({message: "Product request created successfully", productRequest : newProductRequest});
 }
 
+// UPDATE A PRODUCT REQUEST BY ID
 const updateProductRequestById = (req, res , next) => {
   const {productRequestId} = req.params; // productRequestId
   const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode , ipuCode, user} = req.body;
@@ -98,7 +103,7 @@ const updateProductRequestById = (req, res , next) => {
   return res.status(200).json({message: "Product request updated successfully", productRequest : updatedProductRequest});
 };
 
-
+// DELETE A PRODUCT REQUEST BY ID
 const deleteProductRequestById = (req, res , next) => {
   const {productRequestId} = req.params;
   DUMMY_PRODUCT_REQUESTS = DUMMY_PRODUCT_REQUESTS.filter(p => p.productRequestId !== productRequestId);
@@ -108,6 +113,8 @@ const deleteProductRequestById = (req, res , next) => {
   return res.status(200).json({message: "Product request deleted successfully"});
 };
 
+
+// EXPORTS
 exports.deleteProductRequestById = deleteProductRequestById;
 exports.createProductRequest = createProductRequest;
 exports.getAllProducts = getAllProducts;

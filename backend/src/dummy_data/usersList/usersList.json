@@ -1,0 +1,30 @@
+[
+  {
+    "id": 2345,
+    "pharmacyPSIRegistrationNo" : 10005,
+    "pharmacyAddress" : "26 York Street, Dublin 2",
+    "pharmacyFaxNumber": "01-4925829",
+    "pharmacyName": "SETU Pharmacy",
+    "pharmacyOwner": "SETU Pharmacy Ltd",
+    "pharmacyPhoneNumber": "01-4925828",
+    "superintendentPharmacist": "John Doe",
+    "supervisingPharmacist": "John Doer",
+    "vatNumber" : "IE1234567",
+    "email": "johndoe@setupharmacy.ie",
+    "password": "123456"
+  },
+  {
+    "id": 2346,
+    "pharmacyPSIRegistrationNo" : 10006,
+    "pharmacyAddress" : "45 Angeles Street, Dublin 7",
+    "pharmacyFaxNumber": "01-4925729",
+    "pharmacyName": "RCSI Pharmacy",
+    "pharmacyOwner": "RCSI Pharmacy Ltd",
+    "pharmacyPhoneNumber": "01-4925728",
+    "superintendentPharmacist": "Mary Jones",
+    "supervisingPharmacist": "Mary Jones",
+    "vatNumber" : "IE1234567",
+    "email": "maryjones@rcsipharmacy.ie",
+    "password": "123456"
+  }
+]
