@@ -1,6 +1,7 @@
 const express = require("express");
 const bodyParser = require("body-parser"); 
 
+const usersRoutes = require("./routes/users-routes");
 const productsRoutes = require("./routes/products-routes");
 const ApiHttpError = require("./models/api-http-error");
 
@@ -17,6 +18,9 @@ app.use(bodyParser.json());
  
 // PRODUCTS ROUTE MIDDLEWARE
 app.use("/api/products",productsRoutes);
+
+// USERS ROUTE MIDDLEWARE
+app.use("/api/users", usersRoutes);
 
 // ROUTE NOT FOUND MIDDLEWARE
 app.use((req , res, next ) => {
