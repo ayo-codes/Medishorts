@@ -10,6 +10,12 @@ const getAllUsers = (req, res, next) => {
 };
 
 const signup = (req, res, next) => { 
+  const errors = validationResult(req);
+  if (!errors.isEmpty()) {
+    console.log(errors);
+    return next(new ApiHttpError("Invalid inputs passed, please check your input", 422));
+  }
+
   const {    
     pharmacyPSIRegistrationNo,
     pharmacyAddress,
