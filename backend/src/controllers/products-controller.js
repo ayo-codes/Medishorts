@@ -3,6 +3,8 @@ const { validationResult } = require("express-validator");
 
 const ApiHttpError = require("../models/api-http-error");
 
+const ProductRequest = require("../models/productRequest");
+
 // DUMMY DATA
 const DUMMY_PRODUCTS = require("../dummy_data/productsList/productsList.json");
 let DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
@@ -48,7 +50,7 @@ const getProductById = (req, res, next) => {
 };
 
 // CREATE A NEW PRODUCT REQUEST
-const createProductRequest = (req, res, next) => {
+const createProductRequest = async (req, res, next) => {
   // Validate the inputs
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -57,7 +59,8 @@ const createProductRequest = (req, res, next) => {
   }
 
   const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
-  const newProductRequest = {
+
+  const newProductRequest = new ProductRequest({ 
     productName,
     genericName,
     packSize,
@@ -70,9 +73,37 @@ const createProductRequest = (req, res, next) => {
     ipuCode,
     user,
     productRequestId: uuid(),
-  };
+  });
+  
+  try {
+    await newProductRequest.save();
+  }
+  catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Could not create a new product request, please try again", 500));
+  }
 
-  DUMMY_PRODUCT_REQUESTS.push(newProductRequest);
+
+
+
+
+  // const newProductRequest = {
+  //   productName,
+  //   genericName,
+  //   packSize,
+  //   gmsNo,
+  //   costPrice,
+  //   vatRate,
+  //   manufacturer,
+  //   legalCategory,
+  //   barcode,
+  //   ipuCode,
+  //   user,
+  //   productRequestId: uuid(),
+  // };
+
+
+  // DUMMY_PRODUCT_REQUESTS.push(newProductRequest);
 
   console.log("POST Request received for a new product request");
   console.log(`Request received from  ${req.headers.host + req.url}`);
