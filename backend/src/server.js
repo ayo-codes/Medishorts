@@ -1,5 +1,8 @@
 const express = require("express");
 const bodyParser = require("body-parser"); 
+const mongoose = require("mongoose");
+const dotenv = require("dotenv").config();
+
 
 const usersRoutes = require("./routes/users-routes");
 const productsRoutes = require("./routes/products-routes");
@@ -38,6 +41,10 @@ app.use((error, req, res, next) => {
   return res.json({message: error.message || "Hmm..an unknown error has occurred apologies for the inconvenience"});
 });
 
-// PORT TO LISTEN ON 
-app.listen(3000);
 
+// PORT TO LISTEN ON 
+mongoose.connect(process.env.MONGO_URI).then(() => {   
+app.listen(3000);
+}).catch((err) => {
+  console.log(err);
+} );
