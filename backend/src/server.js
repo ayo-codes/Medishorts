@@ -5,7 +5,9 @@ const dotenv = require("dotenv").config();
 
 
 const usersRoutes = require("./routes/users-routes");
+const productRequestsRoutes = require("./routes/product-requests-routes");
 const productsRoutes = require("./routes/products-routes");
+
 const ApiHttpError = require("./models/api-http-error");
 
 const app = express();
@@ -20,10 +22,13 @@ const app = express();
 app.use(bodyParser.json()); 
  
 // PRODUCTS ROUTE MIDDLEWARE
-app.use("/api/products",productsRoutes);
+app.use("/api/products", productsRoutes);
 
 // USERS ROUTE MIDDLEWARE
 app.use("/api/users", usersRoutes);
+
+// PRODUCT REQUESTS ROUTE MIDDLEWARE
+app.use("/api/product-requests", productRequestsRoutes);
 
 // ROUTE NOT FOUND MIDDLEWARE
 app.use((req , res, next ) => {
@@ -42,7 +47,7 @@ app.use((error, req, res, next) => {
 });
 
 
-// PORT TO LISTEN ON 
+// PORT TO LISTEN ON and Start Mongoose Connection
 mongoose.connect(process.env.MONGO_URI).then(() => {   
 app.listen(3000);
 }).catch((err) => {
