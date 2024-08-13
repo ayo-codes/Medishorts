@@ -40,6 +40,7 @@ const signup = async (req, res, next) => {
   //   return next(new ApiHttpError("User exists already, please login instead", 422));
   // }
 
+  // Check for existing user
   let existingUser;
   try{
     existingUser = await User.findOne({email: email});
@@ -78,10 +79,20 @@ const signup = async (req, res, next) => {
 
 
 // LOGIN A USER
-const login = (req, res, next) => {
+const login = async (req, res, next) => {
   const {email, password} = req.body;
-  const foundUser = DUMMY_USERS.find(u => u.email === email);
-  if (!foundUser || foundUser.password !== password) {
+
+  let existingUser;
+  try{
+    existingUser = await User.findOne({email: email});
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Logging in failed, please try again", 500));
+  }
+
+
+
+  if (!existingUser || existingUser.password !== password) {
     return next(new ApiHttpError("Could not find user, credentials seem to be incorrect", 401));
   }
   return res.json({message: "Logged in!"});
