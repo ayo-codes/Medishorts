@@ -18,8 +18,7 @@ const userSchema = new Schema({
   vatNumber: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true, minlength: 6 },
-  // productRequests: [{ type: mongoose.Types.ObjectId, required: true, ref: "ProductRequest" }],
-  productRequests: [{ type: String, required: true }],
+  productRequests: [{ type: mongoose.Types.ObjectId, required: true, ref: "ProductRequest" }],
 });
 
 userSchema.plugin(uniqueValidator);
