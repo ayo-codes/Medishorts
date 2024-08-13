@@ -184,15 +184,24 @@ const deleteProductRequestById = async (req, res, next) => {
 
   let deletedProductRequest;
   try {
-    deletedProductRequest = await ProductRequest.findById(productRequestId);
+    deletedProductRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator");
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not delete the product request, please try again", 500));
   }
 
+  if (!deletedProductRequest) {
+    return next(new ApiHttpError("Could not find any product request for the id provided", 404));
+  }
+
   let deletedProductRequestInfo;
   try {
-   deletedProductRequestInfo =  await deletedProductRequest.deleteOne();
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    deletedProductRequestInfo = await deletedProductRequest.deleteOne({ session: sess });
+    deletedProductRequest.productRequestCreator.productRequests.pull(deletedProductRequest);
+    await deletedProductRequest.productRequestCreator.save({ session: sess });
+    await sess.commitTransaction();
   }catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not delete the product request, please try again", 500));
