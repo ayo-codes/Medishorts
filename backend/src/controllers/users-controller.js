@@ -32,8 +32,7 @@ const signup = async (req, res, next) => {
     return next(new ApiHttpError("Invalid inputs passed, please check your input", 422));
   }
 
-  const {  
-    productRequests,  
+  const {    
     pharmacyPSIRegistrationNo,
     pharmacyAddress,
     pharmacyFaxNumber,
@@ -76,7 +75,7 @@ const signup = async (req, res, next) => {
     superintendentPharmacist,
     supervisingPharmacist,
     vatNumber,
-    productRequests
+    productRequests : []
   });
 
   try {
