@@ -8,9 +8,20 @@ const ApiHttpError = require("../models/api-http-error");
 const DUMMY_USERS = require("../dummy_data/usersList/usersList.json");
 
 
+// GET ALL USERS
+const getAllUsers = async (req, res, next) => {
 
-const getAllUsers = (req, res, next) => {
-  res.json({users: DUMMY_USERS});
+  let users;
+  try {
+    users = await User.find({}, "-password");
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Fetching users from Database failed ", 500));
+  } 
+  if (!users || users.length === 0) {
+    return next(new ApiHttpError("Could not find any users", 404));
+  }
+  return res.json({users: users.map(user => user.toObject({getters: true}))});
 };
 
 // SIGNUP A USER - MONGO
