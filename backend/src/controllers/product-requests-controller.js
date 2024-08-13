@@ -114,7 +114,7 @@ const createProductRequest = async (req, res, next) => {
 
 
 // UPDATE A PRODUCT REQUEST BY ID
-const updateProductRequestById = (req, res, next) => {
+const updateProductRequestById = async (req, res, next) => {
   // Validate the inputs
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -125,8 +125,14 @@ const updateProductRequestById = (req, res, next) => {
   const { productRequestId } = req.params; // productRequestId
   const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
 
-  const updatedProductRequest = { ...DUMMY_PRODUCT_REQUESTS.find((p) => p.productRequestId === productRequestId) };
-  const productRequestIndex = DUMMY_PRODUCT_REQUESTS.findIndex((p) => p.productRequestId === productRequestId);
+  let updatedProductRequest;
+  try {
+    updatedProductRequest = await ProductRequest.findById(productRequestId);
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Could not update the product request, please try again", 500));
+  }
+
   updatedProductRequest.productName = productName;
   updatedProductRequest.genericName = genericName;
   updatedProductRequest.packSize = packSize;
@@ -139,12 +145,18 @@ const updateProductRequestById = (req, res, next) => {
   updatedProductRequest.ipuCode = ipuCode;
   updatedProductRequest.user = user;
 
-  DUMMY_PRODUCT_REQUESTS[productRequestIndex] = updatedProductRequest;
+try {
+  await updatedProductRequest.save();
+} catch (err) {
+  console.log(err);
+  return next(new ApiHttpError("Could not update the product request, please try again", 500));
+}
+
 
   console.log("PATCH Request received for a product request");
   console.log(`Request received from  ${req.headers.host + req.url}`);
   console.log(req.body);
-  return res.status(200).json({ message: "Product request updated successfully", productRequest: updatedProductRequest });
+  return res.status(200).json({ message: "Product request updated successfully", productRequest: updatedProductRequest.toObject({ getters: true }) });
 };
 
 
