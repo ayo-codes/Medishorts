@@ -5,7 +5,7 @@ const ApiHttpError = require("../models/api-http-error");
 
 const ProductRequest = require("../models/productRequest");
 
-let DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
+const DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
 
 
 // GET ALL PRODUCT REQUESTS IN THE DATABASE - MONGO
@@ -113,7 +113,7 @@ const createProductRequest = async (req, res, next) => {
 };
 
 
-// UPDATE A PRODUCT REQUEST BY ID
+// UPDATE A PRODUCT REQUEST BY ID - MONGO
 const updateProductRequestById = async (req, res, next) => {
   // Validate the inputs
   const errors = validationResult(req);
@@ -160,18 +160,29 @@ try {
 };
 
 
-// DELETE A PRODUCT REQUEST BY ID
-const deleteProductRequestById = (req, res, next) => {
+// DELETE A PRODUCT REQUEST BY ID - MONGO
+const deleteProductRequestById = async (req, res, next) => {
   const { productRequestId } = req.params;
-  // Check if the product request exists
-  if (!DUMMY_PRODUCT_REQUESTS.find((p) => p.productRequestId === productRequestId)) {
-    return next(new ApiHttpError("Could not find any product request for the id provided", 404));
+
+  let deletedProductRequest;
+  try {
+    deletedProductRequest = await ProductRequest.findById(productRequestId);
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Could not delete the product request, please try again", 500));
   }
-  DUMMY_PRODUCT_REQUESTS = DUMMY_PRODUCT_REQUESTS.filter((p) => p.productRequestId !== productRequestId);
+
+  let deletedProductRequestInfo;
+  try {
+   deletedProductRequestInfo =  await deletedProductRequest.deleteOne();
+  }catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Could not delete the product request, please try again", 500));
+  }
 
   console.log("DELETE Request received for a product request");
   console.log(`Request received from  ${req.headers.host + req.url}`);
-  return res.status(200).json({ message: "Product request deleted successfully" });
+  return res.status(200).json({ message: "Product request deleted successfully" , deletedProductRequestInfo: deletedProductRequestInfo });
 };
 
 
