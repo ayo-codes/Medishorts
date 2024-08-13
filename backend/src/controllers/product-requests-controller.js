@@ -1,11 +1,11 @@
 const uuid = require("uuid").v4;
 const { validationResult } = require("express-validator");
+const mongoose = require("mongoose");
 
 const ApiHttpError = require("../models/api-http-error");
 
 const ProductRequest = require("../models/productRequest");
-
-const DUMMY_PRODUCT_REQUESTS = require("../dummy_data/productRequestsList/productRequestsLists.json");
+const User = require("../models/user");
 
 
 // GET ALL PRODUCT REQUESTS IN THE DATABASE - MONGO
@@ -53,11 +53,10 @@ const getProductRequestById = async (req, res, next) => {
 // GET ALL PRODUCT REQUESTS BY A USER ID
 const getProductRequestsByUserId = async (req, res, next) => {
   const { userId } = req.params;
-  // const userProductRequests = DUMMY_PRODUCT_REQUESTS.filter((p) => p.user === userId);
 
   let userProductRequests;
   try {
-    userProductRequests = await ProductRequest.find({ user: userId });
+    userProductRequests = await ProductRequest.find({ productRequestCreator: userId });
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product requests from Database failed", 500));
@@ -82,7 +81,7 @@ const createProductRequest = async (req, res, next) => {
     return next(new ApiHttpError("Invalid inputs passed, please check your input", 422));
   }
 
-  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
+  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, productRequestCreator } = req.body;
 
   const newProductRequest = new ProductRequest({
     productName,
@@ -95,12 +94,31 @@ const createProductRequest = async (req, res, next) => {
     legalCategory,
     barcode,
     ipuCode,
-    user,
+    productRequestCreator,
     productRequestId: uuid(),
   });
 
+  let user;
   try {
-    await newProductRequest.save();
+    user = await User.findById(productRequestCreator);
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Could not create a new product request, please try again", 500));
+  }
+
+
+  if (!user) {
+    return next(new ApiHttpError("Could not find any user for the provided id", 404
+    ));
+  }
+
+  try {
+    const sess = await mongoose.startSession();
+    sess.startTransaction();
+    await newProductRequest.save({ session: sess });
+    user.productRequests.push(newProductRequest);
+    await user.save({ session: sess });
+    await sess.commitTransaction();
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not create a new product request, please try again", 500));
