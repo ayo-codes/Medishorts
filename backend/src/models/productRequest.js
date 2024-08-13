@@ -13,7 +13,7 @@ const productRequestSchema = new Schema({
   legalCategory: { type: String, required: true },
   barcode: { type: Number, required: true },
   ipuCode: { type: Number, required: true },
-  user: { type: mongoose.Types.ObjectId, required: true , ref: "User" },
+  productRequestCreator: { type: mongoose.Types.ObjectId, required: true , ref: "User" },
 });
 
 module.exports = mongoose.model("ProductRequest", productRequestSchema);
