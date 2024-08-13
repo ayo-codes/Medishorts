@@ -7,7 +7,7 @@ const {Schema} = mongoose;
 
 
 const userSchema = new Schema({
-  pharmacyPSIRegistrationNo: { type: String, required: true },
+  pharmacyPSIRegistrationNo: { type: Number, required: true },
   pharmacyAddress: { type: String, required: true },
   pharmacyFaxNumber: { type: String, required: true },
   pharmacyName: { type: String, required: true },
