@@ -16,7 +16,7 @@ const getAllProductRequests = async (req, res, next) => {
     productRequests = await ProductRequest.find();
   } catch (err) {
     console.log(err);
-    return next(new ApiHttpError("Could not find any product Request at the moment ", 500));
+    return next(new ApiHttpError("Fetching product requests from Database failed ", 500));
   }
 
   if (!productRequests) {
@@ -37,7 +37,7 @@ const getProductRequestById = async (req, res, next) => {
     productRequest = await ProductRequest.findById(productRequestId);
   } catch (err) {
     console.log(err);
-    return next(new ApiHttpError("Could not find any product Request for the id provided", 500));
+    return next(new ApiHttpError("Fetching product request from Database failed", 500));
   }
 
   if (!productRequest) {
@@ -50,18 +50,26 @@ const getProductRequestById = async (req, res, next) => {
 };
 
 
-// GET ALL PRODUCT REQUESTS BY USER ID
-const getProductRequestsByUserId = (req, res, next) => {
+// GET ALL PRODUCT REQUESTS BY A USER ID
+const getProductRequestsByUserId = async (req, res, next) => {
   const { userId } = req.params;
-  const userProductRequests = DUMMY_PRODUCT_REQUESTS.filter((p) => p.user === userId);
+  // const userProductRequests = DUMMY_PRODUCT_REQUESTS.filter((p) => p.user === userId);
+
+  let userProductRequests;
+  try {
+    userProductRequests = await ProductRequest.find({ user: userId });
+  } catch (err) {
+    console.log(err);
+    return next(new ApiHttpError("Fetching product requests from Database failed", 500));
+  } 
 
   if (!userProductRequests || userProductRequests.length === 0) {
     return next(new ApiHttpError("Could not find any product requests for the id provided", 404));
   }
 
-  console.log("GET Request recevied for a single product by user");
+  console.log("GET Request received for a single product by user");
   console.log(`Request received from  ${req.headers.host + req.url}`);
-  return res.json({ userProductRequests: userProductRequests });
+  return res.json({ userProductRequests: userProductRequests.map(userProductRequest => userProductRequest.toObject({ getters: true })) });
 };
 
 
