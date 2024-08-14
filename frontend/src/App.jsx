@@ -1,7 +1,7 @@
-import { BrowserRouter, Route , Routes , Navigate } from 'react-router-dom'
-import User from './users/pages/users'
-import Products from './products/pages/products'
-import ProductRequests from './productRequests/pages/productRequests'
+import { BrowserRouter, Route , Routes , Navigate } from "react-router-dom"
+import User from "./users/pages/users"
+import Products from "./products/pages/products"
+import ProductRequests from "./productRequests/pages/productRequests"
 
 function App() {
   return <>
