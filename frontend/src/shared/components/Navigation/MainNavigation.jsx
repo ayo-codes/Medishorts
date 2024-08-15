@@ -2,9 +2,16 @@ import PropTypes from "prop-types";
 import MainHeader from "./MainHeader";
 import { Link } from "react-router-dom";
 import NavLinks from "./NavLinks";
+import SideDrawer from "./SideDrawer";
 
 const MainNavigation = (props) => {
   return (
+    <>
+    <SideDrawer>
+      <nav>
+        <NavLinks />
+      </nav>
+    </SideDrawer>
     <MainHeader>
       <button>
         <span />
@@ -18,6 +25,9 @@ const MainNavigation = (props) => {
         <NavLinks />
       </nav>
     </MainHeader>
+
+    </>
+    
   );
 };
 
