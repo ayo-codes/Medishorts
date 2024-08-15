@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import MainHeader from "./MainHeader";
 import { Link } from "react-router-dom";
+import NavLinks from "./NavLinks";
 
 const MainNavigation = (props) => {
   return (
@@ -13,7 +14,9 @@ const MainNavigation = (props) => {
       <h4>
         <Link to="/"> Page Title/ Product Request </Link>
       </h4>
-      <nav>Nav Test</nav>
+      <nav>
+        <NavLinks />
+      </nav>
     </MainHeader>
   );
 };
