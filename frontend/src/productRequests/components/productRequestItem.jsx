@@ -1,4 +1,5 @@
 import PropTypes from "prop-types";
+import {Link } from "react-router-dom"
 
 const ProductRequestItem = props => {
 
@@ -14,6 +15,9 @@ const ProductRequestItem = props => {
           <h3>Generic Name: {props.genericName}</h3>
           <h3>Pack Size: {props.packSize}</h3>
           <br></br>
+          <Link to={`/product-requests/${props.id}`}>
+          <button>View</button>
+          </Link>
         </div>
       </li>
     </>
