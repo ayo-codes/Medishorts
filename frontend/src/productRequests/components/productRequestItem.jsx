@@ -28,6 +28,7 @@ ProductRequestItem.propTypes = {
   productName: PropTypes.string.isRequired,
   genericName: PropTypes.string.isRequired,
   packSize: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired
 };
 
 export default ProductRequestItem;
