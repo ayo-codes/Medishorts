@@ -1,6 +1,8 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { useParams } from "react-router-dom"
 import ProductRequestsList from "../components/ProductRequestsList"
+
 
 const DUMMY_PRODUCT_REQUESTS = [
   {
@@ -34,10 +36,14 @@ const DUMMY_PRODUCT_REQUESTS = [
    },
 ]
 const UserProductRequests = props => {
+
+  // GET USER ID FROM URL
+  const userId =useParams().userId
+  const userProductRequests = DUMMY_PRODUCT_REQUESTS.filter(productRequest => productRequest.user === userId)
   return (
     <>
         <h1>User Product Requests</h1>
-        <ProductRequestsList items={DUMMY_PRODUCT_REQUESTS} />
+        <ProductRequestsList items={userProductRequests} />
     </>
 
   )
