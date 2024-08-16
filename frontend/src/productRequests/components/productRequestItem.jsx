@@ -19,6 +19,11 @@ const ProductRequestItem = props => {
           <button>View</button>
           </Link>
         </div>
+        <div>
+          <button>Approve</button>
+          <button>Edit</button>
+          <button>Delete</button>
+        </div>
       </li>
     </>
   );
