@@ -9,7 +9,8 @@ const ProductRequestsList = (props) => {
           <h1>Product Requests List</h1>
         </div>
         <div>
-          <h2>No product requests found.</h2>
+          <h2>No product Requests Found.</h2>
+          <button>Add a Product Request </button>
         </div>
       </>
     );
@@ -22,7 +23,7 @@ const ProductRequestsList = (props) => {
         <h2>Product Requests List</h2>
       </div>
       <div>
-        <ul  >
+        <ul>
           {props.items.map((productRequest) => (
             <ProductRequestItem key={productRequest.productRequestId}
             id= {productRequest.productRequestId} 
