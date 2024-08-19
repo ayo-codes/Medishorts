@@ -1,4 +1,4 @@
-import React from "react";
+import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
@@ -20,8 +20,9 @@ const ProductRequestForm = (props) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isDirty ,isValid , isSubmitting },
+    formState: { errors, isDirty ,isValid , isSubmitting ,isSubmitSuccessful },
     control,
+    reset,
   } = useForm({defaultValues});
 
   // Watch the productName input
@@ -34,6 +35,13 @@ const ProductRequestForm = (props) => {
 
   // Function to handle Errors
   const onError = (errors) => console.log("Form Errors", errors);
+
+  // useEffect to handle the form reset
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful , reset]);
 
   return (
     <div>
@@ -104,7 +112,9 @@ const ProductRequestForm = (props) => {
         <br />
         {/* Manage the button state based on user actions */}
         <input disabled={!isDirty || !isValid || isSubmitting } type="submit" />
+        <button type= "button" onClick={() => reset()}>Reset</button>
       </form>
+      
       {/* To manage the devtool visuals */}
       <DevTool control={control} />
     </div>
