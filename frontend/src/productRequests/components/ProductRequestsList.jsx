@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import ProductRequestItem from "./productRequestItem";
+import ProductRequestItem from "./ProductRequestItem";
 
 const ProductRequestsList = (props) => {
   if (props.items.length === 0) {

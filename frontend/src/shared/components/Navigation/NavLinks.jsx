@@ -12,7 +12,7 @@ const NavLinks = props => {
           <NavLink to="/product-requests">Product Requests</NavLink>
         </li>
         <li>
-          <NavLink to="/product-request/new">Add Product Request</NavLink>
+          <NavLink to="/product-requests/new">Add Product Request</NavLink>
         </li>
         <li>
           <NavLink to="/products">Products</NavLink>
