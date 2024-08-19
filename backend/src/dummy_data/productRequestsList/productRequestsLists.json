@@ -1,16 +1,17 @@
 [
   {
    "productName": "10% LPC IN BETNOVATE CREAM",
-   "genericName": "",
+   "genericName": "Liquid Paraffin",
    "packSize": 1,
    "gmsNo": "",
-   "costPrice": 0,
+   "costPrice": 0.50,
    "vatRate": 23,
    "manufacturer": "",
    "legalCategory": "",
    "barcode": 222,
    "ipuCode": "",
-   "user": "5f5f3b3b1f6b3b001f6b3b00"
+   "user": "5f5f3b3b1f6b3b001f6b3b00",
+   "productRequestId": "5f5f3b3b1f6b3b001b3b00"
 
   },
   {
@@ -24,7 +25,8 @@
    "legalCategory": "",
    "barcode": 333,
    "ipuCode": "",
-   "user": "5f5f3b3b1f6b3b001f6b3b00"
+   "user": "5f5f3b3b1f6b3b001f6b3b00",
+   "productRequestId": "5f5f3b3bfddg6b3b001b3b00"
   },
   {
    "productName": "2%AC SAL/ 48% PROP GLYCLOL/ DERMVTE CR/AD 100%",
@@ -37,7 +39,8 @@
    "legalCategory": "",
    "barcode": 3334,
    "ipuCode": "",
-   "user": "5f5f3b3b1f6b3b001f6b3b00"
+   "user": "5f5f3b3b1f6b3b001f6b3b00",
+    "productRequestId": "5f5f3b3bfddg6b3b551b3b00"
   },
   {
    "productName": "365 LIGHT SUPPORT CREPE BNDG 10 X 4.5CM",

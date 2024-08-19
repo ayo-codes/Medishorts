@@ -2,16 +2,19 @@ import { useEffect } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
-import DummyProductsData from "../../../../backend/src/dummy_data/productsList/productsList.json";
+import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
 
-const ProductRequestForm = (props) => {
+const ProductRequestUpdateForm = ( props) => {
   // Set default values for the form
+
+  const productRequestToUpdate = DummyProductRequestData.find(productRequest => productRequest.productRequestId === props.productRequestId);
+
   const defaultValues = async () => {
-    const product = await DummyProductsData[70];
+
     return {
-      productName: product.productName,
-      genericName: product.genericName,
-      costPrice: 0.00,
+      productName: productRequestToUpdate.productName,
+      genericName: productRequestToUpdate.genericName,
+      costPrice: productRequestToUpdate.costPrice,
       expiryDate: new Date(),
     };
   };
@@ -43,6 +46,11 @@ const ProductRequestForm = (props) => {
     }
   }, [isSubmitSuccessful , reset]);
 
+  if (!productRequestToUpdate) {
+  return <h2>Product Request not found</h2>;
+
+  
+  }
   return (
     <div>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
@@ -121,6 +129,8 @@ const ProductRequestForm = (props) => {
   );
 };
 
-ProductRequestForm.propTypes = {};
+ProductRequestUpdateForm.propTypes = {
+  productRequestId: PropTypes.string.isRequired,
+};
 
-export default ProductRequestForm;
+export default ProductRequestUpdateForm;
