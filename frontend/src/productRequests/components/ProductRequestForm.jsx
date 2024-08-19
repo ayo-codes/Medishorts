@@ -11,7 +11,7 @@ const ProductRequestForm = (props) => {
     return {
       productName: product.productName,
       genericName: product.genericName,
-      costPrice: "",
+      costPrice: 0.00,
       expiryDate: new Date(),
     };
   };
@@ -20,7 +20,7 @@ const ProductRequestForm = (props) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors },
+    formState: { errors, isDirty ,isValid },
     control,
   } = useForm({defaultValues});
 
@@ -32,10 +32,13 @@ const ProductRequestForm = (props) => {
     console.log(data);
   };
 
+  // Function to handle Errors
+  const onError = (errors) => console.log("Form Errors", errors);
+
   return (
     <div>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
-      <form onSubmit={handleSubmit(onSubmitCreateProductRequest)} noValidate>
+      <form onSubmit={handleSubmit(onSubmitCreateProductRequest , onError)} noValidate>
         <label htmlFor="productName">Product Name</label>
         <input
           type="text"
@@ -74,6 +77,7 @@ const ProductRequestForm = (props) => {
           {...register("costPrice", {
             valueAsNumber: true,
             required: { value: true, message: "Cost Price is required" },
+            maxLength: { value: 6, message: "Max length is 6" },
           })}
           placeholder="Cost Price"      
         />
@@ -98,7 +102,8 @@ const ProductRequestForm = (props) => {
         <span>{errors.costPrice?.message}</span>
         <br />
         <br />
-        <input type="submit" />
+        {/* Manage the button state based on user actions */}
+        <input disabled={!isDirty || !isValid } type="submit" />
       </form>
       {/* To manage the devtool visuals */}
       <DevTool control={control} />
