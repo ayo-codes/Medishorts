@@ -11,7 +11,7 @@ const ProductRequestForm = (props) => {
     return {
       productName: product.productName,
       genericName: product.genericName,
-      costPrice: product.costPrice,
+      costPrice: "",
       expiryDate: new Date(),
     };
   };
@@ -70,6 +70,7 @@ const ProductRequestForm = (props) => {
         <input
           type="number"
           id="costPrice"
+          step={0.01}
           {...register("costPrice", {
             valueAsNumber: true,
             required: { value: true, message: "Cost Price is required" },
@@ -86,6 +87,7 @@ const ProductRequestForm = (props) => {
           type="date"
           id="expiryDate"
           {...register("expiryDate", {
+            disabled : watch("costPrice") === "",
             valueAsDate: true,
             required: { value: true, message: "Expiry Date is required" },
           })}
