@@ -21,7 +21,7 @@ const NavLinks = props => {
           <NavLink to="/product/new">Add Product</NavLink>
         </li>
         <li>
-          <NavLink to="/signin">Sign In</NavLink>
+          <NavLink to="/auth">Sign In</NavLink>
         </li>
     </ul>
     
