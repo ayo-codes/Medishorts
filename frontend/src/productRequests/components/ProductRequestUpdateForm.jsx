@@ -5,17 +5,16 @@ import { DevTool } from "@hookform/devtools";
 import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
 
 const ProductRequestUpdateForm = ( props) => {
-  // Set default values for the form
-
+  // Find the product request to update
   const productRequestToUpdate = DummyProductRequestData.find(productRequest => productRequest.productRequestId === props.productRequestId);
 
+  // Set default values for the form
   const defaultValues = async () => {
-
     return {
-      productName: productRequestToUpdate.productName,
-      genericName: productRequestToUpdate.genericName,
-      costPrice: productRequestToUpdate.costPrice,
-      expiryDate: new Date(),
+      productName: productRequestToUpdate.productName || "",
+      genericName: productRequestToUpdate.genericName || "",
+      costPrice: productRequestToUpdate.costPrice || "",
+      expiryDate: productRequestToUpdate.expiryDate || new Date(),
     };
   };
   // The destructing of values from the useForm hook
@@ -49,7 +48,7 @@ const ProductRequestUpdateForm = ( props) => {
   if (!productRequestToUpdate) {
   return <h2>Product Request not found</h2>;
 
-  
+
   }
   return (
     <div>
@@ -119,7 +118,7 @@ const ProductRequestUpdateForm = ( props) => {
         <br />
         <br />
         {/* Manage the button state based on user actions */}
-        <input disabled={!isDirty || !isValid || isSubmitting } type="submit" />
+        <input disabled={ !isValid || isSubmitting } type="submit" />
         <button type= "button" onClick={() => reset()}>Reset</button>
       </form>
       
