@@ -20,7 +20,7 @@ const ProductRequestForm = (props) => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isDirty ,isValid },
+    formState: { errors, isDirty ,isValid , isSubmitting },
     control,
   } = useForm({defaultValues});
 
@@ -103,7 +103,7 @@ const ProductRequestForm = (props) => {
         <br />
         <br />
         {/* Manage the button state based on user actions */}
-        <input disabled={!isDirty || !isValid } type="submit" />
+        <input disabled={!isDirty || !isValid || isSubmitting } type="submit" />
       </form>
       {/* To manage the devtool visuals */}
       <DevTool control={control} />
