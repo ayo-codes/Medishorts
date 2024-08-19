@@ -7,12 +7,12 @@ import DummyData from "../../../../backend/src/dummy_data/productsList/productsL
 const ProductRequestForm = (props) => {
   // Set default values for the form
   const defaultValues = async () => {
-    await console.log(DummyData[70]);
     const product = await DummyData[70];
-    await console.log(product);
     return {
       productName: product.productName,
       genericName: product.genericName,
+      costPrice: product.costPrice,
+      expiryDate: new Date(),
     };
   };
   // The destructing of values from the useForm hook
@@ -32,7 +32,6 @@ const ProductRequestForm = (props) => {
     console.log(data);
   };
 
-  console.log(errors);
   return (
     <div>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
@@ -45,7 +44,7 @@ const ProductRequestForm = (props) => {
             required: { value: true, message: "Product Name is required" },
             minLength: { value: 5, message: "Min length is 5" },
           })}
-          // placeholder="Product Name"      
+          placeholder="Product Name"      
         />
         <br />
         <br />
@@ -65,6 +64,36 @@ const ProductRequestForm = (props) => {
         <br />
         <br />
         <span>{errors.genericName?.message}</span>
+        <br />
+        <br />
+        <label htmlFor="costPrice">CostPrice</label>
+        <input
+          type="number"
+          id="costPrice"
+          {...register("costPrice", {
+            valueAsNumber: true,
+            required: { value: true, message: "Cost Price is required" },
+          })}
+          placeholder="Cost Price"      
+        />
+        <br />
+        <br />
+        <span>{errors.costPrice?.message}</span>
+        <br />
+        <br />
+        <label htmlFor="expiryDate"> Expiry Date</label>
+        <input
+          type="date"
+          id="expiryDate"
+          {...register("expiryDate", {
+            valueAsDate: true,
+            required: { value: true, message: "Expiry Date is required" },
+          })}
+          placeholder=""      
+        />  
+        <br />
+        <br />
+        <span>{errors.costPrice?.message}</span>
         <br />
         <br />
         <input type="submit" />
