@@ -8,6 +8,7 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserProductRequests from "./productRequests/pages/UserProductRequests";
 import ProductRequestCreate from "./productRequests/pages/ProductRequestCreate";
 import ProductRequestUpdate from "./productRequests/pages/ProductRequestUpdate";
+import Auth from "./users/pages/Auth";
 
 const theme = createTheme({
   typography: {
@@ -28,6 +29,7 @@ const App = () => {
           <Routes>
             <Route path="/user" element={<User />} />
             <Route path="/" element={<h1>Home Page</h1>} />
+            <Route path="/auth" element={<Auth />} />
             <Route path="/products" element={<Products />} />
             <Route path="/product-requests" element={<ProductRequests />}  />
             <Route path="/product-requests/new" element={<ProductRequestCreate />} />
