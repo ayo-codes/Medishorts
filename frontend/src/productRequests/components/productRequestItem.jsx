@@ -1,5 +1,6 @@
 import PropTypes from "prop-types";
 import {Link } from "react-router-dom"
+import { Button } from "@mui/material";
 
 const ProductRequestItem = props => {
 
@@ -21,7 +22,7 @@ const ProductRequestItem = props => {
         </div>
         <div>
           <button>Approve</button>
-          <button>Edit</button>
+          <Button href={`/product-requests/${props.id}`}>Edit</Button>
           <button>Delete</button>
         </div>
       </li>

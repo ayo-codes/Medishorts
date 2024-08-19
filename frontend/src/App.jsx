@@ -7,6 +7,7 @@ import ProductRequests from "./productRequests/pages/ProductRequests";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserProductRequests from "./productRequests/pages/UserProductRequests";
 import ProductRequestCreate from "./productRequests/pages/ProductRequestCreate";
+import ProductRequestUpdate from "./productRequests/pages/ProductRequestUpdate";
 
 const theme = createTheme({
   typography: {
@@ -30,7 +31,8 @@ const App = () => {
             <Route path="/products" element={<Products />} />
             <Route path="/product-requests" element={<ProductRequests />}  />
             <Route path="/product-requests/new" element={<ProductRequestCreate />} />
-            <Route path="/:userId/product-requests" element={<UserProductRequests />} exact />
+            <Route path="/product-requests/:productRequestId" element={<ProductRequestUpdate />} />
+            <Route path="/:userId/product-requests" element={<UserProductRequests />} />
             <Route path="*" element={<Navigate to="/" />} />
           </Routes>
         </BrowserRouter>
