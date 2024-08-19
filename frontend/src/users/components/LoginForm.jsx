@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
@@ -27,11 +28,18 @@ const LoginForm = () => {
   // Function to handle Errors
   const onError = (errors) => console.log("Form Errors", errors);
 
+    // useEffect to handle the form reset
+    useEffect(() => {
+      if (isSubmitSuccessful) {
+        reset();
+      }
+    }, [isSubmitSuccessful , reset]);
+
   return (
     <div>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
       <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
-        <label htmlFor="userEmail">Email</label>
+        <label htmlFor="Email">Email</label>
         <input
           type="email"
           id="userEmail"
@@ -47,7 +55,7 @@ const LoginForm = () => {
         <span>{errors.userEmail?.message}</span>
         <br />
         <br />
-        <label htmlFor="password">Password</label>
+        <label htmlFor="Password">Password</label>
         <input
           type="password"
           id="password"
@@ -61,9 +69,12 @@ const LoginForm = () => {
         <br />
         <span>{errors.password?.message}</span>
         {/* Manage the button state based on user actions */}
-        <input disabled={!isDirty || !isValid || isSubmitting} type="submit" />
+
         <button type="button" onClick={() => reset()}>
           Reset
+        </button>
+        <button type="button" disabled={!isDirty || !isValid || isSubmitting} onClick={() => onSubmit() }>
+          Login
         </button>
       </form>
       {/* To manage the devtool visuals */}
