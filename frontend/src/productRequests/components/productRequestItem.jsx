@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
+import { set } from "react-hook-form";
 
 const style = {
   position: "absolute",
@@ -19,7 +20,11 @@ const ProductRequestItem = (props) => {
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-
+  const handleConfirmDelete = () => {
+    console.log("Deleting product request...");
+    setOpen(false);
+  };
+    
   return (
     <>
       <div>
@@ -50,7 +55,7 @@ const ProductRequestItem = (props) => {
               Are you sure you want to delete this product request?
             </Typography>
             <Button onClick={handleClose}>Cancel</Button>
-            <Button>Delete</Button>
+            <Button onClick={handleConfirmDelete}>Delete</Button>
           </Box>
 
           </Modal>
