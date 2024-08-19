@@ -3,7 +3,7 @@ import DummyProductRequestData from "../../../../backend/src/dummy_data/productR
 
 const ProductRequests = () => {
 
-  const DUMMY_PRODUCT_REQUESTS = DummyProductRequestData;
+  const DUMMY_PRODUCT_REQUESTS = DummyProductRequestData.slice(0, 10);
 
 
   return (

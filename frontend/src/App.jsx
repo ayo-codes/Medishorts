@@ -1,8 +1,8 @@
 import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 
-import User from "./users/pages/users";
-import Products from "./products/pages/products";
+import User from "./users/pages/User";
+import Products from "./products/pages/Products";
 import ProductRequests from "./productRequests/pages/ProductRequests";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserProductRequests from "./productRequests/pages/UserProductRequests";
