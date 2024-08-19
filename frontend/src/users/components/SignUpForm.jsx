@@ -2,7 +2,7 @@ import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
-const LoginForm = () => {
+const SignUpForm = () => {
   const defaultValues = async () => {
     return {
       email: "",
@@ -23,7 +23,7 @@ const LoginForm = () => {
   // Function to handle the form submission
   const onSubmitAuthRequest = (data) => {
     console.log(data);
-    console.log("Log in process began");
+    console.log("Signing up process began");
   };
 
   // Function to handle Errors
@@ -38,7 +38,7 @@ const LoginForm = () => {
 
   return (
     <div>
-    <h2>Login To Your Account</h2>
+      <h2>Sign Up For Your Account</h2>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
       <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
         <label htmlFor="Email">Email</label>
@@ -85,4 +85,4 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default SignUpForm;

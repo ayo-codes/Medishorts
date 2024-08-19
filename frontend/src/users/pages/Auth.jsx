@@ -1,5 +1,6 @@
 import { useState } from "react";
 import LoginForm from "../components/LoginForm";
+import SignUpForm from "../components/SignUpForm";
 
 const Auth = () => {
 
@@ -11,7 +12,8 @@ const Auth = () => {
   }
   return (
     <>
-      {isLoginMode && <LoginForm /> }
+      {isLoginMode && <LoginForm /> } 
+      {!isLoginMode && <SignUpForm />}
       <button onClick={handleSwitchMode}>Switch to {isLoginMode ? "SIGNUP" : "LOGIN"} </button>
     </>
   );
