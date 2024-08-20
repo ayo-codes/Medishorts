@@ -42,6 +42,7 @@ const SignUpForm = () => {
       <h2>Sign Up For Your Account</h2>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
       <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
+      {/* Email */}
         <label htmlFor="Email">Email</label>
         <input
           type="email"
@@ -58,6 +59,7 @@ const SignUpForm = () => {
         <span>{errors.email?.message}</span>
         <br />
         <br />
+        {/* Password */}
         <label htmlFor="Password">Password</label>
         <input
           type="password"
@@ -73,6 +75,7 @@ const SignUpForm = () => {
         <span>{errors.password?.message}</span>
         <br />
         <br />
+        {/* Pharmacy Name */}
         <label htmlFor="Pharmacy Name">Pharmacy Name</label>
         <input
           type="text"
@@ -85,7 +88,23 @@ const SignUpForm = () => {
         />
         <br />
         <br />
-        <span>{errors.pharmacy?.message}</span>
+        <span>{errors.pharmacyName?.message}</span>
+        <br />
+        <br />
+        {/* Pharmacy Address */}
+        <label htmlFor="Pharmacy Address">Pharmacy Address</label>
+        <input
+          type="text"
+          id="pharmacyAddress"
+          {...register("pharmacyAddress", {
+            required: { value: true, message: "Pharmacy Address is required" },
+            minLength: { value: 5, message: " Min length is 5" },
+          })}
+          placeholder="Pharmacy Address"
+        />
+        <br />
+        <br />
+        <span>{errors.pharmacyAddress?.message}</span>
         <button type="button" onClick={() => reset()}>
           Reset
         </button>
