@@ -20,11 +20,13 @@ export const medishortsService = {
         pharmacyOwner: pharmacyOwner,
         vatNumber: vatNumber
       };
-      // await axios.post(`${this.baseUrl}api/users/signup`,  newUserDetails);
+      const response = await axios.post(`${this.baseUrl}api/users/signup`,  newUserDetails);
       console.log(newUserDetails);
       console.log("I am in the Service file and have created a new user object");
+      console.log(response);
       return true
     } catch (error) {
+      console.log(error);
       return false;
     }
   }
