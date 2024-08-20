@@ -15,6 +15,7 @@ const SignUpForm = () => {
       supervisingPharmacist: "",
       superintendentPharmacist: "",
       pharmacyOwner: "",
+      vatNumber: "",
     };
   };
 
@@ -140,6 +141,7 @@ const SignUpForm = () => {
             pattern: { value: /^\d+$/ , message: "Invalid Phone Number" },
             required: { value: true, message: "Pharmacy Phone Number is required" },
             minLength: { value: 8, message: " Min length is 8, Don't Forget the area code" },
+            maxLength: { value: 10, message: " Max length is 10, Don't Forget the area code" },
           })}
           placeholder="Pharmacy Phone Number"
         />
@@ -156,6 +158,7 @@ const SignUpForm = () => {
             pattern: { value: /^\d+$/ , message: "Invalid Fax Number" },
             required: { value: false , message: "Pharmacy Fax Number is not required" },
             minLength: { value: 8, message: " Min length is 8, Don't Forget the area code" },
+            maxLength: { value: 10, message: " Max length is 10, Don't Forget the area code" },
           })}
           placeholder="Pharmacy Fax Number"
         />
@@ -212,12 +215,29 @@ const SignUpForm = () => {
         <span>{errors.pharmacyOwner?.message}</span>
         <br />
         <br />
-        <button type="button" onClick={() => reset()}>
-          Reset
-        </button>
-                {/* Manage the button state based on user actions */}
+        {/* VAT Number */}
+        <label htmlFor="VAT Number">VAT Number</label>
+        <input
+          type="text"
+          id="vatNumber"
+          {...register("vatNumber", {
+            required: { value: true, message: "Vat Number is required" },
+            minLength: { value: 8, message: " Min length is 8" },
+          })}
+          placeholder="VAT Number"
+        />
+        <br />
+        <br />
+        <span>{errors.vatNumber?.message}</span>
+        <br />
+        <br />
+
+        {/* Manage the button state based on user actions */}
         <button type="submit" disabled={!isDirty || !isValid || isSubmitting} >
           Sign Up
+        </button>
+        <button type="button" onClick={() => reset()}>
+          Reset
         </button>
       </form>
       {/* To manage the devtool visuals */}
