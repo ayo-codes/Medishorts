@@ -2,16 +2,16 @@ import { useEffect , useContext } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
-import { AuthContextProvider } from "../../shared/context/AuthContext";
+import  { AuthContext }  from "../../shared/context/AuthContext";
 
 
 const LoginForm = () => {
     // Gain access to object properties from the AuthContextProvider
-    const auth = useContext(AuthContextProvider);
+    const { isLoggedIn, login , logout } = useContext(AuthContext);
 
   const defaultValues = async () => {
     return {
-      email: "",
+      userEmail: "",
       password: "",
     };
   };
@@ -30,7 +30,7 @@ const LoginForm = () => {
   const onSubmitAuthRequest = (data) => {
     console.log(data);
     console.log("Log in process began");
-    auth.login();
+    login();
   };
 
   // Function to handle Errors
@@ -82,7 +82,7 @@ const LoginForm = () => {
         <button type="button" onClick={() => reset()}>
           Reset
         </button>
-        <button type="button" disabled={!isDirty || !isValid || isSubmitting} onClick={() => onSubmit() }>
+        <button disabled={!isDirty || !isValid || isSubmitting} >
           Login
         </button>
       </form>

@@ -1,8 +1,10 @@
-import React from "react"
+import {React, useContext} from "react"
 import PropTypes from "prop-types"
 import {NavLink} from "react-router-dom"
+import { AuthContext } from "../../context/AuthContext"
 
 const NavLinks = props => {
+  const auth = useContext(AuthContext);
   return (
     <ul>
         <li>
@@ -22,6 +24,9 @@ const NavLinks = props => {
         </li>
         <li>
           <NavLink to="/auth">Sign In</NavLink>
+        </li>
+        <li>
+          <button onClick={auth.logout}>Logout</button>
         </li>
     </ul>
     

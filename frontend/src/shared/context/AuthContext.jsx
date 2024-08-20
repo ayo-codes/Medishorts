@@ -1,11 +1,7 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
-export const AuthContext = createContext({
-  isLoggedIn: false,
-  login: () => {},
-  logout: () => {},
-});
+export const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -21,9 +17,9 @@ const logout = useCallback(() => {
   return (
       <AuthContext.Provider
         value={{
-          isLoggedIn: isLoggedIn,
-          login: login,
-          logout: logout,
+          isLoggedIn,
+          login,
+          logout
         }}
       >
         {children}
@@ -37,3 +33,8 @@ AuthContextProvider.propTypes = {
 
 export default AuthContextProvider;
 
+// {
+//   isLoggedIn: false,
+//   login: () => {},
+//   logout: () => {},
+// }

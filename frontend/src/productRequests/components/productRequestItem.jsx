@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useState ,useContext} from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
-import { set } from "react-hook-form";
+import  { AuthContext }  from "../../shared/context/AuthContext";
 
 const style = {
   position: "absolute",
@@ -17,6 +17,9 @@ const style = {
 };
 
 const ProductRequestItem = (props) => {
+  const auth = useContext(AuthContext);
+  console.log(auth);
+
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
@@ -41,9 +44,12 @@ const ProductRequestItem = (props) => {
           </Link>
         </div>
         <div>
-          <button>Approve</button>
-          <Button href={`/product-requests/${props.id}`}>Edit</Button>
-          <Button onClick={handleOpen}>Delete</Button>
+          {auth.isLoggedIn && 
+          <button>Approve</button>}
+          {auth.isLoggedIn &&
+          <Button href={`/product-requests/${props.id}`}>Edit</Button>}
+          {auth.isLoggedIn &&
+          <Button onClick={handleOpen}>Delete</Button>}
           <Modal
             open={open}
             onClose={handleClose}
