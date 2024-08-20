@@ -12,6 +12,9 @@ const SignUpForm = () => {
       pharmacyPSIRegistrationNo: "",
       pharmacyPhoneNumber: "",
       pharmacyFaxNumber: "",
+      supervisingPharmacist: "",
+      superintendentPharmacist: "",
+      pharmacyOwner: "",
     };
   };
 
@@ -175,6 +178,38 @@ const SignUpForm = () => {
         <br />
         <br />
         <span>{errors.supervisingPharmacist?.message}</span>
+        <br />
+        <br />
+        {/* Superintendent Pharmacist Name */}
+        <label htmlFor="Superintendent Pharmacist Name">Superintendent Pharmacist Name</label>
+        <input
+          type="text"
+          id="superintendentPharmacist"
+          {...register("superintendentPharmacist", {
+            required: { value: true, message: "Superintendent Pharmacist Name is required" },
+            minLength: { value: 5, message: " Min length is 5" },
+          })}
+          placeholder="Superintendent Pharmacist Name"
+        />
+        <br />
+        <br />
+        <span>{errors.superintendentPharmacist?.message}</span>
+        <br />
+        <br />
+        {/* Pharmacy Owner */}
+        <label htmlFor="Pharmacy Owner">Pharmacy Owner</label>
+        <input
+          type="text"
+          id="pharmacyOwner"
+          {...register("pharmacyOwner", {
+            required: { value: true, message: "Pharmacy Owner is required" },
+            minLength: { value: 5, message: " Min length is 5" },
+          })}
+          placeholder="Pharmacy Owner"
+        />
+        <br />
+        <br />
+        <span>{errors.pharmacyOwner?.message}</span>
         <br />
         <br />
         <button type="button" onClick={() => reset()}>
