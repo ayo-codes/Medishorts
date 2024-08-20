@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { medishortsService } from "../../services/medishorts-service";
 
 const SignUpForm = () => {
   const defaultValues = async () => {
@@ -33,6 +34,19 @@ const SignUpForm = () => {
   const onSubmitAuthRequest = (data) => {
     console.log(data);
     console.log("Signing up process began");
+    medishortsService.signUpUser(
+      data.email,
+      data.password,
+      data.pharmacyName,
+      data.pharmacyAddress,
+      data.pharmacyPSIRegistrationNo,
+      data.pharmacyPhoneNumber,
+      data.pharmacyFaxNumber,
+      data.supervisingPharmacist,
+      data.superintendentPharmacist,
+      data.pharmacyOwner,
+      data.vatNumber
+    );
   };
 
   // Function to handle Errors
