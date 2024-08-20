@@ -24,9 +24,10 @@ const NavLinks = props => {
         </li>
         <li>
           <NavLink to="/auth">Sign In</NavLink>
-        </li>
-        <li>
+          {auth.isLoggedIn && 
+            <li>
           <button onClick={auth.logout}>Logout</button>
+          </li>}
         </li>
     </ul>
     
