@@ -11,6 +11,7 @@ const SignUpForm = () => {
       pharmacyAddress: "",
       pharmacyPSIRegistrationNo: "",
       pharmacyPhoneNumber: "",
+      pharmacyFaxNumber: "",
     };
   };
 
@@ -141,7 +142,41 @@ const SignUpForm = () => {
         />
         <br />
         <br />
-        <span>{errors.pharmacyPhoneNumber?.message}</span>
+        <br />
+        <br />
+        {/* Pharmacy Fax Number */}
+        <label htmlFor="Pharmacy Fax Number">Pharmacy Fax Number</label>
+        <input
+          type="text"
+          id="pharmacyFaxNumber"
+          {...register("pharmacyFaxNumber", {
+            pattern: { value: /^\d+$/ , message: "Invalid Fax Number" },
+            required: { value: false , message: "Pharmacy Fax Number is not required" },
+            minLength: { value: 8, message: " Min length is 8, Don't Forget the area code" },
+          })}
+          placeholder="Pharmacy Fax Number"
+        />
+        <br />
+        <br />
+        <span>{errors.pharmacyFaxNumber?.message}</span>
+        <br />
+        <br />
+        {/* Supervising Pharmacist Name */}
+        <label htmlFor="Supervising Pharmacist Name">Supervising Pharmacist Name</label>
+        <input
+          type="text"
+          id="supervisingPharmacist"
+          {...register("supervisingPharmacist", {
+            required: { value: true, message: "Supervising Pharmacist Name is required" },
+            minLength: { value: 5, message: " Min length is 5" },
+          })}
+          placeholder="Supervising Pharmacist Name"
+        />
+        <br />
+        <br />
+        <span>{errors.supervisingPharmacist?.message}</span>
+        <br />
+        <br />
         <button type="button" onClick={() => reset()}>
           Reset
         </button>
