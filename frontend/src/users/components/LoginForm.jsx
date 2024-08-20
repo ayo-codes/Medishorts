@@ -11,7 +11,7 @@ const LoginForm = () => {
 
   const defaultValues = async () => {
     return {
-      userEmail: "",
+      email: "",
       password: "",
     };
   };
@@ -51,8 +51,8 @@ const LoginForm = () => {
         <label htmlFor="Email">Email</label>
         <input
           type="email"
-          id="userEmail"
-          {...register("userEmail", {
+          id="email"
+          {...register("email", {
             pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ , message: "Invalid Email" },
             required: { value: true, message: "Your Email is required" },
             minLength: { value: 5, message: "Min length is 5" },
@@ -61,7 +61,7 @@ const LoginForm = () => {
         />
         <br />
         <br />
-        <span>{errors.userEmail?.message}</span>
+        <span>{errors.email?.message}</span>
         <br />
         <br />
         <label htmlFor="Password">Password</label>

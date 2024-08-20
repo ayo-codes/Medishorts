@@ -7,6 +7,7 @@ const SignUpForm = () => {
     return {
       email: "",
       password: "",
+      pharmacyName: "",
     };
   };
 
@@ -44,8 +45,8 @@ const SignUpForm = () => {
         <label htmlFor="Email">Email</label>
         <input
           type="email"
-          id="userEmail"
-          {...register("userEmail", {
+          id="email"
+          {...register("email", {
             pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ , message: "Invalid Email" },
             required: { value: true, message: "Your Email is required" },
             minLength: { value: 5, message: "Min length is 5" },
@@ -54,7 +55,7 @@ const SignUpForm = () => {
         />
         <br />
         <br />
-        <span>{errors.userEmail?.message}</span>
+        <span>{errors.email?.message}</span>
         <br />
         <br />
         <label htmlFor="Password">Password</label>
@@ -70,13 +71,27 @@ const SignUpForm = () => {
         <br />
         <br />
         <span>{errors.password?.message}</span>
-        {/* Manage the button state based on user actions */}
-
+        <br />
+        <br />
+        <label htmlFor="Pharmacy Name">Pharmacy Name</label>
+        <input
+          type="text"
+          id="pharmacyName"
+          {...register("pharmacyName", {
+            required: { value: true, message: "Pharmacy Name is required" },
+            minLength: { value: 5, message: " Min length is 5" },
+          })}
+          placeholder="Pharmacy Name"
+        />
+        <br />
+        <br />
+        <span>{errors.pharmacy?.message}</span>
         <button type="button" onClick={() => reset()}>
           Reset
         </button>
-        <button type="button" disabled={!isDirty || !isValid || isSubmitting} onClick={() => onSubmit() }>
-          Login
+                {/* Manage the button state based on user actions */}
+        <button type="submit" disabled={!isDirty || !isValid || isSubmitting} >
+          Sign Up
         </button>
       </form>
       {/* To manage the devtool visuals */}
