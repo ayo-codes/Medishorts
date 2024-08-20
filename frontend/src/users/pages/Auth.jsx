@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useState , useContext } from "react";
+
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
+import { AuthContextProvider } from "../../shared/context/AuthContext";
 
 const Auth = () => {
+
 
   const [isLoginMode, setIsLoginMode] = useState(true);
 

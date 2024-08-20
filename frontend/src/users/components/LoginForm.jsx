@@ -1,8 +1,14 @@
-import { useEffect } from "react";
+import { useEffect , useContext } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
+import { AuthContextProvider } from "../../shared/context/AuthContext";
+
+
 const LoginForm = () => {
+    // Gain access to object properties from the AuthContextProvider
+    const auth = useContext(AuthContextProvider);
+
   const defaultValues = async () => {
     return {
       email: "",
@@ -24,6 +30,7 @@ const LoginForm = () => {
   const onSubmitAuthRequest = (data) => {
     console.log(data);
     console.log("Log in process began");
+    auth.login();
   };
 
   // Function to handle Errors
