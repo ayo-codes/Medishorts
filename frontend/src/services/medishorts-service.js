@@ -30,5 +30,23 @@ export const medishortsService = {
       console.log(error);
       return { state:false, error: error.response.data.message };
     }
+  },
+
+  async loginUser(email, password) {
+    try {
+      const userCredentials = {
+        email: email,
+        password: password,
+
+      };
+      const response = await axios.post(`${this.baseUrl}api/users/login`,  userCredentials);
+      console.log(userCredentials);
+      console.log("I am in the Service file and I am logging in a user");
+      console.log(response);
+      return true
+    } catch (error) {
+      console.log(error);
+      return { state:false, error: error.response.data.message };
+    }
   }
 }
