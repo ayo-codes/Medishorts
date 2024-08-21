@@ -1,16 +1,25 @@
 import { useEffect, useContext , useState } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+import { useNavigate } from "react-router-dom";
 
 import {AuthContext} from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
 
 const SignUpForm = () => {
-const auth = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
- const [isLoading, setIsLoading]  = useState(false)
- const [error, setError] = useState(null);
+  const [isLoading, setIsLoading]  = useState(false)
+  const [error, setError] = useState(null);
 
+  const navigate = useNavigate();
+
+  const navigateBackOrHome = () => {
+    const origin = location.state?.intent?.pathname || "/";
+    console.log(origin);
+    navigate(origin);
+  };
+  
   const defaultValues = async () => {
     return {
       email: "",
@@ -32,13 +41,14 @@ const auth = useContext(AuthContext);
     register,
     handleSubmit,
     watch,
-    formState: { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful },
+    formState: { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful ,isTouched },
     control,
     reset,
   } = useForm({ defaultValues });
 
   // Function to handle the form submission
   const onSubmitAuthRequest = async (data) => {
+    setError(null);
     setIsLoading(true);
     console.log(data);
     console.log("Signing up process began");
@@ -64,6 +74,7 @@ const auth = useContext(AuthContext);
 
     if (response === true){
       auth.login();
+      navigateBackOrHome();
     }
 
   };
@@ -92,7 +103,8 @@ const auth = useContext(AuthContext);
             pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ , message: "Invalid Email" },
             required: { value: true, message: "Your Email is required" },
             minLength: { value: 5, message: "Min length is 5" },
-          })}
+          },
+          )}
           placeholder="Your Email"
         />
         <br />
