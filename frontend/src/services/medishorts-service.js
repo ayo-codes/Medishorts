@@ -59,7 +59,20 @@ export const medishortsService = {
       return {productRequests :response.data.productRequests, state:true};
     }catch (error) {
       console.log(error);
-      return { state:false, error: error.response.data.message , productRequests: []};
+      return { state:false, error: error.response.data.message };
     }
   },
+
+  async createProductRequest() {
+    try{
+      const response = await axios.post(`${this.baseUrl}api/product-requests/`);
+      console.log(response);
+      console.log("I am in the Service file and I am creating a new product request");
+    }
+    catch(error){
+      console.log(error);
+      return { state:false, error: error.response.data.message };
+
+    }
+  }
 }
