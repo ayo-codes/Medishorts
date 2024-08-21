@@ -25,8 +25,8 @@ const ProductRequestsList = (props) => {
       <div>
         <ul>
           {props.items.map((productRequest) => (
-            <ProductRequestItem key={productRequest.productRequestId}
-            id= {productRequest.productRequestId} 
+            <ProductRequestItem key={productRequest.id}
+            id= {productRequest.id} 
             productName={productRequest.productName} 
             genericName={productRequest.genericName}
             packSize={productRequest.packSize}

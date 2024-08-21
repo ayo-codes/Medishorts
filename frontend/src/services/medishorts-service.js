@@ -114,4 +114,20 @@ export const medishortsService = {
       return { state: false, error: error.response.data.message };
     }
   },
+
+  async getProductRequestsByUserId(userId) {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}api/product-requests/user/${userId}`
+      );
+      console.log(
+        "I am in the Service file and I am fetching product requests by user id"
+      );
+      console.log(response);
+      return { userProductRequests: response.data.userProductRequests, state: true };
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  }
 };
