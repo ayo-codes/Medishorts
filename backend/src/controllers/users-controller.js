@@ -26,6 +26,9 @@ const getAllUsers = async (req, res, next) => {
 
 // SIGNUP A USER - MONGO
 const signup = async (req, res, next) => { 
+  console.log("CREATE Request received for a new user");
+  console.log(`Request received from  ${req.headers.host + req.url}`);
+  
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
@@ -84,6 +87,7 @@ const signup = async (req, res, next) => {
     console.log(err);
     return next(new ApiHttpError("Could not create a new account, please try again", 500));
   }
+
  return res.status(201).json({user: newUser.toObject({getters: true})});
 };
 

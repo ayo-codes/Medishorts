@@ -1,6 +1,7 @@
 import { createContext, useState, useEffect, useCallback } from "react";
 import PropTypes from "prop-types";
 
+
 export const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
@@ -8,6 +9,7 @@ const AuthContextProvider = ({ children }) => {
 
 const login = useCallback(() => {
   setIsLoggedIn(true);
+  console.log("Logging in... from AuthContextProvider");
 },[]);
 
 const logout = useCallback(() => {
