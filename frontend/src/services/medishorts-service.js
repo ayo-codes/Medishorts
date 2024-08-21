@@ -2,6 +2,7 @@
 import axios from "axios";
 
 
+// The medishortsService object is used to make API calls to the backend
 export const medishortsService = {
   baseUrl: "http://localhost:3000/",
 

@@ -1,9 +1,13 @@
-import { useEffect } from "react";
+import { useEffect, useContext } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
+
+import {AuthContext} from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
 
 const SignUpForm = () => {
+const auth = useContext(AuthContext);
+
   const defaultValues = async () => {
     return {
       email: "",
@@ -31,10 +35,10 @@ const SignUpForm = () => {
   } = useForm({ defaultValues });
 
   // Function to handle the form submission
-  const onSubmitAuthRequest = (data) => {
+  const onSubmitAuthRequest = async (data) => {
     console.log(data);
     console.log("Signing up process began");
-    medishortsService.signUpUser(
+    await medishortsService.signUpUser(
       data.email,
       data.password,
       data.pharmacyName,
@@ -47,6 +51,8 @@ const SignUpForm = () => {
       data.pharmacyOwner,
       data.vatNumber
     );
+
+    auth.login();
   };
 
   // Function to handle Errors
