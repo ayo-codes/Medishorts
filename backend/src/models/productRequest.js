@@ -5,14 +5,15 @@ const { Schema } = mongoose;
 const productRequestSchema = new Schema({
   productName: { type: String, required: true },
   genericName: { type: String, required: true },
-  packSize: { type: Number, required: true },
-  gmsNo: { type: Number, required: true },
+  packSize: { type: Number, required: false },
+  gmsNo: { type: Number, required:  false },
   costPrice: { type: Number, required: true },
-  vatRate: { type: Number, required: true },
-  manufacturer: { type: String, required: true },
-  legalCategory: { type: String, required: true },
-  barcode: { type: Number, required: true },
-  ipuCode: { type: Number, required: true },
+  vatRate: { type: Number, required: false },
+  manufacturer: { type: String, required:false },
+  legalCategory: { type: String, required: false },
+  barcode: { type: Number, required: false },
+  ipuCode: { type: Number, required: false },
+  expiryDate: { type: Date, required: true },
   productRequestCreator: { type: mongoose.Types.ObjectId, required: true , ref: "User" },
 });
 

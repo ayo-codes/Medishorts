@@ -76,13 +76,15 @@ const SignUpForm = () => {
     );
     setIsLoading(false);
     console.log(response);
-    if (response !== true) {
+    if (response.state !== true) {
       setError(response.error);
       console.log(response.error);
     }
 
-    if (response === true) {
-      auth.login();
+    if (response.state === true) {
+      console.log(response.message);
+      console.log(response.user);
+      auth.login(response.user.id);
       navigateBackOrHome();
     }
   };
