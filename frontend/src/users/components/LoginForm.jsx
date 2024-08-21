@@ -59,7 +59,8 @@ const LoginForm = () => {
 
     if (response.state === true) {
       console.log("Login Successful");
-      login();
+      console.log(response.user.id);
+      login(response.user.id);
       navigateBackOrHome();
     }
   };

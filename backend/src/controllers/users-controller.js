@@ -112,7 +112,7 @@ const login = async (req, res, next) => {
   if (!existingUser || existingUser.password !== password) {
     return next(new ApiHttpError("Could not find user, credentials seem to be incorrect", 401));
   }
-  return res.json({message: "Logged in!"});
+  return res.json({message: "Logged in!", user: existingUser.toObject({getters: true})});
 };
 
 exports.getAllUsers = getAllUsers;

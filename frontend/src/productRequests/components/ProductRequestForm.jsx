@@ -48,7 +48,8 @@ const ProductRequestForm = (props) => {
       data.productName,
       data.genericName,
       data.costPrice,
-      data.expiryDate
+      data.expiryDate,
+      auth.userId
     );
     setIsLoading(false);
     console.log(response);

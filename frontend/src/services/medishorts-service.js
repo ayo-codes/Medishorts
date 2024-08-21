@@ -65,7 +65,7 @@ export const medishortsService = {
       console.log(userCredentials);
       console.log("I am in the Service file and I am logging in a user");
       console.log(response);
-      return {state: true , message: response.data.message};
+      return {state: true , message: response.data.message , user: response.data.user};
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
@@ -87,13 +87,13 @@ export const medishortsService = {
     }
   },
 
-  async createProductRequest(productName, genericName, costPrice, expiryDate) {
+  async createProductRequest(productName, genericName, costPrice, expiryDate , productRequestCreator) {
     const newProductRequest = {
       productName: productName,
       genericName: genericName,
       costPrice: costPrice,
       expiryDate: expiryDate,
-      productRequestCreator: "66c5cde0f0b92302e9e5fa74",
+      productRequestCreator: productRequestCreator,
     };
     try {
       const response = await axios.post(

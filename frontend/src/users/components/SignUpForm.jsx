@@ -84,7 +84,7 @@ const SignUpForm = () => {
     if (response.state === true) {
       console.log(response.message);
       console.log(response.user);
-      auth.login();
+      auth.login(response.user.id);
       navigateBackOrHome();
     }
   };
