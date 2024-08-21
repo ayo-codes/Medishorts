@@ -1,15 +1,17 @@
-import { useEffect, useContext , useState } from "react";
+import { useEffect, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
-import { DevTool } from "@hookform/devtools";
 import { useNavigate } from "react-router-dom";
 
-import {AuthContext} from "../../shared/context/AuthContext";
+import { DevTool } from "@hookform/devtools";
+
+import { AuthContext } from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
 
 const SignUpForm = () => {
+  // Gain access to object properties from the AuthContextProvider
   const auth = useContext(AuthContext);
 
-  const [isLoading, setIsLoading]  = useState(false)
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
   const navigate = useNavigate();
@@ -19,7 +21,7 @@ const SignUpForm = () => {
     console.log(origin);
     navigate(origin);
   };
-  
+
   const defaultValues = async () => {
     return {
       email: "",
@@ -41,7 +43,14 @@ const SignUpForm = () => {
     register,
     handleSubmit,
     watch,
-    formState: { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful ,isTouched },
+    formState: {
+      errors,
+      isDirty,
+      isValid,
+      isSubmitting,
+      isSubmitSuccessful,
+      isTouched,
+    },
     control,
     reset,
   } = useForm({ defaultValues });
@@ -69,42 +78,43 @@ const SignUpForm = () => {
     console.log(response);
     if (response !== true) {
       setError(response.error);
-      console.log(response.error)
+      console.log(response.error);
     }
 
-    if (response === true){
+    if (response === true) {
       auth.login();
       navigateBackOrHome();
     }
-
   };
 
   // Function to handle Errors
   const onError = (errors) => console.log("Form Errors", errors);
 
-    // useEffect to handle the form reset
-    useEffect(() => {
-      if (isSubmitSuccessful) {
-        reset();
-      }
-    }, [isSubmitSuccessful , reset]);
+  // useEffect to handle the form reset
+  useEffect(() => {
+    if (isSubmitSuccessful) {
+      reset();
+    }
+  }, [isSubmitSuccessful, reset]);
 
   return (
     <div>
       <h2>Sign Up For Your Account</h2>
       {/* Form Submission logic and using the handleSubmit method from useForm */}
       <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
-      {/* Email */}
+        {/* Email */}
         <label htmlFor="Email">Email</label>
         <input
           type="email"
           id="email"
           {...register("email", {
-            pattern: { value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ , message: "Invalid Email" },
+            pattern: {
+              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+              message: "Invalid Email",
+            },
             required: { value: true, message: "Your Email is required" },
             minLength: { value: 5, message: "Min length is 5" },
-          },
-          )}
+          })}
           placeholder="Your Email"
         />
         <br />
@@ -167,7 +177,10 @@ const SignUpForm = () => {
           id="pharmacyPSIRegistrationNo"
           {...register("pharmacyPSIRegistrationNo", {
             valueAsNumber: true,
-            required: { value: true, message: "Pharmacy PSI Number is required" },
+            required: {
+              value: true,
+              message: "Pharmacy PSI Number is required",
+            },
             minLength: { value: 4, message: " Min length is 4" },
           })}
           placeholder="Pharmacy PSI Number"
@@ -183,10 +196,19 @@ const SignUpForm = () => {
           type="text"
           id="pharmacyPhoneNumber"
           {...register("pharmacyPhoneNumber", {
-            pattern: { value: /^\d+$/ , message: "Invalid Phone Number" },
-            required: { value: true, message: "Pharmacy Phone Number is required" },
-            minLength: { value: 8, message: " Min length is 8, Don't Forget the area code" },
-            maxLength: { value: 10, message: " Max length is 10, Don't Forget the area code" },
+            pattern: { value: /^\d+$/, message: "Invalid Phone Number" },
+            required: {
+              value: true,
+              message: "Pharmacy Phone Number is required",
+            },
+            minLength: {
+              value: 8,
+              message: " Min length is 8, Don't Forget the area code",
+            },
+            maxLength: {
+              value: 10,
+              message: " Max length is 10, Don't Forget the area code",
+            },
           })}
           placeholder="Pharmacy Phone Number"
         />
@@ -200,10 +222,19 @@ const SignUpForm = () => {
           type="text"
           id="pharmacyFaxNumber"
           {...register("pharmacyFaxNumber", {
-            pattern: { value: /^\d+$/ , message: "Invalid Fax Number" },
-            required: { value: false , message: "Pharmacy Fax Number is not required" },
-            minLength: { value: 8, message: " Min length is 8, Don't Forget the area code" },
-            maxLength: { value: 10, message: " Max length is 10, Don't Forget the area code" },
+            pattern: { value: /^\d+$/, message: "Invalid Fax Number" },
+            required: {
+              value: false,
+              message: "Pharmacy Fax Number is not required",
+            },
+            minLength: {
+              value: 8,
+              message: " Min length is 8, Don't Forget the area code",
+            },
+            maxLength: {
+              value: 10,
+              message: " Max length is 10, Don't Forget the area code",
+            },
           })}
           placeholder="Pharmacy Fax Number"
         />
@@ -213,12 +244,17 @@ const SignUpForm = () => {
         <br />
         <br />
         {/* Supervising Pharmacist Name */}
-        <label htmlFor="Supervising Pharmacist Name">Supervising Pharmacist Name</label>
+        <label htmlFor="Supervising Pharmacist Name">
+          Supervising Pharmacist Name
+        </label>
         <input
           type="text"
           id="supervisingPharmacist"
           {...register("supervisingPharmacist", {
-            required: { value: true, message: "Supervising Pharmacist Name is required" },
+            required: {
+              value: true,
+              message: "Supervising Pharmacist Name is required",
+            },
             minLength: { value: 5, message: " Min length is 5" },
           })}
           placeholder="Supervising Pharmacist Name"
@@ -229,12 +265,17 @@ const SignUpForm = () => {
         <br />
         <br />
         {/* Superintendent Pharmacist Name */}
-        <label htmlFor="Superintendent Pharmacist Name">Superintendent Pharmacist Name</label>
+        <label htmlFor="Superintendent Pharmacist Name">
+          Superintendent Pharmacist Name
+        </label>
         <input
           type="text"
           id="superintendentPharmacist"
           {...register("superintendentPharmacist", {
-            required: { value: true, message: "Superintendent Pharmacist Name is required" },
+            required: {
+              value: true,
+              message: "Superintendent Pharmacist Name is required",
+            },
             minLength: { value: 5, message: " Min length is 5" },
           })}
           placeholder="Superintendent Pharmacist Name"
@@ -279,7 +320,7 @@ const SignUpForm = () => {
         {isLoading && <p>Loading...</p>}
         {error && <p>{error}</p>}
         {/* Manage the button state based on user actions */}
-        <button type="submit" disabled={!isDirty || !isValid || isSubmitting} >
+        <button type="submit" disabled={!isDirty || !isValid || isSubmitting}>
           Sign Up
         </button>
         <button type="button" onClick={() => reset()}>

@@ -27,8 +27,8 @@ const getAllUsers = async (req, res, next) => {
 // SIGNUP A USER - MONGO
 const signup = async (req, res, next) => { 
   console.log("CREATE Request received for a new user");
-  console.log(`Request received from  ${req.headers.host + req.url}`);
-  
+  console.log(`Request received at  ${req.headers.host + req.url}`);
+
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     console.log(errors);
@@ -94,6 +94,9 @@ const signup = async (req, res, next) => {
 
 // LOGIN A USER
 const login = async (req, res, next) => {
+  console.log("POST Request received for an exisiting user");
+  console.log(`Request received at  ${req.headers.host + req.url}`);
+
   const {email, password} = req.body;
 
   let existingUser;
