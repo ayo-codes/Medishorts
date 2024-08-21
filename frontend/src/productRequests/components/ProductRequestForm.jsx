@@ -52,12 +52,14 @@ const ProductRequestForm = (props) => {
     );
     setIsLoading(false);
     console.log(response);
-    if (response !== true) {
+    if (response.state !== true) {
       setError(response.error);
       console.log(response.error);
     }
     
-    if (response === true) {
+    if (response.state === true) {
+      console.log(response.message);
+      console.log(response.productRequest);
       console.log("Product Request created successfully");
     }
   };

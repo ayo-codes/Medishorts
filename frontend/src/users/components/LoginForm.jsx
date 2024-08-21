@@ -52,12 +52,12 @@ const LoginForm = () => {
     );
     setIsLoading(false);
     console.log(response);
-    if (response !== true) {
+    if (response.state !== true) {
       setError(response.error);
       console.log(response.error);
     }
 
-    if (response === true) {
+    if (response.state === true) {
       console.log("Login Successful");
       login();
       navigateBackOrHome();

@@ -41,7 +41,11 @@ export const medishortsService = {
         "I am in the Service file and have created a new user object"
       );
       console.log(response);
-      return true;
+      return {
+        state: true,
+        message: response.data.message,
+        user: response.data.user,
+      };
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
@@ -61,7 +65,7 @@ export const medishortsService = {
       console.log(userCredentials);
       console.log("I am in the Service file and I am logging in a user");
       console.log(response);
-      return true;
+      return {state: true , message: response.data.message};
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
@@ -92,12 +96,19 @@ export const medishortsService = {
       productRequestCreator: "66c5cde0f0b92302e9e5fa74",
     };
     try {
-      const response = await axios.post(`${this.baseUrl}api/product-requests/` ,newProductRequest);
+      const response = await axios.post(
+        `${this.baseUrl}api/product-requests/`,
+        newProductRequest
+      );
       console.log(response);
       console.log(
         "I am in the Service file and I am creating a new product request"
-      )
-      return true;
+      );
+      return {
+        state: true,
+        message: response.data.message,
+        productRequest: response.data.productRequest,
+      };
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
