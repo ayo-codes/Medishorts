@@ -1,10 +1,20 @@
-import { useEffect } from "react";
+import { useEffect, useContext, useState } from "react";
 import PropTypes from "prop-types";
 import { useForm } from "react-hook-form";
+
 import { DevTool } from "@hookform/devtools";
 import DummyProductsData from "../../../../backend/src/dummy_data/productsList/productsList.json";
 
+import { AuthContext } from "../../shared/context/AuthContext";
+import { medishortsService } from "../../services/medishorts-service";
+
 const ProductRequestForm = (props) => {
+    // Gain access to object properties from the AuthContextProvider
+    const auth = useContext(AuthContext);
+
+    const [isLoading, setIsLoading] = useState(false);
+    const [error, setError] = useState(null);
+
   // Set default values for the form
   const defaultValues = async () => {
     const product = await DummyProductsData[70];
@@ -29,8 +39,27 @@ const ProductRequestForm = (props) => {
   watch("productName");
 
   // Function to handle the form submission
-  const onSubmitCreateProductRequest = (data) => {
+  const onSubmitCreateProductRequest = async (data) => {
+    setError(null);
+    setIsLoading(true);
     console.log(data);
+    console.log("Product Request process began");
+    const response = await medishortsService.createProductRequest(
+      data.productName,
+      data.genericName,
+      data.costPrice,
+      data.expiryDate
+    );
+    setIsLoading(false);
+    console.log(response);
+    if (response !== true) {
+      setError(response.error);
+      console.log(response.error);
+    }
+    
+    if (response === true) {
+      console.log("Product Request created successfully");
+    }
   };
 
   // Function to handle Errors

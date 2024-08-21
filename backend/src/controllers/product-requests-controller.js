@@ -81,19 +81,28 @@ const createProductRequest = async (req, res, next) => {
     return next(new ApiHttpError("Invalid inputs passed, please check your input", 422));
   }
 
-  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, productRequestCreator } = req.body;
+  // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, productRequestCreator } = req.body;
+  const { productName, genericName,  costPrice, expiryDate, productRequestCreator } = req.body;
 
+  // const newProductRequest = new ProductRequest({
+  //   productName,
+  //   genericName,
+  //   packSize,
+  //   gmsNo,
+  //   costPrice,
+  //   vatRate,
+  //   manufacturer,
+  //   legalCategory,
+  //   barcode,
+  //   ipuCode,
+  //   productRequestCreator,
+  //   productRequestId: uuid(),
+  // });
   const newProductRequest = new ProductRequest({
     productName,
     genericName,
-    packSize,
-    gmsNo,
     costPrice,
-    vatRate,
-    manufacturer,
-    legalCategory,
-    barcode,
-    ipuCode,
+    expiryDate,
     productRequestCreator,
     productRequestId: uuid(),
   });

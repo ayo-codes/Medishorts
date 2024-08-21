@@ -11,7 +11,8 @@ const router = Router();
 router.get("/", productRequestsControllers.getAllProductRequests);
 
 // CREATE A NEW PRODUCT REQUEST
-router.post("/", [check("productName").notEmpty(), check("genericName").notEmpty(), check("packSize").notEmpty()], productRequestsControllers.createProductRequest);
+// router.post("/", [check("productName").notEmpty(), check("genericName").notEmpty(), check("packSize").notEmpty()], productRequestsControllers.createProductRequest);
+router.post("/", [check("productName").notEmpty(), check("genericName").notEmpty()], productRequestsControllers.createProductRequest);
 
 // GET ALL PRODUCT REQUESTS BY USER ID
 router.get("/user/:userId", productRequestsControllers.getProductRequestsByUserId);
