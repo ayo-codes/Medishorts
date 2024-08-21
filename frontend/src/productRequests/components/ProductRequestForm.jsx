@@ -142,6 +142,8 @@ const ProductRequestForm = (props) => {
         <span>{errors.costPrice?.message}</span>
         <br />
         <br />
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         {/* Manage the button state based on user actions */}
         <input disabled={!isDirty || !isValid || isSubmitting } type="submit" />
         <button type= "button" onClick={() => reset()}>Reset</button>
