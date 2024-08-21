@@ -28,7 +28,7 @@ export const medishortsService = {
       return true
     } catch (error) {
       console.log(error);
-      return false;
+      return { state:false, error: error.response.data.message };
     }
   }
 }

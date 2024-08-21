@@ -1,4 +1,4 @@
-import { useEffect, useContext } from "react";
+import { useEffect, useContext , useState } from "react";
 import { useForm } from "react-hook-form";
 import { DevTool } from "@hookform/devtools";
 
@@ -7,6 +7,9 @@ import { medishortsService } from "../../services/medishorts-service";
 
 const SignUpForm = () => {
 const auth = useContext(AuthContext);
+
+ const [isLoading, setIsLoading]  = useState(false)
+ const [error, setError] = useState(null);
 
   const defaultValues = async () => {
     return {
@@ -36,9 +39,10 @@ const auth = useContext(AuthContext);
 
   // Function to handle the form submission
   const onSubmitAuthRequest = async (data) => {
+    setIsLoading(true);
     console.log(data);
     console.log("Signing up process began");
-    await medishortsService.signUpUser(
+    const response = await medishortsService.signUpUser(
       data.email,
       data.password,
       data.pharmacyName,
@@ -51,8 +55,17 @@ const auth = useContext(AuthContext);
       data.pharmacyOwner,
       data.vatNumber
     );
+    setIsLoading(false);
+    console.log(response);
+    if (response !== true) {
+      setError(response.error);
+      console.log(response.error)
+    }
 
-    auth.login();
+    if (response === true){
+      auth.login();
+    }
+
   };
 
   // Function to handle Errors
@@ -251,7 +264,8 @@ const auth = useContext(AuthContext);
         <span>{errors.vatNumber?.message}</span>
         <br />
         <br />
-
+        {isLoading && <p>Loading...</p>}
+        {error && <p>{error}</p>}
         {/* Manage the button state based on user actions */}
         <button type="submit" disabled={!isDirty || !isValid || isSubmitting} >
           Sign Up
