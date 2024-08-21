@@ -56,7 +56,7 @@ export const medishortsService = {
       console.log("I am in the Service file and I am fetching all product requests");
       console.log(response);
       console.log(response.data);
-      return response.data;
+      return {productRequests :response.data.productRequests, state:true};
     }catch (error) {
       console.log(error);
       return { state:false, error: error.response.data.message , productRequests: []};
