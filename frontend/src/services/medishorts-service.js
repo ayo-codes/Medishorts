@@ -48,5 +48,18 @@ export const medishortsService = {
       console.log(error);
       return { state:false, error: error.response.data.message };
     }
-  }
+  },
+
+  async getAllProductRequests() {
+    try {
+      const response = await axios.get(`${this.baseUrl}api/product-requests/`);
+      console.log("I am in the Service file and I am fetching all product requests");
+      console.log(response);
+      console.log(response.data);
+      return response.data;
+    }catch (error) {
+      console.log(error);
+      return { state:false, error: error.response.data.message , productRequests: []};
+    }
+  },
 }

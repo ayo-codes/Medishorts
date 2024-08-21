@@ -1,7 +1,11 @@
+import { useEffect } from "react";
 import ProductRequestsList from "../components/ProductRequestsList";
 import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
 
 const ProductRequests = () => {
+
+  useEffect(() => {
+  }, []);
 
   const DUMMY_PRODUCT_REQUESTS = DummyProductRequestData.slice(0, 10);
 
