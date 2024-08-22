@@ -2,6 +2,7 @@ const uuid = require("uuid").v4;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
 const jwt = require("jsonwebtoken");
+const dotenv = require("dotenv").config();
 
 
 const User = require("../models/user");
@@ -96,6 +97,10 @@ const signup = async (req, res, next) => {
 
   try {
     await newUser.save();
+    console.log(newUser.id);
+   
+    console.log(newUser);
+    console.log(process.env.JWT_KEY);
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not create a new account, please try again", 500));
@@ -104,9 +109,9 @@ const signup = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      {userId: newUser.id, email: newUser.email},process.env.JWT_KEY, {expiresIn: "2h"})
+      {userId: newUser.id, email: newUser.email},process.env.JWT_SECRET, {expiresIn: "2h"})
   } catch (err) {
-    const error = new ApiHttpError("Signing up failed, please try again", 500);
+    const error = new ApiHttpError("Signing up failed at token phase, please try again", 500);
     return next(error);
   }
 
@@ -149,7 +154,7 @@ const login = async (req, res, next) => {
   let token;
   try {
     token = jwt.sign(
-      {userId: newUser.id, email: newUser.email},process.env.JWT_KEY, {expiresIn: "2h"})
+      {userId: existingUser.id, email: existingUser.email},process.env.JWT_SECRET, {expiresIn: "2h"})
   } catch (err) {
     const error = new ApiHttpError("Login failed, please try again", 500);
     return next(error);

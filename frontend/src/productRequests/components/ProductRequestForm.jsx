@@ -7,6 +7,7 @@ import DummyProductsData from "../../../../backend/src/dummy_data/productsList/p
 
 import { AuthContext } from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
+import Auth from "../../users/pages/Auth";
 
 const ProductRequestForm = (props) => {
     // Gain access to object properties from the AuthContextProvider
@@ -49,7 +50,8 @@ const ProductRequestForm = (props) => {
       data.genericName,
       data.costPrice,
       data.expiryDate,
-      auth.userId
+      auth.userId,
+      {headers: {Authorization: `Bearer ${auth.token}`}}
     );
     setIsLoading(false);
     console.log(response);

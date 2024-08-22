@@ -84,7 +84,8 @@ const SignUpForm = () => {
     if (response.state === true) {
       console.log(response.message);
       console.log(response.user);
-      auth.login(response.user.id);
+      console.log(`${response.token} from the signup form`);
+      auth.login(response.user.id , response.token);
       navigateBackOrHome();
     }
   };

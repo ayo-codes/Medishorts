@@ -45,6 +45,7 @@ export const medishortsService = {
         state: true,
         message: response.data.message,
         user: response.data.user,
+        token: response.data.token,
       };
     } catch (error) {
       console.log(error);
@@ -65,7 +66,7 @@ export const medishortsService = {
       console.log(userCredentials);
       console.log("I am in the Service file and I am logging in a user");
       console.log(response);
-      return {state: true , message: response.data.message , user: response.data.user};
+      return {state: true , message: response.data.message , user: response.data.user , token: response.data.token};
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
@@ -87,7 +88,7 @@ export const medishortsService = {
     }
   },
 
-  async createProductRequest(productName, genericName, costPrice, expiryDate , productRequestCreator) {
+  async createProductRequest(productName, genericName, costPrice, expiryDate , productRequestCreator , token) {
     const newProductRequest = {
       productName: productName,
       genericName: genericName,
@@ -98,7 +99,7 @@ export const medishortsService = {
     try {
       const response = await axios.post(
         `${this.baseUrl}api/product-requests/`,
-        newProductRequest
+        newProductRequest , token
       );
       console.log(response);
       console.log(

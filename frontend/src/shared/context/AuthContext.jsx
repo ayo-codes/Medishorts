@@ -5,26 +5,28 @@ import PropTypes from "prop-types";
 export const AuthContext = createContext(null);
 
 const AuthContextProvider = ({ children }) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState("");
 
   const [userId, setUserId] = useState(null);
 
-const login = useCallback((uid) => {
-  setIsLoggedIn(true);
+const login = useCallback((uid ,token) => {
+  setToken(token);
   setUserId(uid); // sets userId to the id of the user 
   console.log("Logging in... from AuthContextProvider");
   console.log(uid);
+  console.log(token);
 },[]);
 
 const logout = useCallback(() => {
-  setIsLoggedIn(false);
+  setToken(null);
   setUserId(null);
 },[]);
 
   return (
       <AuthContext.Provider
         value={{
-          isLoggedIn,
+          isLoggedIn: !!token,
+          token,
           userId,
           login,
           logout
@@ -42,7 +44,7 @@ AuthContextProvider.propTypes = {
 export default AuthContextProvider;
 
 // {
-//   isLoggedIn: false,
+//   token: false,
 //   login: () => {},
 //   logout: () => {},
 // }
