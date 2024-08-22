@@ -41,7 +41,7 @@ const UserProductRequests = (props) => {
     };
 
     sendRequest();
-  }, [userId]);
+  }, [userId, auth.token]);
   return (
     <>
       {isLoading && <p>Loading...</p>}
