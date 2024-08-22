@@ -1,6 +1,8 @@
 const uuid = require("uuid").v4;
 const { validationResult } = require("express-validator");
 const bcrypt = require("bcryptjs");
+const jwt = require("jsonwebtoken");
+
 
 const User = require("../models/user");
 const ApiHttpError = require("../models/api-http-error");
@@ -99,7 +101,16 @@ const signup = async (req, res, next) => {
     return next(new ApiHttpError("Could not create a new account, please try again", 500));
   }
 
- return res.status(201).json({user: newUser.toObject({getters: true})});
+  let token;
+  try {
+    token = jwt.sign(
+      {userId: newUser.id, email: newUser.email},process.env.JWT_KEY, {expiresIn: "2h"})
+  } catch (err) {
+    const error = new ApiHttpError("Signing up failed, please try again", 500);
+    return next(error);
+  }
+
+ return res.status(201).json({user: newUser.toObject({getters: true}), token: token});
 };
 
 
@@ -135,7 +146,16 @@ const login = async (req, res, next) => {
     return next(new ApiHttpError("Invalid credentials, could not log you in", 401));
   }
 
-  return res.json({message: "Logged in!", user: existingUser.toObject({getters: true})});
+  let token;
+  try {
+    token = jwt.sign(
+      {userId: newUser.id, email: newUser.email},process.env.JWT_KEY, {expiresIn: "2h"})
+  } catch (err) {
+    const error = new ApiHttpError("Login failed, please try again", 500);
+    return next(error);
+  }
+
+  return res.json({message: "Logged in!", user: existingUser.toObject({getters: true}), token: token});
 };
 
 exports.getAllUsers = getAllUsers;
