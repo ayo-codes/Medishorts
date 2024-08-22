@@ -33,6 +33,13 @@ const ProductRequests = () => {
     sendRequest();
   }, []);
 
+  const productRequestDeleteHandler = (deletedProductRequestId) => {
+    console.log("Deleting product request...");
+    setLoadedProductRequests((prevProductRequests) => {
+      return prevProductRequests.filter((productRequest) => productRequest.id !== deletedProductRequestId); 
+  }
+)}
+
   const DUMMY_PRODUCT_REQUESTS = DummyProductRequestData.slice(0, 10);
 
 
@@ -41,7 +48,7 @@ const ProductRequests = () => {
       <h1>Product Requests</h1>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {!isLoading && loadedProductRequests && <ProductRequestsList items={loadedProductRequests} />}
+      {!isLoading && loadedProductRequests && <ProductRequestsList items={loadedProductRequests} onDeleteProductRequest={productRequestDeleteHandler} />}
     </div>
   );
 }

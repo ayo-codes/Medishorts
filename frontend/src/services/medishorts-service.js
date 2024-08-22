@@ -174,4 +174,20 @@ export const medishortsService = {
     }
   },
 
+  async deleteProductRequest(productRequestId) {
+    try {
+      const response = await axios.delete(
+        `${this.baseUrl}api/product-requests/${productRequestId}`
+      );
+      console.log(
+        "I am in the Service file and I am deleting a product request"
+      );
+      console.log(response);
+      return { state: true, message: response.data.message };
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  },
+
 };

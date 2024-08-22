@@ -2,7 +2,9 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useState ,useContext} from "react";
 import { Box, Button, Modal, Typography } from "@mui/material";
+
 import  { AuthContext }  from "../../shared/context/AuthContext";
+import { medishortsService } from "../../services/medishorts-service";
 
 const style = {
   position: "absolute",
@@ -20,12 +22,26 @@ const ProductRequestItem = (props) => {
   const auth = useContext(AuthContext);
   console.log(auth);
 
+  // Manages the state of the modal
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
-  const handleConfirmDelete = () => {
-    console.log("Deleting product request...");
+
+  const handleConfirmDelete = async () => {
     setOpen(false);
+    console.log("Deleting product request...");
+    const response =  await medishortsService.deleteProductRequest(props.id);
+    props.onDelete(props.id)
+    console.log(response);
+    if (response.state !== true) {
+      console.log(response.error);
+    }
+
+    if (response.state === true) {
+      console.log(response.message);
+      
+    }  
+
   };
     
   return (
@@ -82,7 +98,7 @@ ProductRequestItem.propTypes = {
   costPrice: PropTypes.number.isRequired,
   expiryDate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-
+  onDelete: PropTypes.func.isRequired,
 };
 
 export default ProductRequestItem;
