@@ -37,7 +37,8 @@ const ProductRequestItem = (props) => {
         <div>
           <h3>Product Name: {props.productName}</h3>
           <h3>Generic Name: {props.genericName}</h3>
-          <h3>Pack Size: {props.packSize}</h3>
+          <h3>Cost Price: {props.costPrice}</h3>
+          <h3>Expiry Date: {props.expiryDate}</h3>
           <br></br>
           <Link to={`/product-requests/${props.id}`}>
             <button>View</button>
@@ -46,8 +47,12 @@ const ProductRequestItem = (props) => {
         <div>
           {auth.isLoggedIn && 
           <button>Approve</button>}
+          
           {auth.isLoggedIn &&
-          <Button href={`/product-requests/${props.id}`}>Edit</Button>}
+          <Link to={`/product-requests/${props.id}`}>
+          <Button>Edit</Button>
+          </Link>}
+
           {auth.isLoggedIn &&
           <Button onClick={handleOpen}>Delete</Button>}
           <Modal
@@ -74,8 +79,10 @@ const ProductRequestItem = (props) => {
 ProductRequestItem.propTypes = {
   productName: PropTypes.string.isRequired,
   genericName: PropTypes.string.isRequired,
-  packSize: PropTypes.number.isRequired,
+  costPrice: PropTypes.number.isRequired,
+  expiryDate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
+
 };
 
 export default ProductRequestItem;

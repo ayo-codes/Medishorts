@@ -29,7 +29,8 @@ const ProductRequestsList = (props) => {
             id= {productRequest.id} 
             productName={productRequest.productName} 
             genericName={productRequest.genericName}
-            packSize={productRequest.packSize}
+            costPrice={productRequest.costPrice}
+            expiryDate={productRequest.expiryDate}
             />
           ))}
         </ul>

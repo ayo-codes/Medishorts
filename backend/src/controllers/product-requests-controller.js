@@ -24,7 +24,7 @@ const getAllProductRequests = async (req, res, next) => {
   }
 
   console.log(`Request received from ${req.headers.host + req.url}`);
-  return res.json({ productRequests: productRequests });
+  return res.json({ productRequests: productRequests.map(productRequest => productRequest.toObject({ getters: true })) });
 };
 
 
@@ -150,7 +150,8 @@ const updateProductRequestById = async (req, res, next) => {
   }
 
   const { productRequestId } = req.params; // productRequestId
-  const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
+  // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
+  const { productName, genericName,  costPrice , expiryDate } = req.body;
 
   let updatedProductRequest;
   try {
@@ -160,17 +161,23 @@ const updateProductRequestById = async (req, res, next) => {
     return next(new ApiHttpError("Could not update the product request, please try again", 500));
   }
 
+  // updatedProductRequest.productName = productName;
+  // updatedProductRequest.genericName = genericName;
+  // updatedProductRequest.packSize = packSize;
+  // updatedProductRequest.gmsNo = gmsNo;
+  // updatedProductRequest.costPrice = costPrice;
+  // updatedProductRequest.vatRate = vatRate;
+  // updatedProductRequest.manufacturer = manufacturer;
+  // updatedProductRequest.legalCategory = legalCategory;
+  // updatedProductRequest.barcode = barcode;
+  // updatedProductRequest.ipuCode = ipuCode;
+  // updatedProductRequest.user = user;
+
   updatedProductRequest.productName = productName;
   updatedProductRequest.genericName = genericName;
-  updatedProductRequest.packSize = packSize;
-  updatedProductRequest.gmsNo = gmsNo;
   updatedProductRequest.costPrice = costPrice;
-  updatedProductRequest.vatRate = vatRate;
-  updatedProductRequest.manufacturer = manufacturer;
-  updatedProductRequest.legalCategory = legalCategory;
-  updatedProductRequest.barcode = barcode;
-  updatedProductRequest.ipuCode = ipuCode;
-  updatedProductRequest.user = user;
+  updatedProductRequest.expiryDate = expiryDate;
+
 
 try {
   await updatedProductRequest.save();

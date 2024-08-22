@@ -21,7 +21,7 @@ router.get("/user/:userId", productRequestsControllers.getProductRequestsByUserI
 router.get("/:productRequestId", productRequestsControllers.getProductRequestById);
 
 // UPDATE A PRODUCT REQUEST BY ID
-router.patch("/:productRequestId", [check("productName").notEmpty(), check("genericName").notEmpty(), check("packSize").notEmpty()], productRequestsControllers.updateProductRequestById);
+router.patch("/:productRequestId", [check("productName").notEmpty(), check("genericName").notEmpty(),], productRequestsControllers.updateProductRequestById);
 
 // DELETE A PRODUCT REQUEST BY ID
 router.delete("/:productRequestId", productRequestsControllers.deleteProductRequestById);

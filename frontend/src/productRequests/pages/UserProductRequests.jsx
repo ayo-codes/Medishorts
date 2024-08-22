@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
-import PropTypes from "prop-types";
 import { useParams } from "react-router-dom";
+
+import PropTypes from "prop-types";
+
 import ProductRequestsList from "../components/ProductRequestsList";
 import { medishortsService } from "../../services/medishorts-service";
 

@@ -129,5 +129,49 @@ export const medishortsService = {
       console.log(error);
       return { state: false, error: error.response.data.message };
     }
-  }
+  },
+
+  async getProductRequestById(productRequestId) {
+    try {
+      const response = await axios.get(
+        `${this.baseUrl}api/product-requests/${productRequestId}`
+      );
+      console.log(
+        "I am in the Service file and I am fetching a product request by id"
+      );
+      console.log(response);
+      return { productRequest: response.data.productRequest, state: true };
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  },
+
+  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate) {
+    const updatedProductRequest = {
+      productName: productName,
+      genericName: genericName,
+      costPrice: costPrice,
+      expiryDate: expiryDate,
+    };
+    try {
+      const response = await axios.patch(
+        `${this.baseUrl}api/product-requests/${productRequestId}`,
+        updatedProductRequest
+      );
+      console.log(
+        "I am in the Service file and I am updating a product request"
+      );
+      console.log(response);
+      return {
+        state: true,
+        message: response.data.message,
+        productRequest: response.data.productRequest,
+      };
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  },
+
 };
