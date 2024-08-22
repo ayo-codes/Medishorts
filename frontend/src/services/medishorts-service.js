@@ -176,7 +176,7 @@ export const medishortsService = {
     }
   },
 
-  async deleteProductRequest(productRequestId) {
+  async deleteProductRequest(productRequestId, token) {
     try {
       const response = await axios.delete(
         `${this.baseUrl}api/product-requests/${productRequestId}`,
