@@ -13,11 +13,17 @@ const NavLinks = (props) => {
         </NavLink>
       </li>
       <li>
-        <NavLink to="/product-requests">Product Requests</NavLink>
+        <NavLink to="/product-requests">All Product Requests</NavLink>
       </li>
+      {auth.isLoggedIn && ( 
       <li>
+        <NavLink to={`/${auth.userId}/product-requests`}>Your Product Requests</NavLink>
+      </li>)}
+      {auth.isLoggedIn && (
+        <li>
         <NavLink to="/product-requests/new">Add Product Request</NavLink>
       </li>
+      )}
       <li>
         <NavLink to="/products">Products</NavLink>
       </li>
