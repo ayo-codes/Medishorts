@@ -55,13 +55,14 @@ const ProductRequestItem = (props) => {
           <h3>Generic Name: {props.genericName}</h3>
           <h3>Cost Price: {props.costPrice}</h3>
           <h3>Expiry Date: {props.expiryDate}</h3>
+          <h3>Product Request Creator: {props.productRequestCreator}</h3>
           <br></br>
           <Link to={`/product-requests/${props.id}`}>
             <button>View</button>
           </Link>
         </div>
         <div>
-          {auth.isLoggedIn && 
+          {auth.userId === props.productRequestCreator && 
           <button>Approve</button>}
           
           {auth.isLoggedIn &&
@@ -99,6 +100,7 @@ ProductRequestItem.propTypes = {
   expiryDate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
   onDelete: PropTypes.func.isRequired,
+  productRequestCreator: PropTypes.string.isRequired,
 };
 
 export default ProductRequestItem;
