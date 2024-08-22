@@ -132,10 +132,10 @@ export const medishortsService = {
     }
   },
 
-  async getProductRequestById(productRequestId) {
+  async getProductRequestById(productRequestId, token) {
     try {
       const response = await axios.get(
-        `${this.baseUrl}api/product-requests/${productRequestId}`
+        `${this.baseUrl}api/product-requests/${productRequestId}`, token
       );
       console.log(
         "I am in the Service file and I am fetching a product request by id"
@@ -148,7 +148,7 @@ export const medishortsService = {
     }
   },
 
-  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate) {
+  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate, token) {
     const updatedProductRequest = {
       productName: productName,
       genericName: genericName,
@@ -158,7 +158,8 @@ export const medishortsService = {
     try {
       const response = await axios.patch(
         `${this.baseUrl}api/product-requests/${productRequestId}`,
-        updatedProductRequest
+        updatedProductRequest,
+        token
       );
       console.log(
         "I am in the Service file and I am updating a product request"
@@ -178,7 +179,8 @@ export const medishortsService = {
   async deleteProductRequest(productRequestId) {
     try {
       const response = await axios.delete(
-        `${this.baseUrl}api/product-requests/${productRequestId}`
+        `${this.baseUrl}api/product-requests/${productRequestId}`,
+        token
       );
       console.log(
         "I am in the Service file and I am deleting a product request"

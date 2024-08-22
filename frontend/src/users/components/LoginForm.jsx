@@ -9,7 +9,7 @@ import { medishortsService } from "../../services/medishorts-service";
 
 const LoginForm = () => {
   // Gain access to object properties from the AuthContextProvider
-  const { login } = useContext(AuthContext);
+  const  auth  = useContext(AuthContext);
 
   // Set States for loading and error
   const [isLoading, setIsLoading] = useState(false);
@@ -60,7 +60,7 @@ const LoginForm = () => {
     if (response.state === true) {
       console.log("Login Successful");
       console.log(response.user.id);
-      login(response.user.id, response.token);
+      auth.login(response.user.id, response.token);
       navigateBackOrHome();
     }
   };

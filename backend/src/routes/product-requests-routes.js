@@ -14,8 +14,9 @@ router.get("/", productRequestsControllers.getAllProductRequests);
 // GET A PRODUCT REQUEST BY ID
 router.get("/:productRequestId", productRequestsControllers.getProductRequestById);
 
-// ROUTE PROTECTION MIDDLEWARE
+// ROUTE PROTECTION MIDDLEWARE - ALL ROUTES BELOW THIS LINE ARE PROTECTED
 router.use(checkAuth);
+
 
 
 // CREATE A NEW PRODUCT REQUEST
