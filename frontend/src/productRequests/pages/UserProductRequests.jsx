@@ -1,44 +1,19 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState ,useContext } from "react";
 import { useParams } from "react-router-dom";
 
 import PropTypes from "prop-types";
 
 import ProductRequestsList from "../components/ProductRequestsList";
 import { medishortsService } from "../../services/medishorts-service";
+import { AuthContext } from "../../shared/context/AuthContext";
 
-// const DUMMY_PRODUCT_REQUESTS = [
-//   {
-//     productName: "10% LPC IN BETNOVATE CREAM",
-//     genericName: "",
-//     packSize: 1,
-//     gmsNo: "",
-//     costPrice: 0,
-//     vatRate: 23,
-//     manufacturer: "",
-//     legalCategory: "",
-//     barcode: 222,
-//     ipuCode: "",
-//     user: "5f5f3b3b1f6b3b001f6b3b00",
-//     productRequestId: "5f5f3b3b1f6b3b001f6b3b44",
-//   },
-//   {
-//     productName: "12 % EUMOVATE IN PARAFFIN GEL",
-//     genericName: "",
-//     packSize: 1,
-//     gmsNo: "",
-//     costPrice: 0,
-//     vatRate: 23,
-//     manufacturer: "",
-//     legalCategory: "",
-//     barcode: 333,
-//     ipuCode: "",
-//     user: "5f5f3b3b1f6b3b001f6b3b00",
-//     productRequestId: "5f5f3b3b1f6b3b001f6b3b45",
-//   },
-// ];
+
 const UserProductRequests = (props) => {
   // GET USER ID FROM URL
   const userId = useParams().userId;
+
+  // Gain access to object properties from the AuthContextProvider
+  const auth = useContext(AuthContext);
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -48,7 +23,7 @@ const UserProductRequests = (props) => {
     const sendRequest = async () => {
       setIsLoading(true);
       const response =
-        await medishortsService.getProductRequestsByUserId(userId);
+        await medishortsService.getProductRequestsByUserId(userId , {headers: {Authorization: `Bearer ${auth.token}`}});
       console.log(response.userProductRequests);
 
       if (response.state !== true) {

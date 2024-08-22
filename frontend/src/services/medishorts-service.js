@@ -116,10 +116,11 @@ export const medishortsService = {
     }
   },
 
-  async getProductRequestsByUserId(userId) {
+  async getProductRequestsByUserId(userId ,token) {
     try {
       const response = await axios.get(
-        `${this.baseUrl}api/product-requests/user/${userId}`
+        `${this.baseUrl}api/product-requests/user/${userId}`,
+        token
       );
       console.log(
         "I am in the Service file and I am fetching product requests by user id"
