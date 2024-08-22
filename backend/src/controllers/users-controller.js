@@ -1,5 +1,6 @@
 const uuid = require("uuid").v4;
 const { validationResult } = require("express-validator");
+const bcrypt = require("bcryptjs");
 
 const User = require("../models/user");
 const ApiHttpError = require("../models/api-http-error");
@@ -66,9 +67,19 @@ const signup = async (req, res, next) => {
     return next(new ApiHttpError("User exists already, please login instead", 422));
   }
 
+  // Hash the password
+  let hashedPassword;
+  try{
+    hashedPassword = await bcrypt.hash(password, 12)
+  } catch (err) {
+    const error = new ApiHttpError("Could not create a new account, please try again", 500);
+    return next(error);
+  }
+ 
+
   const newUser = new User({
     email,
-    password,
+    password : hashedPassword,
     pharmacyPSIRegistrationNo,
     pharmacyAddress,
     pharmacyFaxNumber,
