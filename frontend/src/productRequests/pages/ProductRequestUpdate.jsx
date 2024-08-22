@@ -1,9 +1,12 @@
-import React from "react";
 import { useParams } from "react-router-dom";
+
 import ProductRequestUpdateForm from "../components/ProductRequestUpdateForm";
 
+
 const ProductRequestUpdate = () => {
-  const { productRequestId } = useParams();
+
+  const productRequestId  = useParams().productRequestId;
+  console.log(productRequestId);
 
   return (
     <>
