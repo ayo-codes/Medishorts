@@ -31,6 +31,7 @@ const ProductRequestsList = (props) => {
             genericName={productRequest.genericName}
             costPrice={productRequest.costPrice}
             expiryDate={productRequest.expiryDate}
+            productRequestCreator={productRequest.productRequestCreator}
             onDelete={props.onDeleteProductRequest}
             />
           ))}
