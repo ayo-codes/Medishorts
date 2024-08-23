@@ -136,7 +136,7 @@ const login = async (req, res, next) => {
 
 
   if (!existingUser ) {
-    return next(new ApiHttpError("Could not find user, credentials seem to be incorrect", 401));
+    return next(new ApiHttpError("Could not find user, credentials seem to be incorrect", 403));
   }
 
   let isValidPassword = false;
@@ -148,7 +148,7 @@ const login = async (req, res, next) => {
  }
 
   if (!isValidPassword) {
-    return next(new ApiHttpError("Invalid credentials, could not log you in", 401));
+    return next(new ApiHttpError("Invalid credentials, could not log you in", 403));
   }
 
   let token;
