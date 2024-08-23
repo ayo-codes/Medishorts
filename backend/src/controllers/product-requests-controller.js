@@ -103,13 +103,13 @@ const createProductRequest = async (req, res, next) => {
     genericName,
     costPrice,
     expiryDate,
-    productRequestCreator,
+    productRequestCreator : req.userData.userId, // productRequestCreator is the user id from the token
     productRequestId: uuid(),
   });
 
   let user;
   try {
-    user = await User.findById(productRequestCreator);
+    user = await User.findById(req.userData.userId); // productRequestCreator id  is the user id from the token and not what is passed in the body
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not create a new product request, please try again", 500));

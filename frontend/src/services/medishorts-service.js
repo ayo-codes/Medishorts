@@ -88,13 +88,12 @@ export const medishortsService = {
     }
   },
 
-  async createProductRequest(productName, genericName, costPrice, expiryDate , productRequestCreator , token) {
+  async createProductRequest(productName, genericName, costPrice, expiryDate, token) {
     const newProductRequest = {
       productName: productName,
       genericName: genericName,
       costPrice: costPrice,
       expiryDate: expiryDate,
-      productRequestCreator: productRequestCreator,
     };
     try {
       const response = await axios.post(

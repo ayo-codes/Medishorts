@@ -50,7 +50,6 @@ const ProductRequestForm = (props) => {
       data.genericName,
       data.costPrice,
       data.expiryDate,
-      auth.userId,
       {headers: {Authorization: `Bearer ${auth.token}`}}
     );
     setIsLoading(false);
