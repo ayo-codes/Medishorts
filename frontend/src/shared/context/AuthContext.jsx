@@ -9,6 +9,7 @@ const AuthContextProvider = ({ children }) => {
 
   const [userId, setUserId] = useState(null);
 
+
 const login = useCallback((uid ,token) => {
   setToken(token);
   setUserId(uid); // sets userId to the id of the user 
@@ -25,6 +26,15 @@ const logout = useCallback(() => {
   setToken(null);
   setUserId(null);
 },[]);
+
+// to check local storage for a token
+useEffect(() => {
+  const storedData = JSON.parse(localStorage.getItem("userData"));
+  if (storedData && storedData.token) {
+    login(storedData.userId, storedData.token);
+  }
+},[login]);
+
 
   return (
       <AuthContext.Provider
