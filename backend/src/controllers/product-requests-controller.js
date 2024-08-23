@@ -103,13 +103,13 @@ const createProductRequest = async (req, res, next) => {
     genericName,
     costPrice,
     expiryDate,
-    productRequestCreator,
+    productRequestCreator : req.userData.userId, // productRequestCreator is the user id from the token
     productRequestId: uuid(),
   });
 
   let user;
   try {
-    user = await User.findById(productRequestCreator);
+    user = await User.findById(req.userData.userId); // productRequestCreator id  is the user id from the token and not what is passed in the body
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not create a new product request, please try again", 500));
@@ -161,6 +161,12 @@ const updateProductRequestById = async (req, res, next) => {
     return next(new ApiHttpError("Could not update the product request, please try again", 500));
   }
 
+  // Check if product request creator is the product request updater 
+  if (updatedProductRequest.productRequestCreator.toString() !== req.userData.userId) {
+    return next(new ApiHttpError("You are not allowed to edit this product request", 401));
+  }
+
+  
   // updatedProductRequest.productName = productName;
   // updatedProductRequest.genericName = genericName;
   // updatedProductRequest.packSize = packSize;
@@ -200,7 +206,7 @@ const deleteProductRequestById = async (req, res, next) => {
 
   let deletedProductRequest;
   try {
-    deletedProductRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator");
+    deletedProductRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not delete the product request, please try again", 500));
@@ -208,6 +214,11 @@ const deleteProductRequestById = async (req, res, next) => {
 
   if (!deletedProductRequest) {
     return next(new ApiHttpError("Could not find any product request for the id provided", 404));
+  }
+
+  // Check if product request creator is the product request deleter- no need for toString() as Id getter returns a string
+  if (deletedProductRequest.productRequestCreator.id !== req.userData.userId) {
+    return next(new ApiHttpError("You are not allowed to delete this product request", 401));
   }
 
   let deletedProductRequestInfo;

@@ -31,7 +31,7 @@ const ProductRequestUpdateForm = (props) => {
     const sendRequest = async () => {
       setIsLoading(true);
       const response =
-        await medishortsService.getProductRequestById(productRequestId);
+        await medishortsService.getProductRequestById(productRequestId, {headers: {Authorization: `Bearer ${auth.token}`}});
       console.log(response.productRequest);
 
       if (response.state !== true) {
@@ -48,7 +48,7 @@ const ProductRequestUpdateForm = (props) => {
       }
     };
     sendRequest();
-  }, [productRequestId]);
+  }, [productRequestId ,auth.token]);
 
 
 
@@ -77,7 +77,8 @@ const ProductRequestUpdateForm = (props) => {
       data.productName,
       data.genericName,
       data.costPrice,
-      data.expiryDate
+      data.expiryDate,
+      {headers: {Authorization: `Bearer ${auth.token}`}}
     );
     setIsLoading(false);
     console.log(response);

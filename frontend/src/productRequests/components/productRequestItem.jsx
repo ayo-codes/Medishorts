@@ -30,7 +30,7 @@ const ProductRequestItem = (props) => {
   const handleConfirmDelete = async () => {
     setOpen(false);
     console.log("Deleting product request...");
-    const response =  await medishortsService.deleteProductRequest(props.id);
+    const response =  await medishortsService.deleteProductRequest(props.id , {headers: {Authorization: `Bearer ${auth.token}`}});
     props.onDelete(props.id)
     console.log(response);
     if (response.state !== true) {
