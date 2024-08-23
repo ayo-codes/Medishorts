@@ -10,12 +10,15 @@ const AuthContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(null);
 
 
-const login = useCallback((uid ,token) => {
+const login = useCallback((uid ,token , expirationDate ) => {
   setToken(token);
   setUserId(uid); // sets userId to the id of the user 
 
+  //token expiration date
+  const tokenExpirationDate = expirationDate || new Date(new Date().getTime() + 1000 * 60 * 60 *2); // 2 hours
+
   // add token to local storage
-  localStorage.setItem("userData", JSON.stringify({userId: uid, token: token}));
+  localStorage.setItem("userData", JSON.stringify({userId: uid, token: token , expiration: tokenExpirationDate.toISOString()}));
 
   console.log("Logging in... from AuthContextProvider");
   console.log(uid);
@@ -31,8 +34,8 @@ const logout = useCallback(() => {
 // to check local storage for a token
 useEffect(() => {
   const storedData = JSON.parse(localStorage.getItem("userData"));
-  if (storedData && storedData.token) {
-    login(storedData.userId, storedData.token);
+  if (storedData && storedData.token && new Date(storedData.expiration) > new Date()) {
+    login(storedData.userId, storedData.token , new Date(storedData.expiration));
   }
 },[login]);
 
