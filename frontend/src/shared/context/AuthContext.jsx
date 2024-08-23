@@ -12,6 +12,10 @@ const AuthContextProvider = ({ children }) => {
 const login = useCallback((uid ,token) => {
   setToken(token);
   setUserId(uid); // sets userId to the id of the user 
+
+  // add token to local storage
+  localStorage.setItem("userData", JSON.stringify({userId: uid, token: token}));
+
   console.log("Logging in... from AuthContextProvider");
   console.log(uid);
   console.log(token);
