@@ -161,6 +161,12 @@ const updateProductRequestById = async (req, res, next) => {
     return next(new ApiHttpError("Could not update the product request, please try again", 500));
   }
 
+  // Check if product request creator is the product request updater 
+  if (updatedProductRequest.productRequestCreator.toString() !== req.userData.userId) {
+    return next(new ApiHttpError("You are not allowed to edit this product request", 401));
+  }
+
+  
   // updatedProductRequest.productName = productName;
   // updatedProductRequest.genericName = genericName;
   // updatedProductRequest.packSize = packSize;
