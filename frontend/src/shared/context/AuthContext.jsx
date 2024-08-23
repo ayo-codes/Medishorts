@@ -25,6 +25,7 @@ const login = useCallback((uid ,token) => {
 const logout = useCallback(() => {
   setToken(null);
   setUserId(null);
+  localStorage.removeItem("userData"); // remove token from local storage
 },[]);
 
 // to check local storage for a token
