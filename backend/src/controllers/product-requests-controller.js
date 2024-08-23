@@ -206,7 +206,7 @@ const deleteProductRequestById = async (req, res, next) => {
 
   let deletedProductRequest;
   try {
-    deletedProductRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator");
+    deletedProductRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Could not delete the product request, please try again", 500));
@@ -214,6 +214,11 @@ const deleteProductRequestById = async (req, res, next) => {
 
   if (!deletedProductRequest) {
     return next(new ApiHttpError("Could not find any product request for the id provided", 404));
+  }
+
+  // Check if product request creator is the product request deleter- no need for toString() as Id getter returns a string
+  if (deletedProductRequest.productRequestCreator.id !== req.userData.userId) {
+    return next(new ApiHttpError("You are not allowed to delete this product request", 401));
   }
 
   let deletedProductRequestInfo;
