@@ -1,5 +1,7 @@
 import { useState , useContext } from "react";
 
+import { Button } from "@mui/material";
+
 import LoginForm from "../components/LoginForm";
 import SignUpForm from "../components/SignUpForm";
 
@@ -17,7 +19,7 @@ const Auth = () => {
     <>
       {isLoginMode && <LoginForm /> } 
       {!isLoginMode && <SignUpForm />}
-      <button onClick={handleSwitchMode}>Switch to {isLoginMode ? "SIGNUP" : "LOGIN"} </button>
+      <Button color="primary" variant="outlined"  onClick={handleSwitchMode}> {isLoginMode ? "Don't Have an Account? SIGNUP" : "Already Have an Account? LOGIN"} </Button>
     </>
   );
 };
