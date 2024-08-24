@@ -1,46 +1,43 @@
 import { React, useContext } from "react";
 import PropTypes from "prop-types";
 import { NavLink } from "react-router-dom";
+
+import { Button, Stack } from "@mui/material";
 import { AuthContext } from "../../context/AuthContext";
 
 const NavLinks = (props) => {
   const auth = useContext(AuthContext);
   return (
-    <ul>
-      <li>
+    <Stack direction='row' spacing={2}>
+      <Button color="inherit" >
         <NavLink to="/" exact>
           Home
-        </NavLink>
-      </li>
-      <li>
+        </NavLink>  
+      </Button>
+      <Button color="inherit" >
         <NavLink to="/product-requests">All Product Requests</NavLink>
-      </li>
+      </Button>
       {auth.isLoggedIn && ( 
-      <li>
-        <NavLink to={`/${auth.userId}/product-requests`}>Your Product Requests</NavLink>
-      </li>)}
-      {auth.isLoggedIn && (
-        <li>
-        <NavLink to="/product-requests/new">Add Product Request</NavLink>
-      </li>
+        <Button color="inherit" >
+          <NavLink to={`/${auth.userId}/product-requests`}>Your Product Requests</NavLink>
+        </Button>
       )}
-      <li>
-        <NavLink to="/products">Products</NavLink>
-      </li>
-      <li>
-        <NavLink to="/product/new">Add Product</NavLink>
-      </li>
+      {auth.isLoggedIn && (
+          <Button color = "inherit">
+          <NavLink to="/product-requests/new">Add Product Request</NavLink>
+        </Button>
+      )}
       {!auth.isLoggedIn && (
-        <li>
-          <NavLink to="/auth">Sign In</NavLink>
-        </li>
+          <Button color="inherit" variant="outlined">
+            <NavLink to="/auth">Sign In</NavLink>
+          </Button>
       )}
       {auth.isLoggedIn && (
-        <li>
-          <button onClick={auth.logout}>Logout</button>
-        </li>
-      )}
-    </ul>
+          <Button color ="inherit" variant="outlined" onClick={auth.logout}>
+            Logout
+          </Button>
+      )}    
+ </Stack> 
   );
 };
 

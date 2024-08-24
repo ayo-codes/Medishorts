@@ -1,11 +1,14 @@
 import React from "react"
 import PropTypes from "prop-types"
 import ProductRequestForm from "../components/ProductRequestForm"
+import { Typography } from "@mui/material"
 
 const ProductRequestCreate = props => {
   return (
     <>
-      <h1>ProductRequestCreate</h1>
+      <Typography variant="h4" gutterBottom>
+        Add Product Request
+      </Typography>
       <ProductRequestForm />
     </>
     

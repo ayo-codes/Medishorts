@@ -1,6 +1,7 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { Stack , Button } from "@mui/material";
 
 import MainHeader from "./MainHeader";
 import NavLinks from "./NavLinks";
@@ -28,15 +29,9 @@ const MainNavigation = (props) => {
           </nav>
         </SideDrawer>
       ) : null}
-      <MainHeader>
-        <button onClick={openDrawerHandler}>
-          <span />
-          <span />
-          <span />
-        </button>
-        <h4>
-          <Link to="/"> Page Title/ Product Request </Link>
-        </h4>
+      <MainHeader >
+        <Button onClick={openDrawerHandler}>          
+        </Button>
         <nav>
           <NavLinks />
         </nav>
