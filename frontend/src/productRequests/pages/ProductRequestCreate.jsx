@@ -6,8 +6,8 @@ import { Typography } from "@mui/material"
 const ProductRequestCreate = props => {
   return (
     <>
-      <Typography variant="h4" gutterBottom>
-        Add Product Request
+      <Typography variant="h4" align="center" marginTop={4} gutterBottom >
+        Add a Product Request
       </Typography>
       <ProductRequestForm />
     </>
