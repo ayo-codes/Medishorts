@@ -17,7 +17,7 @@ const Auth = () => {
       {isLoginMode && <LoginForm />}
       {!isLoginMode && <SignUpForm />}
 
-      <Box display="flex" justifyContent="center" margin={-2}>
+      <Box display="flex" justifyContent="center" margin={1}>
         <Button color="primary" variant="outlined" onClick={handleSwitchMode}>
           {" "}
           {isLoginMode

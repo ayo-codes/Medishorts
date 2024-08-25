@@ -118,14 +118,22 @@ const SignUpForm = () => {
       alignItems="center"
       height="100vh"
     >
-      <Paper elevation={3} sx={{ padding: 4, maxWidth: 400, width: "100%" , maxHeight:"90vh", overflow:"auto"}}>
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 4,
+          maxWidth: 400,
+          width: "100%",
+          maxHeight: "90vh",
+          overflow: "auto",
+        }}
+      >
         <Typography align="center" variant="h5" gutterBottom>
           Create Your Account
         </Typography>
-        
+
         {/* Form Submission logic and using the handleSubmit method from useForm */}
         <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
-          
           {/* Email */}
           <Box mb={2}>
             <TextField
@@ -221,6 +229,11 @@ const SignUpForm = () => {
               size="small"
               variant="outlined"
               placeholder="Pharmacy PSI Number"
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  { display: "none" },
+                "& input[type=number]": { MozAppearance: "textfield" },
+              }}
               error={errors.pharmacyPSIRegistrationNo ? true : false}
               helperText={
                 errors.pharmacyPSIRegistrationNo
@@ -408,7 +421,7 @@ const SignUpForm = () => {
 
           {/* Manage Error Messages */}
           <Box>{error && <Typography variant="h6">{error}</Typography>}</Box>
-          
+
           {/* Manage the button state based on user actions */}
           <Box mb={2}>
             <Button
