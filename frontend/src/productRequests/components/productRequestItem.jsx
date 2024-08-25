@@ -1,9 +1,9 @@
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { useState ,useContext} from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { useState, useContext } from "react";
+import { Box, Button, Modal, Typography, Paper } from "@mui/material";
 
-import  { AuthContext }  from "../../shared/context/AuthContext";
+import { AuthContext } from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
 
 const style = {
@@ -30,8 +30,10 @@ const ProductRequestItem = (props) => {
   const handleConfirmDelete = async () => {
     setOpen(false);
     console.log("Deleting product request...");
-    const response =  await medishortsService.deleteProductRequest(props.id , {headers: {Authorization: `Bearer ${auth.token}`}});
-    props.onDelete(props.id)
+    const response = await medishortsService.deleteProductRequest(props.id, {
+      headers: { Authorization: `Bearer ${auth.token}` },
+    });
+    props.onDelete(props.id);
     console.log(response);
     if (response.state !== true) {
       console.log(response.error);
@@ -39,57 +41,65 @@ const ProductRequestItem = (props) => {
 
     if (response.state === true) {
       console.log(response.message);
-      
-    }  
-
+    }
   };
-    
+
   return (
-    <>
-      <div>
-        <h3>Product Request Item</h3>
-      </div>
-      <li>
-        <div>
-          <h3>Product Name: {props.productName}</h3>
-          <h3>Generic Name: {props.genericName}</h3>
-          <h3>Cost Price: {props.costPrice}</h3>
-          <h3>Expiry Date: {props.expiryDate}</h3>
-          <h3>Product Request Creator: {props.productRequestCreator}</h3>
-          <br></br>
+    <Box
+    fixedWidth={400}
+    alignItems="center"
+    justifyContent="center"
+    >
+      <Box 
+      sx={{paddingLeft :"25%", paddingRight: "25%" , paddingBottom:"1%"}}
+      component="div"
+
+      margin={1}
+      >
+        <Paper alignItems="center" justifyContent="center" elevation={3} sx={{ paddingLeft: 4, maxWidth: 600, width: "100%" }}>
+          <Typography variant="h6" m={0.25} p={0.5} >Product Name: {props.productName}</Typography>
+          <Typography variant="body1"  m={0.25} p={0.5} >Generic Name: {props.genericName}</Typography>
+          <Typography m={0.25} p={0.5}  >Cost Price: €{props.costPrice}</Typography>
+          <Typography m={0.25} p={0.5}  >Expiry Date: {`${String(props.expiryDate).substring(0, 10)}`} </Typography>
+          <Typography m={0.25} p={0.5} >
+            Product Request Creator: {props.productRequestCreator}
+          </Typography>
+
           <Link to={`/product-requests/${props.id}`}>
-            <button>View</button>
+            <Button>View</Button>
           </Link>
-        </div>
-        <div>
-          {auth.userId === props.productRequestCreator && 
-          <button>Approve</button>}
-          
-          {auth.isLoggedIn &&
-          <Link to={`/product-requests/${props.id}`}>
-          <Button>Edit</Button>
-          </Link>}
 
-          {auth.isLoggedIn &&
-          <Button onClick={handleOpen}>Delete</Button>}
-          <Modal
-            open={open}
-            onClose={handleClose}
-            aria-labelledby="modal-modal-title"
-            aria-describedby="modal-modal-description"
-          >
-          <Box sx={style}>
+          {auth.userId === props.productRequestCreator && (
+            <Button>Approve</Button>
+          )}
+
+          {auth.userId === props.productRequestCreator && (
+            <Link to={`/product-requests/${props.id}`}>
+              <Button>Edit</Button>
+            </Link>
+          )}
+
+          {auth.userId === props.productRequestCreator && (
+            <Button onClick={handleOpen}>Delete</Button>
+          )}
+        </Paper>
+      </Box>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-              Are you sure you want to delete this product request?
-            </Typography>
-            <Button onClick={handleClose}>Cancel</Button>
-            <Button onClick={handleConfirmDelete}>Delete</Button>
-          </Box>
-
-          </Modal>
-        </div>
-      </li>
-    </>
+            Are you sure you want to delete this product request?
+          </Typography>
+          <Button onClick={handleClose}>Cancel</Button>
+          <Button onClick={handleConfirmDelete}>Delete</Button>
+        </Box>
+      </Modal>
+    </Box>
   );
 };
 

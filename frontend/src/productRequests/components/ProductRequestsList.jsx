@@ -1,42 +1,57 @@
 import PropTypes from "prop-types";
 import ProductRequestItem from "./ProductRequestItem";
+import {
+  Typography,
+  Box,
+  Stack,
+  Table,
+  TableContainer,
+  TableHead,
+  TableCell,
+  TableRow,
+  Paper,
+  TableBody,
+  Button,
+} from "@mui/material";
+
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../../shared/context/AuthContext";
 
 const ProductRequestsList = (props) => {
+  const auth = useContext(AuthContext);
+
   if (props.items.length === 0) {
     return (
-      <>
-        <div>
-          <h1>Product Requests List</h1>
-        </div>
-        <div>
-          <h2>No product Requests Found.</h2>
-          <button>Add a Product Request </button>
-        </div>
-      </>
+      <Box>
+        <Box>
+          <Typography variant="h3">Product Requests List</Typography>
+        </Box>
+        <Box>
+          <Typography variant="h2">No product Requests Found.</Typography>
+          <Button>Add a Product Request </Button>
+        </Box>
+      </Box>
     );
   }
 
   console.log(props.items);
   return (
     <>
-      <div>
-        <h2>Product Requests List</h2>
-      </div>
-      <div>
-        <ul>
-          {props.items.map((productRequest) => (
-            <ProductRequestItem key={productRequest.id}
-            id= {productRequest.id} 
-            productName={productRequest.productName} 
+      <Box>
+        {props.items.map((productRequest) => (
+          <ProductRequestItem
+            key={productRequest.id}
+            id={productRequest.id}
+            productName={productRequest.productName}
             genericName={productRequest.genericName}
             costPrice={productRequest.costPrice}
             expiryDate={productRequest.expiryDate}
             productRequestCreator={productRequest.productRequestCreator}
             onDelete={props.onDeleteProductRequest}
-            />
-          ))}
-        </ul>
-      </div>
+          />
+        ))}
+      </Box>
     </>
   );
 };

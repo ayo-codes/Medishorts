@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { medishortsService } from "../../services/medishorts-service";
-import ProductRequestsList from "../components/ProductRequestsList";
+import ProductRequestsListTable from "../components/ProductRequestsListTable";
 import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
 import { Box , Typography } from "@mui/material";
 
-const ProductRequests = () => {
+const ProductRequestsTable = () => {
 
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -47,16 +47,11 @@ const ProductRequests = () => {
   return (
     <Box>
       {/* <Typography>Product Requests</Typography> */}
-      <Box>
-        <Typography variant="h3" align="center" m={2}>
-          All Product Requests
-        </Typography>
-      </Box>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {!isLoading && loadedProductRequests && <ProductRequestsList items={loadedProductRequests} onDeleteProductRequest={productRequestDeleteHandler} />}
+      {!isLoading && loadedProductRequests && <ProductRequestsListTable items={loadedProductRequests} onDeleteProductRequest={productRequestDeleteHandler} />}
     </Box>
   );
 }
 
-export default ProductRequests;
+export default ProductRequestsTable;

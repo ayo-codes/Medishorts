@@ -1,6 +1,8 @@
 import { useEffect, useState ,useContext } from "react";
 import { useParams } from "react-router-dom";
 
+import { Box, Typography } from "@mui/material";
+
 import PropTypes from "prop-types";
 
 import ProductRequestsList from "../components/ProductRequestsList";
@@ -44,6 +46,11 @@ const UserProductRequests = (props) => {
   }, [userId, auth.token]);
   return (
     <>
+          <Box>
+        <Typography variant="h3" align="center" m={2}>
+          Your Product Requests 
+        </Typography>
+      </Box>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
       {!isLoading && loadedProductRequests && (
