@@ -1,6 +1,11 @@
 import { useEffect, useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { useForm, Controller } from "react-hook-form";
+import { useForm, useController, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { DevTool } from "@hookform/devtools";
 import DummyProductsData from "../../../../backend/src/dummy_data/productsList/productsList.json";
@@ -13,6 +18,7 @@ import {
   Paper,
   CircularProgress,
   Button,
+  InputAdornment
 } from "@mui/material";
 
 import { AuthContext } from "../../shared/context/AuthContext";
@@ -27,6 +33,10 @@ const ProductRequestForm = (props) => {
   const [inputValue, setInputValue] = useState("");
   const [selectedProduct, setSelectedProduct] = useState(null);
 
+  // Use Navigate
+  const navigate = useNavigate();
+
+  // Product Data List
   const options = DummyProductsData.slice(900, 1000);
 
   const filterOptions = (options, { inputValue }) => {
@@ -44,7 +54,7 @@ const ProductRequestForm = (props) => {
       productName: "",
       genericName: "",
       costPrice: 0.0,
-      expiryDate: new Date(),
+      expiryDate: null,
     };
   };
   // The destructuring of values from the useForm hook
@@ -63,6 +73,7 @@ const ProductRequestForm = (props) => {
 
   // Function to handle the form submission
   const onSubmitCreateProductRequest = async (data) => {
+    setSelectedProduct(null);
     setError(null);
     setIsLoading(true);
     console.log(data);
@@ -86,6 +97,7 @@ const ProductRequestForm = (props) => {
       console.log(response.message);
       console.log(response.productRequest);
       console.log("Product Request created successfully");
+      navigate(`/${auth.userId}/product-requests`);
     }
   };
 
@@ -95,9 +107,24 @@ const ProductRequestForm = (props) => {
   // useEffect to handle the form reset
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      reset({
+        productName: "",
+        genericName: "",
+        costPrice: 0,
+      });
     }
-  }, [isSubmitSuccessful, reset]);
+  }, [isSubmitSuccessful, reset, selectedProduct]);
+
+  // use effect to manage the new product selection
+  useEffect(() => {
+    if (selectedProduct) {
+      reset({
+        productName: selectedProduct.productName,
+        genericName: selectedProduct.genericName,
+        costPrice: selectedProduct.costPrice,
+      });
+    }
+  }, [selectedProduct, reset, isSubmitSuccessful]);
 
   return (
     <Box
@@ -132,7 +159,7 @@ const ProductRequestForm = (props) => {
                 required: "Product Name is required",
                 minLength: { value: 3, message: "Min length is 3" },
               }}
-              render={({ field: { onChange, ...fieldProps } }) => {
+              render={({ field: { onChange, value, ...fieldProps } }) => {
                 return (
                   <Autocomplete
                     options={options}
@@ -166,17 +193,10 @@ const ProductRequestForm = (props) => {
                         variant="outlined"
                         size="small"
                         id="productName"
-                        label="Product Name"
-                        placeholder="Product Name"
+                        label={value ? "" : "Product Name"}
+                        placeholder={value ? "" : "Product Name"}
                         error={errors.productName ? true : false}
                         helperText={errors.productName?.message}
-                        {...register("productName", {
-                          required: {
-                            value: true,
-                            message: "Product Name is required",
-                          },
-                          minLength: { value: 3, message: "Min length is 3" },
-                        })}
                       />
                     )}
                     {...fieldProps}
@@ -202,14 +222,13 @@ const ProductRequestForm = (props) => {
                 errors.genericName ? errors.genericName.message : null
               }
               {...register("genericName", {
-                required: { value: true, message: "Pharmacy Name is required" },
+                required: { value: true, message: "Generic Name is required" },
                 minLength: { value: 5, message: " Min length is 5" },
               })}
             />
           </Box>
 
           {/* Cost Price */}
-
           <Box mb={2}>
             <TextField
               fullWidth
@@ -219,7 +238,7 @@ const ProductRequestForm = (props) => {
               id="costPrice"
               label="Cost Price"
               placeholder="Cost Price"
-              value={selectedProduct ? selectedProduct.costPrice : 0 }
+              value={selectedProduct ? selectedProduct.costPrice : 0}
               error={errors.costPrice ? true : false}
               helperText={errors.costPrice ? errors.costPrice.message : null}
               step={0.01}
@@ -228,6 +247,11 @@ const ProductRequestForm = (props) => {
                   { display: "none" },
                 "& input[type=number]": { MozAppearance: "textfield" },
               }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">€</InputAdornment>
+                ),
+              }}
               {...register("costPrice", {
                 required: { value: true, message: "Pharmacy Name is required" },
                 minLength: { value: 5, message: " Min length is 5" },
@@ -235,33 +259,53 @@ const ProductRequestForm = (props) => {
             />
           </Box>
 
-
-          <label htmlFor="expiryDate"> Expiry Date</label>
-          <input
-            type="date"
-            id="expiryDate"
-            {...register("expiryDate", {
+          <Controller
+            name="expiryDate"
+            control={control}
+            rules={{
               disabled: watch("costPrice") === "",
               valueAsDate: true,
               required: { value: true, message: "Expiry Date is required" },
-            })}
-            placeholder=""
+            }}
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  fullWidth
+                  type="date"
+                  size="small"
+                  variant="outlined"
+                  id="expiryDate"
+                  label="Expiry Date"
+                  value={value}
+                  onChange={onChange}
+                  error={errors.expiryDate ? true : false}
+                  helperText={
+                    errors.expiryDate ? errors.expiryDate.message : null
+                  }
+                />
+              </LocalizationProvider>
+            )}
           />
-          <br />
-          <br />
-          <span>{errors.costPrice?.message}</span>
-          <br />
-          <br />
-          {isLoading && <p>Loading...</p>}
-          {error && <p>{error}</p>}
+
+          {/* Manage Loading Icon */}
+          <Box justifyContent="center" sx={{ display: "flex" }}>
+            {isLoading && <CircularProgress />}
+          </Box>
+
+          {/* Manage Error Messages */}
+          <Box>{error && <Typography variant="h6">{error}</Typography>}</Box>
+
           {/* Manage the button state based on user actions */}
-          <input
-            disabled={!isDirty || !isValid || isSubmitting}
-            type="submit"
-          />
-          <button type="button" onClick={() => reset()}>
-            Reset
-          </button>
+          <Box mt={4} textAlign="center">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+            >
+              Add a Product Request
+            </Button>
+          </Box>
         </form>
 
         {/* To manage the devtool visuals */}
