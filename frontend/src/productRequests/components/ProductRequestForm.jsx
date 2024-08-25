@@ -235,24 +235,7 @@ const ProductRequestForm = (props) => {
             />
           </Box>
 
-          {/* Cost Price
-          <label htmlFor="costPrice">CostPrice</label>
-          <input
-            type="number"
-            id="costPrice"
-            step={0.01}
-            {...register("costPrice", {
-              valueAsNumber: true,
-              required: { value: true, message: "Cost Price is required" },
-              maxLength: { value: 6, message: "Max length is 6" },
-            })}
-            placeholder="Cost Price"
-          />
-          <br />
-          <br />
-          <span>{errors.costPrice?.message}</span>
-          <br />
-          <br /> */}
+
           <label htmlFor="expiryDate"> Expiry Date</label>
           <input
             type="date"
