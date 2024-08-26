@@ -14,6 +14,7 @@ const productRequestSchema = new Schema({
   barcode: { type: Number, required: false },
   ipuCode: { type: Number, required: false },
   expiryDate: { type: Date, required: true },
+  shortProduct: { type: Boolean, required: false },
   productRequestCreator: { type: mongoose.Types.ObjectId, required: true , ref: "User" },
 });
 
