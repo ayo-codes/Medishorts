@@ -17,6 +17,9 @@ const NavLinks = (props) => {
       <Button color="inherit" >
         <NavLink to="/product-requests">All Product Requests</NavLink>
       </Button>
+      <Button color="inherit" >
+        <NavLink to="/product-requests-table">Product Request Table</NavLink>
+      </Button>
       {auth.isLoggedIn && ( 
         <Button color="inherit" >
           <NavLink to={`/${auth.userId}/product-requests`}>Your Product Requests</NavLink>
