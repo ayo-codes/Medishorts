@@ -102,12 +102,13 @@ export const medishortsService = {
     }
   },
 
-  async createProductRequest(productName, genericName, costPrice, expiryDate, token) {
+  async createProductRequest(productName, genericName, costPrice, expiryDate, shortProduct,  token) {
     const newProductRequest = {
       productName: productName,
       genericName: genericName,
       costPrice: costPrice,
       expiryDate: expiryDate,
+      shortProduct: shortProduct,
     };
     try {
       const response = await axios.post(
@@ -162,12 +163,14 @@ export const medishortsService = {
     }
   },
 
-  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate, token) {
+  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate, shortProduct,  token) {
     const updatedProductRequest = {
       productName: productName,
       genericName: genericName,
       costPrice: costPrice,
       expiryDate: expiryDate,
+      shortProduct: shortProduct,
+      
     };
     try {
       const response = await axios.patch(

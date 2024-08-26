@@ -82,7 +82,7 @@ const createProductRequest = async (req, res, next) => {
   }
 
   // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, productRequestCreator } = req.body;
-  const { productName, genericName,  costPrice, expiryDate, productRequestCreator } = req.body;
+  const { productName, genericName,  costPrice, expiryDate, shortProduct,  productRequestCreator } = req.body;
 
   // const newProductRequest = new ProductRequest({
   //   productName,
@@ -103,6 +103,7 @@ const createProductRequest = async (req, res, next) => {
     genericName,
     costPrice,
     expiryDate,
+    shortProduct,
     productRequestCreator : req.userData.userId, // productRequestCreator is the user id from the token
     productRequestId: uuid(),
   });
