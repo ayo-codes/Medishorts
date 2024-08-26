@@ -253,7 +253,7 @@ const ProductRequestForm = (props) => {
                 ),
               }}
               {...register("costPrice", {
-                required: { value: true, message: "Pharmacy Name is required" },
+                required: { value: true, message: "Cost Price is required" },
                 minLength: { value: 5, message: " Min length is 5" },
               })}
             />
