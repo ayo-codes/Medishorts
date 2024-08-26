@@ -10,15 +10,15 @@ const NavLinks = (props) => {
   return (
     <Stack direction='row' spacing={2}>
       <Button color="inherit" >
-        <NavLink to="/" exact>
-          Home
+        <NavLink to="/shorts" exact>
+          Short Meds 
         </NavLink>  
       </Button>
       <Button color="inherit" >
-        <NavLink to="/product-requests">All Product Requests</NavLink>
+        <NavLink to="/product-requests">Product Requests</NavLink>
       </Button>
       <Button color="inherit" >
-        <NavLink to="/product-requests-table">Product Request Table</NavLink>
+        <NavLink to="/product-requests-table">Product Requests Table</NavLink>
       </Button>
       {auth.isLoggedIn && ( 
         <Button color="inherit" >
