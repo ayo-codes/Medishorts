@@ -84,6 +84,7 @@ const ProductRequestForm = (props) => {
       data.genericName,
       data.costPrice,
       data.expiryDate,
+      true,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
