@@ -165,6 +165,7 @@ const ProductRequestUpdateForm = (props) => {
             {/* Product Name */}
             <Box mb={2}>
               <TextField
+                autoFocus={true}
                 fullWidth
                 type="text"
                 id="productName"
@@ -189,6 +190,7 @@ const ProductRequestUpdateForm = (props) => {
             {/* Generic Name */}
             <Box mb={2}>
               <TextField
+                autoFocus={true}
                 fullWidth
                 type="text"
                 id="genericName"
@@ -214,6 +216,7 @@ const ProductRequestUpdateForm = (props) => {
             <Box mb={2}>
               <TextField
                 type="number"
+                autoFocus={true}
                 step={0.01}
                 id="costPrice"
                 label="€ Cost Price"
@@ -251,6 +254,7 @@ const ProductRequestUpdateForm = (props) => {
               render={({ field: { onChange } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
+                    
                     fullWidth
                     type="date"
                     size="small"
