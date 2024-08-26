@@ -30,6 +30,12 @@ const NavLinks = (props) => {
           <NavLink to="/product-requests/new">Add Product Request</NavLink>
         </Button>
       )}
+
+      {auth.isLoggedIn && ( 
+        <Button color="inherit" >
+          <NavLink to={`user/${auth.userId}/`}>Your Profile </NavLink>
+        </Button>
+      )}
       {!auth.isLoggedIn && (
           <Button color="inherit" variant="outlined">
             <NavLink to="/auth">Sign In</NavLink>
