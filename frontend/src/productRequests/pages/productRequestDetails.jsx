@@ -1,9 +1,5 @@
-
-
 function productRequestDetails() {
-  return (
-    <div>productRequestDetails</div>
-  )
+  return <div>productRequestDetails</div>;
 }
 
-export default productRequestDetails
+export default productRequestDetails;

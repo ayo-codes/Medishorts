@@ -18,7 +18,11 @@ import {
   Paper,
   CircularProgress,
   Button,
-  InputAdornment
+  InputAdornment,
+  RadioGroup, 
+  FormControlLabel, 
+  Radio, 
+  FormHelperText
 } from "@mui/material";
 
 import { AuthContext } from "../../shared/context/AuthContext";
@@ -55,6 +59,7 @@ const ProductRequestForm = (props) => {
       genericName: "",
       costPrice: 0.0,
       expiryDate: null,
+      shortProduct: "false",
     };
   };
   // The destructuring of values from the useForm hook
@@ -84,6 +89,7 @@ const ProductRequestForm = (props) => {
       data.genericName,
       data.costPrice,
       data.expiryDate,
+      data.shortProduct,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
@@ -286,6 +292,36 @@ const ProductRequestForm = (props) => {
               </LocalizationProvider>
             )}
           />
+
+          {/* Radio Group */}
+          <Box mt={2} mb={2}>
+            <Typography variant="body1">Is this product short?</Typography>
+            <RadioGroup
+              row
+              aria-label="shortProduct"
+              name="shortProduct"
+              defaultValue={selectedProduct ? selectedProduct.shortProduct : "false"}
+            >
+              <FormControlLabel
+                value="true"
+                control={<Radio />}
+                label="Yes"
+                {...register("shortProduct", { required: "This field is required" })}
+              />
+              <FormControlLabel
+                value="false"
+                control={<Radio />}
+                label="No"
+                {...register("shortProduct", { required: "This field is required" })}
+              />
+            </RadioGroup>
+            {errors.shortProduct && (
+              <FormHelperText error>{errors.shortProduct.message}</FormHelperText>
+            )}
+          </Box>
+
+
+    
 
           {/* Manage Loading Icon */}
           <Box justifyContent="center" sx={{ display: "flex" }}>

@@ -18,6 +18,10 @@ import {
   CircularProgress,
   Button,
   InputAdornment,
+  RadioGroup, 
+  FormControlLabel, 
+  Radio, 
+  FormHelperText
 } from "@mui/material";
 
 
@@ -94,6 +98,7 @@ const ProductRequestUpdateForm = (props) => {
       data.genericName,
       data.costPrice,
       data.expiryDate,
+      data.shortProduct,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
@@ -122,6 +127,7 @@ const ProductRequestUpdateForm = (props) => {
         genericName: loadedProductRequest.genericName,
         costPrice: loadedProductRequest.costPrice,
         expiryDate: loadedProductRequest.expiryDate,
+        shortProduct: loadedProductRequest.shortProduct,
       });
     }
   }, [loadedProductRequest, reset]);
@@ -164,6 +170,7 @@ const ProductRequestUpdateForm = (props) => {
             {/* Product Name */}
             <Box mb={2}>
               <TextField
+                autoFocus={true}
                 fullWidth
                 type="text"
                 id="productName"
@@ -188,6 +195,7 @@ const ProductRequestUpdateForm = (props) => {
             {/* Generic Name */}
             <Box mb={2}>
               <TextField
+                autoFocus={true}
                 fullWidth
                 type="text"
                 id="genericName"
@@ -213,6 +221,7 @@ const ProductRequestUpdateForm = (props) => {
             <Box mb={2}>
               <TextField
                 type="number"
+                autoFocus={true}
                 step={0.01}
                 id="costPrice"
                 label="€ Cost Price"
@@ -250,6 +259,7 @@ const ProductRequestUpdateForm = (props) => {
               render={({ field: { onChange } }) => (
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                   <DatePicker
+                    
                     fullWidth
                     type="date"
                     size="small"
@@ -265,6 +275,33 @@ const ProductRequestUpdateForm = (props) => {
                 </LocalizationProvider>
               )}
             />
+
+                      {/* Radio Group */}
+          <Box mt={2} mb={2}>
+            <Typography variant="body1">Is this product short?</Typography>
+            <RadioGroup
+              row
+              aria-label="shortProduct"
+              name="shortProduct"
+              defaultValue={loadedProductRequest ? loadedProductRequest.shortProduct : "false"}
+            >
+              <FormControlLabel
+                value="true"
+                control={<Radio />}
+                label="Yes"
+                {...register("shortProduct", { required: "This field is required" })}
+              />
+              <FormControlLabel
+                value="false"
+                control={<Radio />}
+                label="No"
+                {...register("shortProduct", { required: "This field is required" })}
+              />
+            </RadioGroup>
+            {errors.shortProduct && (
+              <FormHelperText error>{errors.shortProduct.message}</FormHelperText>
+            )}
+          </Box>
 
             {/* Expiry Date */}
 
