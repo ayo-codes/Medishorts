@@ -1,6 +1,7 @@
 // @ts-nocheck
 import axios from "axios";
 
+
 // The medishortsService object is used to make API calls to the backend
 export const medishortsService = {
   baseUrl: "http://localhost:3000/",
@@ -67,6 +68,19 @@ export const medishortsService = {
       console.log("I am in the Service file and I am logging in a user");
       console.log(response);
       return {state: true , message: response.data.message , user: response.data.user , token: response.data.token};
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  },
+
+  async getAllUsers() {
+    try {
+      const response = await axios.get(`${this.baseUrl}api/users/`);
+      console.log("I am in the Service file and I am fetching all users");
+      console.log(response);
+      console.log(response.data);
+      return { users: response.data.users, state: true };
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
