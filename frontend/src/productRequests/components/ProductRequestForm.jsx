@@ -1,56 +1,90 @@
 import { useEffect, useContext, useState } from "react";
 import PropTypes from "prop-types";
-import { useForm } from "react-hook-form";
+import { useForm, useController, Controller } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
+
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 import { DevTool } from "@hookform/devtools";
 import DummyProductsData from "../../../../backend/src/dummy_data/productsList/productsList.json";
 
+import {
+  TextField,
+  Box,
+  Autocomplete,
+  Typography,
+  Paper,
+  CircularProgress,
+  Button,
+  InputAdornment
+} from "@mui/material";
+
 import { AuthContext } from "../../shared/context/AuthContext";
 import { medishortsService } from "../../services/medishorts-service";
-import Auth from "../../users/pages/Auth";
 
 const ProductRequestForm = (props) => {
-    // Gain access to object properties from the AuthContextProvider
-    const auth = useContext(AuthContext);
+  // Gain access to object properties from the AuthContextProvider
+  const auth = useContext(AuthContext);
 
-    const [isLoading, setIsLoading] = useState(false);
-    const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+  const [inputValue, setInputValue] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState(null);
+
+  // Use Navigate
+  const navigate = useNavigate();
+
+  // Product Data List
+  const options = DummyProductsData.slice(900, 1000);
+
+  const filterOptions = (options, { inputValue }) => {
+    return options.filter((option) =>
+      option.productName.toLowerCase().includes(inputValue.toLowerCase())
+    );
+  };
 
   // Set default values for the form
   const defaultValues = async () => {
     const product = await DummyProductsData[70];
     return {
-      productName: product.productName,
-      genericName: product.genericName,
-      costPrice: 0.00,
-      expiryDate: new Date(),
+      // productName: product.productName,
+      // genericName: product.genericName,
+      productName: "",
+      genericName: "",
+      costPrice: 0.0,
+      expiryDate: null,
     };
   };
-  // The destructing of values from the useForm hook
+  // The destructuring of values from the useForm hook
   const {
+    onChange,
     register,
     handleSubmit,
     watch,
-    formState: { errors, isDirty ,isValid , isSubmitting ,isSubmitSuccessful },
+    formState: { errors, isDirty, isValid, isSubmitting, isSubmitSuccessful },
     control,
     reset,
-  } = useForm({defaultValues});
+  } = useForm({ defaultValues });
 
   // Watch the productName input
   watch("productName");
 
   // Function to handle the form submission
   const onSubmitCreateProductRequest = async (data) => {
+    setSelectedProduct(null);
     setError(null);
     setIsLoading(true);
     console.log(data);
+    console.log(selectedProduct);
     console.log("Product Request process began");
     const response = await medishortsService.createProductRequest(
       data.productName,
       data.genericName,
       data.costPrice,
       data.expiryDate,
-      {headers: {Authorization: `Bearer ${auth.token}`}}
+      { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
     console.log(response);
@@ -58,11 +92,12 @@ const ProductRequestForm = (props) => {
       setError(response.error);
       console.log(response.error);
     }
-    
+
     if (response.state === true) {
       console.log(response.message);
       console.log(response.productRequest);
       console.log("Product Request created successfully");
+      navigate(`/${auth.userId}/product-requests`);
     }
   };
 
@@ -72,87 +107,211 @@ const ProductRequestForm = (props) => {
   // useEffect to handle the form reset
   useEffect(() => {
     if (isSubmitSuccessful) {
-      reset();
+      reset({
+        productName: "",
+        genericName: "",
+        costPrice: 0,
+      });
     }
-  }, [isSubmitSuccessful , reset]);
+  }, [isSubmitSuccessful, reset, selectedProduct]);
+
+  // use effect to manage the new product selection
+  useEffect(() => {
+    if (selectedProduct) {
+      reset({
+        productName: selectedProduct.productName,
+        genericName: selectedProduct.genericName,
+        costPrice: selectedProduct.costPrice,
+      });
+    }
+  }, [selectedProduct, reset, isSubmitSuccessful]);
 
   return (
-    <div>
-      {/* Form Submission logic and using the handleSubmit method from useForm */}
-      <form onSubmit={handleSubmit(onSubmitCreateProductRequest , onError)} noValidate>
-        <label htmlFor="productName">Product Name</label>
-        <input
-          type="text"
-          id="productName"
-          {...register("productName", {
-            required: { value: true, message: "Product Name is required" },
-            minLength: { value: 5, message: "Min length is 5" },
-          })}
-          placeholder="Product Name"      
-        />
-        <br />
-        <br />
-        <span>{errors.productName?.message}</span>
-        <br />
-        <br />
-        <label htmlFor="genericName">Generic Name</label>
-        <input
-          type="text"
-          id="genericName"
-          {...register("genericName", {
-            required: { value: true, message: "Generic Name is required" },
-            minLength: { value: 5, message: " Min length is 5" },
-          })}
-          placeholder="Generic Name"
-        />
-        <br />
-        <br />
-        <span>{errors.genericName?.message}</span>
-        <br />
-        <br />
-        <label htmlFor="costPrice">CostPrice</label>
-        <input
-          type="number"
-          id="costPrice"
-          step={0.01}
-          {...register("costPrice", {
-            valueAsNumber: true,
-            required: { value: true, message: "Cost Price is required" },
-            maxLength: { value: 6, message: "Max length is 6" },
-          })}
-          placeholder="Cost Price"      
-        />
-        <br />
-        <br />
-        <span>{errors.costPrice?.message}</span>
-        <br />
-        <br />
-        <label htmlFor="expiryDate"> Expiry Date</label>
-        <input
-          type="date"
-          id="expiryDate"
-          {...register("expiryDate", {
-            disabled : watch("costPrice") === "",
-            valueAsDate: true,
-            required: { value: true, message: "Expiry Date is required" },
-          })}
-          placeholder=""      
-        />  
-        <br />
-        <br />
-        <span>{errors.costPrice?.message}</span>
-        <br />
-        <br />
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {/* Manage the button state based on user actions */}
-        <input disabled={!isDirty || !isValid || isSubmitting } type="submit" />
-        <button type= "button" onClick={() => reset()}>Reset</button>
-      </form>
-      
-      {/* To manage the devtool visuals */}
-      <DevTool control={control} />
-    </div>
+    <Box
+      component="div"
+      display="flex"
+      justifyContent="center"
+      // alignItems="center"
+      height="100vh"
+      m={1}
+    >
+      <Paper
+        elevation={3}
+        sx={{
+          padding: 4,
+          maxWidth: 600,
+          width: "100%",
+          maxHeight: "90vh",
+          overflow: "auto",
+        }}
+      >
+        {/* Form Submission logic and using the handleSubmit method from useForm */}
+        <form
+          onSubmit={handleSubmit(onSubmitCreateProductRequest, onError)}
+          noValidate
+        >
+          <Box mb={2}>
+            <Controller
+              onChange={onChange}
+              name="productName"
+              control={control}
+              rules={{
+                required: "Product Name is required",
+                minLength: { value: 3, message: "Min length is 3" },
+              }}
+              render={({ field: { onChange, value, ...fieldProps } }) => {
+                return (
+                  <Autocomplete
+                    options={options}
+                    inputValue={inputValue}
+                    value={selectedProduct} // Set the value prop
+                    onInputChange={(event, newInputValue) => {
+                      setInputValue(newInputValue);
+                    }}
+                    onChange={(event, newValue) => {
+                      setSelectedProduct(newValue); // Update the state
+                      onChange(newValue ? newValue.productName : "");
+                    }}
+                    getOptionLabel={(option) => option.productName}
+                    filterOptions={filterOptions}
+                    renderOption={(props, option) => (
+                      <li {...props} key={option.barcode + option.productName}>
+                        <Box display="flex" flexDirection="column">
+                          <Typography variant="body1">
+                            {option.productName + " - " + option.packSize}
+                          </Typography>
+                          <Typography variant="body2" color="textSecondary">
+                            {option.manufacturer}
+                          </Typography>
+                        </Box>
+                      </li>
+                    )}
+                    renderInput={(params) => (
+                      <TextField
+                        {...params}
+                        fullWidth
+                        variant="outlined"
+                        size="small"
+                        id="productName"
+                        label={value ? "" : "Product Name"}
+                        placeholder={value ? "" : "Product Name"}
+                        error={errors.productName ? true : false}
+                        helperText={errors.productName?.message}
+                      />
+                    )}
+                    {...fieldProps}
+                  />
+                );
+              }}
+            />
+          </Box>
+
+          {/* Generic Name */}
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              type="text"
+              id="genericName"
+              label="Generic Name"
+              size="small"
+              variant="outlined"
+              placeholder="Generic Name"
+              value={selectedProduct ? selectedProduct.genericName : ""}
+              error={errors.genericName ? true : false}
+              helperText={
+                errors.genericName ? errors.genericName.message : null
+              }
+              {...register("genericName", {
+                required: { value: true, message: "Generic Name is required" },
+                minLength: { value: 5, message: " Min length is 5" },
+              })}
+            />
+          </Box>
+
+          {/* Cost Price */}
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              type="number"
+              size="small"
+              variant="outlined"
+              id="costPrice"
+              label="Cost Price"
+              placeholder="Cost Price"
+              value={selectedProduct ? selectedProduct.costPrice : 0}
+              error={errors.costPrice ? true : false}
+              helperText={errors.costPrice ? errors.costPrice.message : null}
+              step={0.01}
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  { display: "none" },
+                "& input[type=number]": { MozAppearance: "textfield" },
+              }}
+              InputProps={{
+                startAdornment: (
+                  <InputAdornment position="start">€</InputAdornment>
+                ),
+              }}
+              {...register("costPrice", {
+                required: { value: true, message: "Cost Price is required" },
+                minLength: { value: 5, message: " Min length is 5" },
+              })}
+            />
+          </Box>
+
+          <Controller
+            name="expiryDate"
+            control={control}
+            rules={{
+              disabled: watch("costPrice") === "",
+              valueAsDate: true,
+              required: { value: true, message: "Expiry Date is required" },
+            }}
+            render={({ field: { onChange, value } }) => (
+              <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <DatePicker
+                  fullWidth
+                  type="date"
+                  size="small"
+                  variant="outlined"
+                  id="expiryDate"
+                  label="Expiry Date"
+                  value={value}
+                  onChange={onChange}
+                  error={errors.expiryDate ? true : false}
+                  helperText={
+                    errors.expiryDate ? errors.expiryDate.message : null
+                  }
+                />
+              </LocalizationProvider>
+            )}
+          />
+
+          {/* Manage Loading Icon */}
+          <Box justifyContent="center" sx={{ display: "flex" }}>
+            {isLoading && <CircularProgress />}
+          </Box>
+
+          {/* Manage Error Messages */}
+          <Box>{error && <Typography variant="h6">{error}</Typography>}</Box>
+
+          {/* Manage the button state based on user actions */}
+          <Box mt={4} textAlign="center">
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              disabled={isSubmitting}
+            >
+              Add a Product Request
+            </Button>
+          </Box>
+        </form>
+
+        {/* To manage the devtool visuals */}
+        <DevTool control={control} />
+      </Paper>
+    </Box>
   );
 };
 

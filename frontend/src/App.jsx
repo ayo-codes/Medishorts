@@ -8,11 +8,10 @@ import MainNavigation from "./shared/components/Navigation/MainNavigation";
 import UserProductRequests from "./productRequests/pages/UserProductRequests";
 import ProductRequestCreate from "./productRequests/pages/ProductRequestCreate";
 import ProductRequestUpdate from "./productRequests/pages/ProductRequestUpdate";
+import ProductRequestsTable from "./productRequests/pages/ProductRequestsTable";
 import Auth from "./users/pages/Auth";
 
 import AuthContextProvider from "./shared/context/AuthContext";
-
-
 
 const theme = createTheme({
   typography: {
@@ -49,9 +48,13 @@ const App = () => {
                 path="/:userId/product-requests"
                 element={<UserProductRequests />}
               />
+              <Route
+                path="/product-requests-table"
+                element={<ProductRequestsTable />}
+              />
               <Route path="*" element={<Navigate to="/" />} />
             </Routes>
-          </AuthContextProvider>  
+          </AuthContextProvider>
         </BrowserRouter>
       </ThemeProvider>
     </>

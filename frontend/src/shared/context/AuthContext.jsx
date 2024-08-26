@@ -1,4 +1,5 @@
 import { createContext, useState, useEffect, useCallback } from "react";
+import { useNavigate } from "react-router-dom";
 import PropTypes from "prop-types";
 
 
@@ -10,6 +11,9 @@ const AuthContextProvider = ({ children }) => {
   const [token, setToken] = useState("");
   const [userId, setUserId] = useState(null);
   const [tokenExpirationDate, setTokenExpirationDate ]= useState(null);
+
+  const navigate = useNavigate();
+
 
 
 const login = useCallback((uid ,token , expirationDate ) => {
@@ -35,7 +39,8 @@ const logout = useCallback(() => {
   setUserId(null);
   setTokenExpirationDate(null);
   localStorage.removeItem("userData"); // remove token from local storage
-},[]);
+  navigate("/auth");
+},[navigate]);
 
 // to check timer for token expiration
 useEffect(() => {

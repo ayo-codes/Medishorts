@@ -2,6 +2,16 @@ import { useEffect, useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
+import {
+  TextField,
+  Box,
+  Stack,
+  Typography,
+  Paper,
+  CircularProgress,
+  Button,
+} from "@mui/material";
+
 import { DevTool } from "@hookform/devtools";
 
 import { AuthContext } from "../../shared/context/AuthContext";
@@ -9,7 +19,7 @@ import { medishortsService } from "../../services/medishorts-service";
 
 const LoginForm = () => {
   // Gain access to object properties from the AuthContextProvider
-  const  auth  = useContext(AuthContext);
+  const auth = useContext(AuthContext);
 
   // Set States for loading and error
   const [isLoading, setIsLoading] = useState(false);
@@ -76,55 +86,90 @@ const LoginForm = () => {
   }, [isSubmitSuccessful, reset]);
 
   return (
-    <div>
-      <h2>Login To Your Account</h2>
-      {/* Form Submission logic and using the handleSubmit method from useForm */}
-      <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
-        <label htmlFor="Email">Email</label>
-        <input
-          type="email"
-          id="email"
-          {...register("email", {
-            pattern: {
-              value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-              message: "Invalid Email",
-            },
-            required: { value: true, message: "Your Email is required" },
-            minLength: { value: 5, message: "Min length is 5" },
-          })}
-          placeholder="Your Email"
-        />
-        <br />
-        <br />
-        <span>{errors.email?.message}</span>
-        <br />
-        <br />
-        <label htmlFor="Password">Password</label>
-        <input
-          type="password"
-          id="password"
-          {...register("password", {
-            required: { value: true, message: "Password is required" },
-            minLength: { value: 5, message: " Min length is 5" },
-          })}
-          placeholder="Password"
-        />
-        <br />
-        <br />
-        <span>{errors.password?.message}</span>
-        <br />
-        <br />
-        {isLoading && <p>Loading...</p>}
-        {error && <p>{error}</p>}
-        {/* Manage the button state based on user actions */}
-        <button disabled={!isDirty || !isValid || isSubmitting}>Login</button>
-        <button type="button" onClick={() => reset()}>
-          Reset
-        </button>
-      </form>
-      {/* To manage the devtool visuals */}
-      <DevTool control={control} />
-    </div>
+    <Box
+      component="div"
+      display="flex"
+      justifyContent="center"
+      alignItems="center"
+      height="50vh"
+    >
+      <Paper elevation={3} sx={{ padding: 4, maxWidth: 400, width: "100%" }}>
+        <Typography align="center" variant="h5" gutterBottom>
+          Login To Your Account
+        </Typography>
+        {/* Form Submission logic and using the handleSubmit method from useForm */}
+        <form onSubmit={handleSubmit(onSubmitAuthRequest, onError)} noValidate>
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              type="email"
+              id="email"
+              label="Email"
+              size="small"
+              variant="outlined"
+              placeholder="Your Email"
+              error={errors.email ? true : false}
+              helperText={errors.email ? errors.email.message : null}
+              {...register("email", {
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: "Invalid Email",
+                },
+                required: { value: true, message: "Your Email is required" },
+                minLength: { value: 5, message: "Min length is 5" },
+              })}
+            />
+          </Box>
+          <Box mb={2}>
+            <TextField
+              fullWidth
+              type="password"
+              id="password"
+              label="Password"
+              size="small"
+              variant="outlined"
+              placeholder="Password"
+              error={errors.password ? true : false}
+              helperText={errors.password ? errors.password.message : null}
+              {...register("password", {
+                required: { value: true, message: "Password is required" },
+                minLength: { value: 5, message: " Min length is 5" },
+              })}
+            />
+          </Box>
+
+          {/* Manage Loading Icon */}
+          <Box justifyContent="center" sx={{ display: "flex" }}>
+            {isLoading && <CircularProgress />}
+          </Box>
+
+          {/* Manage Error Messages */}
+          <Box>{error && <Typography variant="h6">{error}</Typography>}</Box>
+
+          {/* Manage the button state based on user actions */}
+
+          <Box mb={2}>
+            <Button
+              type="submit"
+              variant="contained"
+              color="primary"
+              fullWidth
+              disabled={isSubmitting}
+            >
+              Login
+            </Button>
+
+            <Box mt={1} textAlign="center">
+              <Button type="button" variant="text" onClick={() => reset()}>
+                Reset
+              </Button>
+            </Box>
+          </Box>
+        </form>
+        {/* To manage the devtool visuals */}
+        <DevTool control={control} />
+      </Paper>
+    </Box>
   );
 };
 
