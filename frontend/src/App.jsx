@@ -31,7 +31,7 @@ const App = () => {
           <AuthContextProvider>
             <MainNavigation />
             <Routes>
-              <Route path="/user" element={<User />} />
+              <Route path="/user/:userId" element={<User />} />
               <Route path="/" element={<h1>Home Page</h1>} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/products" element={<Products />} />

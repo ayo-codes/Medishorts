@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { medishortsService } from "../../services/medishorts-service";
 import ProductRequestsList from "../components/ProductRequestsList";
 import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
-import { Box , Typography } from "@mui/material";
+import { Box , CircularProgress, Typography } from "@mui/material";
 
 const ProductRequests = () => {
 
@@ -52,8 +52,8 @@ const ProductRequests = () => {
           All Product Requests
         </Typography>
       </Box>
-      {isLoading && <p>Loading...</p>}
-      {error && <p>{error}</p>}
+      {isLoading && <Typography>Loading...</Typography> && <CircularProgress />}
+      {error && <Typography>{error}</Typography>}
       {!isLoading && loadedProductRequests && <ProductRequestsList items={loadedProductRequests} onDeleteProductRequest={productRequestDeleteHandler} />}
     </Box>
   );
