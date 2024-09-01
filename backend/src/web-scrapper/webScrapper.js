@@ -85,7 +85,9 @@ const webScrapper = async () => {
   //   })
 
 
-  await browser.close(); // close the browser
+  await browser.close(); // close the browser instance
+
+  return data;
 };
 
 // webScrapper(); // call the function
