@@ -4,7 +4,7 @@ import axios from "axios";
 
 // The medishortsService object is used to make API calls to the backend
 export const medishortsService = {
-  baseUrl: "http://localhost:3000/",
+  baseUrl: process.env.NODE_ENV === "development" ? "http://localhost:3000/" : "https://medishorts.onrender.com/" ,
   // baseUrl: "https://medishorts.onrender.com/",
 
   async signUpUser(
