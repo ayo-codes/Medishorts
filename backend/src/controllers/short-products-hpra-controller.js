@@ -9,7 +9,7 @@ const ShortProductHpra = require("../models/shortProductsHpra");
 
 
 // GET ALL HPRA SHORT PRODUCTS IN THE DATABASE - MONGO
-const getAllshortProductsHpra = async (req, res, next) => {
+const getAllShortProductsHpra = async (req, res, next) => {
   console.log("GET Request received for all short products from hpra");
   let shortProductsHpra;
   try {
@@ -27,5 +27,5 @@ const getAllshortProductsHpra = async (req, res, next) => {
   return res.json({ shortProductsHpra: shortProductsHpra.map(shortProductHpra => shortProductHpra.toObject({ getters: true })) });
 };
 
-exports.getAllshortProductsHpra = getAllshortProductsHpra;
+exports.getAllShortProductsHpra = getAllShortProductsHpra;
 

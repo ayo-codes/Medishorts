@@ -8,6 +8,7 @@ const usersRoutes = require("./routes/users-routes");
 const productRequestsRoutes = require("./routes/product-requests-routes");
 const productsRoutes = require("./routes/products-routes");
 const webScrapeRoutes = require("./routes/web-scrape-routes");
+const shortProductsHpraRoutes = require("./routes/short-products-hpra-routes");
 
 const ApiHttpError = require("./models/api-http-error");
 
@@ -41,6 +42,9 @@ app.use("/api/product-requests", productRequestsRoutes);
 
 // WEB SCRAPING ROUTE MIDDLEWARE
 app.use("/api/web-scraper", webScrapeRoutes);
+
+// SHORT PRODUCTS HPRA ROUTE MIDDLEWARE
+app.use("/api/short-products-hpra", shortProductsHpraRoutes);
 
 // ROUTE NOT FOUND MIDDLEWARE
 app.use((req , res, next ) => {
