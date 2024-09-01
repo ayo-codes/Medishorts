@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import { medishortsService } from "../../services/medishorts-service";
-import ShortProductsHpraListTable from "../components/ShortProductsHpraListTable";
-import DummyProductRequestData from "../../../../backend/src/dummy_data/productRequestsList/productRequestsLists.json";
+// import ShortProductsHpraListTable from "../components/ShortProductsHpraListTable";
 import { Box , Typography } from "@mui/material";
 
 const ShortProductsHpraTable = () => {
@@ -48,10 +47,10 @@ const ShortProductsHpraTable = () => {
 
   return (
     <Box>
-      {/* <Typography>Product Requests</Typography> */}
+      <Typography>Shorts HPRA List</Typography>
       {isLoading && <p>Loading...</p>}
       {error && <p>{error}</p>}
-      {!isLoading && loadedShortProductsHpra && <ShortProductsHpraListTable items={loadedShortProductsHpra} onDeleteProductRequest={productRequestDeleteHandler} />}
+      {/* {!isLoading && loadedShortProductsHpra && <ShortProductsHpraListTable items={loadedShortProductsHpra} onDeleteProductRequest={productRequestDeleteHandler} />} */}
     </Box>
   );
 }
