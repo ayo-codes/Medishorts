@@ -34,6 +34,7 @@
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.5.2",
     "mongoose-unique-validator": "^5.0.1",
+    "puppeteer": "^23.2.1",
     "uuid": "^10.0.0"
   }
 }
