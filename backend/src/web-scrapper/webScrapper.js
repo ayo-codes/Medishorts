@@ -1,11 +1,7 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 
-const mongoose = require("mongoose");
-const ShortProductsHpra = require("../models/shortProductsHpra");
-
 const webScrapper = async () => {
-  // const browser = await puppeteer.launch(); // launch a new browser instance
 
   const browser = await puppeteer.launch({ headless: true, defaultViewport: false, userDataDir: "./tmp" }); // launch a new browser instance in headless mode and adjust the viewport and set the user data directory for captcha solving
 
@@ -26,16 +22,10 @@ const webScrapper = async () => {
         // Split the text content of column1 by newline characters and map to properties
         const column1Text = cells[0] ? cells[0].innerText.split("\n") : [];
 
-        //   productName: column1Text[0] || null,
-        //   hpraCode: column1Text[1] || null,
-        //   manufacturer: column1Text[2] || null,
-        //   // Add more properties if needed
-        // ;
         return {
           productName: column1Text[0] || null,
           hpraCode: column1Text[1] || null,
           manufacturer: column1Text[2] || null,
-          // productDetails: column1Object,
           genericName: cells[1] ? cells[1].innerText : null,
           therapeuticAlternative: cells[2] ? cells[2].innerText : null,
           shortageReason: cells[3] ? cells[3].innerText : null,
@@ -43,7 +33,6 @@ const webScrapper = async () => {
           expectedReturnDate: cells[5] ? cells[5].innerText : null,
           additionalInfo: cells[6] ? cells[6].innerText : null,
           lastUpdateDate: cells[7] ? cells[7].innerText : null,
-          // Add more columns as needed
         };
       })
       .filter((row) => row.productName && row.genericName !== null)
@@ -77,12 +66,7 @@ const webScrapper = async () => {
   // fs.writeFileSync(`./shortProductResults/results ${new Date().toISOString()}.json`, JSON.stringify(data, null, 2));
   console.log("Data written to JSON file");
 
-  // // save data to a database using mongoose
-  // ShortProductsHpra.insertMany(data)
-  //   .then(() => {
-  //     console.log("Data inserted");
-  //     db.close();
-  //   })
+
 
 
   await browser.close(); // close the browser instance
