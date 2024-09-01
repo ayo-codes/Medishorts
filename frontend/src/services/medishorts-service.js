@@ -4,8 +4,8 @@ import axios from "axios";
 
 // The medishortsService object is used to make API calls to the backend
 export const medishortsService = {
-  // baseUrl: "http://localhost:3000/",
-  baseUrl: "https://medishorts.onrender.com/",
+  baseUrl: "http://localhost:3000/",
+  // baseUrl: "https://medishorts.onrender.com/",
 
   async signUpUser(
     email,
@@ -205,6 +205,21 @@ export const medishortsService = {
       );
       console.log(response);
       return { state: true, message: response.data.message };
+    } catch (error) {
+      console.log(error);
+      return { state: false, error: error.response.data.message };
+    }
+  },
+
+  async getAllShortProductsHpra() {
+    try {
+      const response = await axios.get(`${this.baseUrl}api/short-products-hpra/`);
+      console.log(
+        "I am in the Service file and I am fetching all short products from HPRA" 
+      );
+      console.log(response);
+      console.log(response.data);
+      return { shortProductsHpra: response.data.shortProductsHpra, state: true };
     } catch (error) {
       console.log(error);
       return { state: false, error: error.response.data.message };
