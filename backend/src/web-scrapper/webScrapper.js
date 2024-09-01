@@ -1,6 +1,9 @@
 const puppeteer = require("puppeteer");
 const fs = require("fs");
 
+const mongoose = require("mongoose");
+const ShortProductsHpra = require("../models/shortProductsHpra");
+
 const webScrapper = async () => {
   // const browser = await puppeteer.launch(); // launch a new browser instance
 
@@ -67,15 +70,24 @@ const webScrapper = async () => {
   const csvData = csvHeader + csvRows;
 
   // Write data to CSV file
-  fs.writeFileSync(`./shortProductResults/results${new Date()}.csv`, csvData);
+  // fs.writeFileSync(`./shortProductResults/results${new Date()}.csv`, csvData);
   console.log(data); // log the data to the console
 
   // Write data to JSON file
-  fs.writeFileSync(`./shortProductResults/results ${new Date().toISOString()}.json`, JSON.stringify(data, null, 2));
+  // fs.writeFileSync(`./shortProductResults/results ${new Date().toISOString()}.json`, JSON.stringify(data, null, 2));
   console.log("Data written to JSON file");
+
+  // // save data to a database using mongoose
+  // ShortProductsHpra.insertMany(data)
+  //   .then(() => {
+  //     console.log("Data inserted");
+  //     db.close();
+  //   })
 
 
   await browser.close(); // close the browser
 };
 
-webScrapper(); // call the function
+// webScrapper(); // call the function
+
+exports.webScrapper = webScrapper;

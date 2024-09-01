@@ -7,6 +7,7 @@ const dotenv = require("dotenv").config();
 const usersRoutes = require("./routes/users-routes");
 const productRequestsRoutes = require("./routes/product-requests-routes");
 const productsRoutes = require("./routes/products-routes");
+const webScrapeRoutes = require("./routes/web-scrape-routes");
 
 const ApiHttpError = require("./models/api-http-error");
 
@@ -37,6 +38,9 @@ app.use("/api/users", usersRoutes);
 
 // PRODUCT REQUESTS ROUTE MIDDLEWARE
 app.use("/api/product-requests", productRequestsRoutes);
+
+// WEB SCRAPING ROUTE MIDDLEWARE
+app.use("/api/web-scraper", webScrapeRoutes);
 
 // ROUTE NOT FOUND MIDDLEWARE
 app.use((req , res, next ) => {
