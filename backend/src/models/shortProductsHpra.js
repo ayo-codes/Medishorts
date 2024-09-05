@@ -11,7 +11,7 @@ const shortProductsHpraSchema = new Schema({
   shortageReason: { type: String, required: true },
   shortageDate: { type: String, required: true },
   expectedReturnDate: { type: String, required: true },
-  additionalInfo: { type: String, required: true },
+  additionalInfo: { type: String, required: false },
   lastUpdateDate: { type: String, required: true },
 });
 

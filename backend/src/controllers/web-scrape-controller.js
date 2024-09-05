@@ -16,6 +16,7 @@ const webScrapeTrigger = async (req, res, next) => {
     await ShortProductsHpra.insertMany(scrappedData);
     console.log("Data saved to MongoDB");
   } catch (error) {
+    console.log(error);
     const apiError = new ApiHttpError("Failed to save data to MongoDB", 500);
     return next(apiError);
   }  
