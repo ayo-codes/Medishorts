@@ -4,15 +4,15 @@ const { Schema } = mongoose;
 
 const shortProductsHpraSchema = new Schema({
   productName: { type: String, required: true },
-  hpraCode: { type: String, required: true },
-  manufacturer: { type: String, required: true },
-  genericName: { type: String, required: true },
-  therapeuticAlternative: { type: String, required: true },
-  shortageReason: { type: String, required: true },
-  shortageDate: { type: String, required: true },
-  expectedReturnDate: { type: String, required: true },
+  hpraCode: { type: String, required: false },
+  manufacturer: { type: String, required: false },
+  genericName: { type: String, required: false },
+  therapeuticAlternative: { type: String, required: false },
+  shortageReason: { type: String, required: false },
+  shortageDate: { type: String, required: false },
+  expectedReturnDate: { type: String, required: false },
   additionalInfo: { type: String, required: false },
-  lastUpdateDate: { type: String, required: true },
+  lastUpdateDate: { type: String, required: false },
 });
 
 module.exports = mongoose.model("ShortProductsHpra", shortProductsHpraSchema);
