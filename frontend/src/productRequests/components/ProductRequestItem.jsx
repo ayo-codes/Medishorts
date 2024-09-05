@@ -63,7 +63,11 @@ const ProductRequestItem = (props) => {
           <Typography m={0.25} p={0.5}  >Expiry Date: {`${String(props.expiryDate).substring(0, 10)}`} </Typography>
           <Typography m={0.25} p={0.5}  >Quantity: {props.quantity}</Typography>
           <Typography m={0.25} p={0.5} >
-            Product Request Creator: {props.productRequestCreator}
+            Product Request Creator:
+            <Link to={`/public-user/${props.productRequestCreatorId}`}>
+            {props.productRequestCreator}
+                    </Link>
+             
           </Typography>
 
 

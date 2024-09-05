@@ -2,6 +2,7 @@ import { BrowserRouter, Route, Routes, Navigate } from "react-router-dom";
 import { createTheme, ThemeProvider } from "@mui/material";
 
 import User from "./users/pages/User";
+import PublicUser from "./users/pages/PublicUser";
 import Products from "./products/pages/Products";
 import ProductRequests from "./productRequests/pages/ProductRequests";
 import MainNavigation from "./shared/components/Navigation/MainNavigation";
@@ -51,6 +52,7 @@ const App = () => {
                 element={<UserProductRequests />}
               />
               <Route path="/user/:userId" element={<User />} />
+              <Route path="/public-user/:userId" element={<PublicUser />} />
               <Route path="/shorts-hpra" element={<ShortProductsHpraTable />} />
               <Route path="/shorts" element={<ShortProductsTable />} />
               <Route

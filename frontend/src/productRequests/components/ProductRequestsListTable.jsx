@@ -81,7 +81,9 @@ const ProductRequestsListTable = (props) => {
                     {`${String(productRequest.expiryDate).substring(0, 10)}`}
                     </TableCell>
                     <TableCell align="left">
+                    <Link to={`/public-user/${productRequest.productRequestCreator.id}`}>
                       {productRequest.productRequestCreator.pharmacyName}
+                    </Link>
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>
