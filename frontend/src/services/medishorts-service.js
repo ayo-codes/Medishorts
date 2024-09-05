@@ -165,13 +165,14 @@ export const medishortsService = {
     }
   },
 
-  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate, shortProduct,  token) {
+  async updateProductRequest(productRequestId, productName, genericName, costPrice, expiryDate, shortProduct, quantity,  token) {
     const updatedProductRequest = {
       productName: productName,
       genericName: genericName,
       costPrice: costPrice,
       expiryDate: expiryDate,
       shortProduct: shortProduct,
+      quantity: quantity,
       
     };
     try {

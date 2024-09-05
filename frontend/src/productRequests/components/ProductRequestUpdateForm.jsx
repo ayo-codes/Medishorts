@@ -99,6 +99,7 @@ const ProductRequestUpdateForm = (props) => {
       data.costPrice,
       data.expiryDate,
       data.shortProduct,
+      data.quantity,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
@@ -128,6 +129,7 @@ const ProductRequestUpdateForm = (props) => {
         costPrice: loadedProductRequest.costPrice,
         expiryDate: loadedProductRequest.expiryDate,
         shortProduct: loadedProductRequest.shortProduct,
+        quantity: loadedProductRequest.quantity,
       });
     }
   }, [loadedProductRequest, reset]);
@@ -247,6 +249,30 @@ const ProductRequestUpdateForm = (props) => {
                 })}
               />
             </Box>
+
+            {/* Quantity */}
+          <Box mb={2}>
+            <TextField
+              type="number"
+              size="small"
+              variant="outlined"
+              id="quantity"
+              label="Quantity"
+              placeholder="Quantity"
+              error={errors.quantity ? true : false}
+              helperText={errors.quantity ? errors.quantity.message : null}
+              step={1}
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  { display: "none" },
+                "& input[type=number]": { MozAppearance: "textfield" },
+              }}
+              {...register("quantity", {
+                required: { value: true, message: "Quantity is required" },
+                minLength: { value: 1, message: " Min length is 1" },
+              })}
+            />
+          </Box>
 
             <Controller
               name="expiryDate"

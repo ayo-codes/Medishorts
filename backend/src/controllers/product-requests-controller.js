@@ -154,7 +154,7 @@ const updateProductRequestById = async (req, res, next) => {
 
   const { productRequestId } = req.params; // productRequestId
   // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
-  const { productName, genericName,  costPrice , expiryDate, shortProduct } = req.body;
+  const { productName, genericName,  costPrice , expiryDate, shortProduct, quantity } = req.body;
 
   let updatedProductRequest;
   try {
@@ -187,6 +187,7 @@ const updateProductRequestById = async (req, res, next) => {
   updatedProductRequest.costPrice = costPrice;
   updatedProductRequest.expiryDate = expiryDate;
   updatedProductRequest.shortProduct = shortProduct;
+  updatedProductRequest.quantity = quantity;
 
 
 

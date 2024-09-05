@@ -50,6 +50,7 @@ const ProductRequestsList = (props) => {
             productRequestCreator={productRequest.productRequestCreator.pharmacyName}
             onDelete={props.onDeleteProductRequest}
             productRequestCreatorId={productRequest.productRequestCreator._id}
+            quantity={productRequest.quantity}
           />
         ))}
       </Box>

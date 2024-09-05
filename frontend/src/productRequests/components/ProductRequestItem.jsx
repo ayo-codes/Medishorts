@@ -61,9 +61,11 @@ const ProductRequestItem = (props) => {
           <Typography variant="body1"  m={0.25} p={0.5} >Generic Name: {props.genericName}</Typography>
           <Typography m={0.25} p={0.5}  >Cost Price: €{props.costPrice}</Typography>
           <Typography m={0.25} p={0.5}  >Expiry Date: {`${String(props.expiryDate).substring(0, 10)}`} </Typography>
+          <Typography m={0.25} p={0.5}  >Quantity: {props.quantity}</Typography>
           <Typography m={0.25} p={0.5} >
             Product Request Creator: {props.productRequestCreator}
           </Typography>
+
 
           <Link to={`/product-requests/${props.id}`}>
             <Button>View</Button>
@@ -112,6 +114,7 @@ ProductRequestItem.propTypes = {
   onDelete: PropTypes.func,
   productRequestCreator: PropTypes.string.isRequired,
   productRequestCreatorId: PropTypes.string.isRequired,
+  quantity: PropTypes.number,
 };
 
 export default ProductRequestItem;

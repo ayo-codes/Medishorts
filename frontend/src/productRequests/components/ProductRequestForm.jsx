@@ -57,8 +57,7 @@ const ProductRequestForm = (props) => {
       // genericName: product.genericName,
       productName: "",
       genericName: "",
-      costPrice: 0.0,
-      quantity: 0,
+      quantity: null,
       expiryDate: null,
       shortProduct: "false",
     };
@@ -119,7 +118,6 @@ const ProductRequestForm = (props) => {
         productName: "",
         genericName: "",
         costPrice: 0,
-        quantity: 0,
       });
     }
   }, [isSubmitSuccessful, reset, selectedProduct]);
@@ -276,7 +274,6 @@ const ProductRequestForm = (props) => {
               id="quantity"
               label="Quantity"
               placeholder="Quantity"
-              // value={selectedProduct ? selectedProduct.costPrice : 0}
               error={errors.quantity ? true : false}
               helperText={errors.quantity ? errors.quantity.message : null}
               step={1}
