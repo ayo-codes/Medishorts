@@ -176,7 +176,7 @@ const ProductRequestUpdateForm = (props) => {
                 fullWidth
                 type="text"
                 id="productName"
-                label="Product Name"
+                // label="Product Name"
                 size="small"
                 variant="outlined"
                 placeholder="Product Name"
@@ -201,7 +201,7 @@ const ProductRequestUpdateForm = (props) => {
                 fullWidth
                 type="text"
                 id="genericName"
-                label="Generic Name"
+                // label="Generic Name"
                 size="small"
                 variant="outlined"
                 placeholder="Generic Name"
@@ -257,7 +257,7 @@ const ProductRequestUpdateForm = (props) => {
               size="small"
               variant="outlined"
               id="quantity"
-              label="Quantity"
+              // label="Quantity"
               placeholder="Quantity"
               error={errors.quantity ? true : false}
               helperText={errors.quantity ? errors.quantity.message : null}

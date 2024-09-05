@@ -260,7 +260,7 @@ const ProductRequestForm = (props) => {
               }}
               {...register("costPrice", {
                 required: { value: true, message: "Cost Price is required" },
-                minLength: { value: 5, message: " Min length is 5" },
+                maxLength: { value: 6, message: "Max length is 6" },
               })}
             />
           </Box>

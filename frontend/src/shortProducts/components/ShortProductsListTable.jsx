@@ -39,7 +39,7 @@ const ShortProductsListTable = (props) => {
     <>
       <Box>
         <Typography variant="h4" align="center" m={2}>
-          Short Products List
+          Short Product Reports
         </Typography>
       </Box>
 
@@ -52,7 +52,7 @@ const ShortProductsListTable = (props) => {
                 <TableCell align="left">Generic Name</TableCell>
                 
                 
-                <TableCell align="left">Product Request Creator</TableCell>
+                <TableCell align="left">Short Product Reporter</TableCell>
                 <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>

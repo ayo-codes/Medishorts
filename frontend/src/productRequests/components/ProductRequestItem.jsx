@@ -79,14 +79,6 @@ const ProductRequestItem = (props) => {
             </Link>
           </Typography>
 
-          <Link to={`/product-requests/${props.id}`}>
-            <Button>View</Button>
-          </Link>
-
-          {auth.userId === props.productRequestCreatorId && (
-            <Button>Approve</Button>
-          )}
-
           {auth.userId === props.productRequestCreatorId && (
             <Link to={`/product-requests/${props.id}`}>
               <Button>Edit</Button>
