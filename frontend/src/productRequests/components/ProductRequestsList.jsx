@@ -49,6 +49,7 @@ const ProductRequestsList = (props) => {
             expiryDate={productRequest.expiryDate}
             productRequestCreator={productRequest.productRequestCreator.pharmacyName}
             onDelete={props.onDeleteProductRequest}
+            productRequestCreatorId={productRequest.productRequestCreator._id}
           />
         ))}
       </Box>

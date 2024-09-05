@@ -69,17 +69,17 @@ const ProductRequestItem = (props) => {
             <Button>View</Button>
           </Link>
 
-          {auth.userId === props.productRequestCreator && (
+          {auth.userId === props.productRequestCreatorId && (
             <Button>Approve</Button>
           )}
 
-          {auth.userId === props.productRequestCreator && (
+          {auth.userId === props.productRequestCreatorId && (
             <Link to={`/product-requests/${props.id}`}>
               <Button>Edit</Button>
             </Link>
           )}
 
-          {auth.userId === props.productRequestCreator && (
+          {auth.userId === props.productRequestCreatorId && (
             <Button onClick={handleOpen}>Delete</Button>
           )}
         </Paper>
@@ -111,6 +111,7 @@ ProductRequestItem.propTypes = {
   id: PropTypes.string.isRequired,
   onDelete: PropTypes.func,
   productRequestCreator: PropTypes.string.isRequired,
+  productRequestCreatorId: PropTypes.string.isRequired,
 };
 
 export default ProductRequestItem;
