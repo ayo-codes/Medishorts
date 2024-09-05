@@ -347,7 +347,7 @@ const ProductRequestUpdateForm = (props) => {
         )}
 
         {/* To manage the devtool visuals */}
-        <DevTool control={control} />
+        {/* <DevTool control={control} /> */}
       </Paper>
     </Box>
   );

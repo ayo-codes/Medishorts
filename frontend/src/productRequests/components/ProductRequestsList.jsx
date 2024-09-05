@@ -47,7 +47,7 @@ const ProductRequestsList = (props) => {
             genericName={productRequest.genericName}
             costPrice={productRequest.costPrice}
             expiryDate={productRequest.expiryDate}
-            productRequestCreator={productRequest.productRequestCreator}
+            productRequestCreator={productRequest.productRequestCreator.pharmacyName}
             onDelete={props.onDeleteProductRequest}
           />
         ))}
@@ -58,7 +58,7 @@ const ProductRequestsList = (props) => {
 
 ProductRequestsList.propTypes = {
   items: PropTypes.array.isRequired,
-  onDeleteProductRequest: PropTypes.func.isRequired,
+  onDeleteProductRequest: PropTypes.func,
 };
 
 export default ProductRequestsList;

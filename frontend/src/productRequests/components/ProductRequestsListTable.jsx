@@ -77,7 +77,7 @@ const ProductRequestsListTable = (props) => {
                     {`${String(productRequest.expiryDate).substring(0, 10)}`}
                     </TableCell>
                     <TableCell align="left">
-                      {productRequest.productRequestCreator}
+                      {productRequest.productRequestCreator.pharmacyName}
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>

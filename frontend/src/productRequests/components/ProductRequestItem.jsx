@@ -109,7 +109,7 @@ ProductRequestItem.propTypes = {
   costPrice: PropTypes.number.isRequired,
   expiryDate: PropTypes.string.isRequired,
   id: PropTypes.string.isRequired,
-  onDelete: PropTypes.func.isRequired,
+  onDelete: PropTypes.func,
   productRequestCreator: PropTypes.string.isRequired,
 };
 

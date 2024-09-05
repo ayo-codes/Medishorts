@@ -13,7 +13,7 @@ const getAllProductRequests = async (req, res, next) => {
   console.log("GET Request received for all products requests");
   let productRequests;
   try {
-    productRequests = await ProductRequest.find();
+    productRequests = await ProductRequest.find().populate("productRequestCreator" , "-password"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product requests from Database failed ", 500));
@@ -34,7 +34,8 @@ const getProductRequestById = async (req, res, next) => {
 
   let productRequest;
   try {
-    productRequest = await ProductRequest.findById(productRequestId);
+    productRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator" , "-password"); // populate field holds the full user object without password
+    console.log(` after the mongo populate ${productRequest}`);
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product request from Database failed", 500));
@@ -56,7 +57,7 @@ const getProductRequestsByUserId = async (req, res, next) => {
 
   let userProductRequests;
   try {
-    userProductRequests = await ProductRequest.find({ productRequestCreator: userId });
+    userProductRequests = await ProductRequest.find({ productRequestCreator: userId }).populate("productRequestCreator", "-password"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product requests from Database failed", 500));

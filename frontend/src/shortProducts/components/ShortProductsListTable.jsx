@@ -70,7 +70,7 @@ const ShortProductsListTable = (props) => {
                       {productRequest.genericName}
                     </TableCell>
                     <TableCell align="left">
-                      {productRequest.productRequestCreator}
+                      {productRequest.productRequestCreator.pharmacyName}
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>
