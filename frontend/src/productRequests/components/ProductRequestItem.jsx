@@ -45,31 +45,39 @@ const ProductRequestItem = (props) => {
   };
 
   return (
-    <Box
-    fixedWidth={400}
-    alignItems="center"
-    justifyContent="center"
-    >
-      <Box 
-      sx={{paddingLeft :"25%", paddingRight: "25%" , paddingBottom:"1%"}}
-      component="div"
-
-      margin={1}
+    <Box fixedWidth={400} alignItems="center" justifyContent="center">
+      <Box
+        sx={{ paddingLeft: "25%", paddingRight: "25%", paddingBottom: "1%" }}
+        component="div"
+        margin={1}
       >
-        <Paper alignItems="center" justifyContent="center" elevation={3} sx={{ paddingLeft: 4, maxWidth: 600, width: "100%" }}>
-          <Typography variant="h6" m={0.25} p={0.5} >Product Name: {props.productName}</Typography>
-          <Typography variant="body1"  m={0.25} p={0.5} >Generic Name: {props.genericName}</Typography>
-          <Typography m={0.25} p={0.5}  >Cost Price: €{props.costPrice}</Typography>
-          <Typography m={0.25} p={0.5}  >Expiry Date: {`${String(props.expiryDate).substring(0, 10)}`} </Typography>
-          <Typography m={0.25} p={0.5}  >Quantity: {props.quantity}</Typography>
-          <Typography m={0.25} p={0.5} >
-            Product Request Creator:
-            <Link to={`/public-user/${props.productRequestCreatorId}`}>
-            {props.productRequestCreator}
-                    </Link>
-             
+        <Paper
+          alignItems="center"
+          justifyContent="center"
+          elevation={3}
+          sx={{ paddingLeft: 4, maxWidth: 600, width: "100%" }}
+        >
+          <Typography variant="h6" m={0.25} p={0.5}>
+            Product Name: {props.productName}
           </Typography>
-
+          <Typography variant="body1" m={0.25} p={0.5}>
+            Generic Name: {props.genericName}
+          </Typography>
+          <Typography m={0.25} p={0.5}>
+            Cost Price: €{props.costPrice}
+          </Typography>
+          <Typography m={0.25} p={0.5}>
+            Expiry Date: {`${String(props.expiryDate).substring(0, 10)}`}{" "}
+          </Typography>
+          <Typography m={0.25} p={0.5}>
+            Quantity: {props.quantity}
+          </Typography>
+          <Typography m={0.25} p={0.5}>
+            Requesting Pharmacy:
+            <Link to={`/public-user/${props.productRequestCreatorId}`}>
+              {props.productRequestCreator}
+            </Link>
+          </Typography>
 
           <Link to={`/product-requests/${props.id}`}>
             <Button>View</Button>
