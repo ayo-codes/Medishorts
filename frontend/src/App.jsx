@@ -11,6 +11,7 @@ import ProductRequestUpdate from "./productRequests/pages/ProductRequestUpdate";
 import ProductRequestsTable from "./productRequests/pages/ProductRequestsTable";
 import ShortProductsTable from "./shortProducts/pages/ShortProductsTable";
 import ShortProductsHpraTable from "./scrappedShortProductsHpra/pages/ShortProductsHpraTable";
+import HomePage from "./homePage/pages/HomePage";
 import Auth from "./users/pages/Auth";
 
 import AuthContextProvider from "./shared/context/AuthContext";
@@ -33,7 +34,7 @@ const App = () => {
           <AuthContextProvider>
             <MainNavigation />
             <Routes>
-              <Route path="/" element={<h1>Home Page</h1>} />
+              <Route path="/" element={<HomePage/>} />
               <Route path="/auth" element={<Auth />} />
               <Route path="/products" element={<Products />} />
               <Route path="/product-requests" element={<ProductRequests />} />
