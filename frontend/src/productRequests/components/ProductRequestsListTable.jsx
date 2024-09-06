@@ -52,6 +52,7 @@ const ProductRequestsListTable = (props) => {
                 <TableCell align="left">Product Name</TableCell>
                 <TableCell align="left">Generic Name</TableCell>
                 <TableCell align="left">Cost Price</TableCell>
+                <TableCell align="left">Qty</TableCell>
                 <TableCell align="left">Expiry Date</TableCell>
                 <TableCell align="left">Product Request Creator</TableCell>
                 <TableCell align="left">Actions</TableCell>
@@ -74,10 +75,15 @@ const ProductRequestsListTable = (props) => {
                       €{productRequest.costPrice}
                     </TableCell>
                     <TableCell align="left">
+                      {productRequest.quantity}
+                    </TableCell>
+                    <TableCell align="left">
                     {`${String(productRequest.expiryDate).substring(0, 10)}`}
                     </TableCell>
                     <TableCell align="left">
-                      {productRequest.productRequestCreator}
+                    <Link to={`/public-user/${productRequest.productRequestCreator.id}`}>
+                      {productRequest.productRequestCreator.pharmacyName}
+                    </Link>
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>
@@ -87,7 +93,7 @@ const ProductRequestsListTable = (props) => {
                         )} */}
 
                         {auth.userId ===
-                          productRequest.productRequestCreator &&   (
+                          productRequest.productRequestCreator.id &&   (
                           <Link to={`/product-requests/${productRequest.id}`}>
                             <Button>Edit</Button>
                           </Link>

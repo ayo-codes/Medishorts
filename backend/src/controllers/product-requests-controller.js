@@ -13,7 +13,7 @@ const getAllProductRequests = async (req, res, next) => {
   console.log("GET Request received for all products requests");
   let productRequests;
   try {
-    productRequests = await ProductRequest.find();
+    productRequests = await ProductRequest.find().populate("productRequestCreator" , "-password"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product requests from Database failed ", 500));
@@ -34,7 +34,8 @@ const getProductRequestById = async (req, res, next) => {
 
   let productRequest;
   try {
-    productRequest = await ProductRequest.findById(productRequestId);
+    productRequest = await ProductRequest.findById(productRequestId).populate("productRequestCreator" , "-password"); // populate field holds the full user object without password
+    console.log(` after the mongo populate ${productRequest}`);
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product request from Database failed", 500));
@@ -56,7 +57,7 @@ const getProductRequestsByUserId = async (req, res, next) => {
 
   let userProductRequests;
   try {
-    userProductRequests = await ProductRequest.find({ productRequestCreator: userId });
+    userProductRequests = await ProductRequest.find({ productRequestCreator: userId }).populate("productRequestCreator", "-password"); // populate field holds the full user object
   } catch (err) {
     console.log(err);
     return next(new ApiHttpError("Fetching product requests from Database failed", 500));
@@ -82,7 +83,7 @@ const createProductRequest = async (req, res, next) => {
   }
 
   // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, productRequestCreator } = req.body;
-  const { productName, genericName,  costPrice, expiryDate, shortProduct,  productRequestCreator } = req.body;
+  const { productName, genericName,  costPrice, expiryDate, shortProduct, quantity,  productRequestCreator } = req.body;
 
   // const newProductRequest = new ProductRequest({
   //   productName,
@@ -104,6 +105,7 @@ const createProductRequest = async (req, res, next) => {
     costPrice,
     expiryDate,
     shortProduct,
+    quantity,
     productRequestCreator : req.userData.userId, // productRequestCreator is the user id from the token
     productRequestId: uuid(),
   });
@@ -152,7 +154,7 @@ const updateProductRequestById = async (req, res, next) => {
 
   const { productRequestId } = req.params; // productRequestId
   // const { productName, genericName, packSize, gmsNo, costPrice, vatRate, manufacturer, legalCategory, barcode, ipuCode, user } = req.body;
-  const { productName, genericName,  costPrice , expiryDate, shortProduct } = req.body;
+  const { productName, genericName,  costPrice , expiryDate, shortProduct, quantity } = req.body;
 
   let updatedProductRequest;
   try {
@@ -185,6 +187,7 @@ const updateProductRequestById = async (req, res, next) => {
   updatedProductRequest.costPrice = costPrice;
   updatedProductRequest.expiryDate = expiryDate;
   updatedProductRequest.shortProduct = shortProduct;
+  updatedProductRequest.quantity = quantity;
 
 
 

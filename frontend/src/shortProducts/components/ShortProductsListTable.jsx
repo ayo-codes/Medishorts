@@ -39,7 +39,12 @@ const ShortProductsListTable = (props) => {
     <>
       <Box>
         <Typography variant="h4" align="center" m={2}>
-          Short Products List
+          Short Product Reports
+        </Typography>
+        <Typography variant="h6" align="center" m={2}>
+          <Link to={"/shorts-hpra"}>
+            <Button> HPRA Reported Short Products </Button>
+          </Link>
         </Typography>
       </Box>
 
@@ -50,9 +55,8 @@ const ShortProductsListTable = (props) => {
               <TableRow>
                 <TableCell align="left">Product Name</TableCell>
                 <TableCell align="left">Generic Name</TableCell>
-                
-                
-                <TableCell align="left">Product Request Creator</TableCell>
+
+                <TableCell align="left">Short Product Reporter</TableCell>
                 <TableCell align="left">Actions</TableCell>
               </TableRow>
             </TableHead>
@@ -70,7 +74,11 @@ const ShortProductsListTable = (props) => {
                       {productRequest.genericName}
                     </TableCell>
                     <TableCell align="left">
-                      {productRequest.productRequestCreator}
+                      <Link
+                        to={`/public-user/${productRequest.productRequestCreator.id}`}
+                      >
+                        {productRequest.productRequestCreator.pharmacyName}
+                      </Link>
                     </TableCell>
                     <TableCell>
                       <Stack direction="row" spacing={2}>
@@ -80,7 +88,7 @@ const ShortProductsListTable = (props) => {
                         )} */}
 
                         {auth.userId ===
-                          productRequest.productRequestCreator &&   (
+                          productRequest.productRequestCreator && (
                           <Link to={`/product-requests/${productRequest.id}`}>
                             <Button>Edit</Button>
                           </Link>

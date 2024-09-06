@@ -8,6 +8,7 @@ const productRequestSchema = new Schema({
   packSize: { type: Number, required: false },
   gmsNo: { type: Number, required:  false },
   costPrice: { type: Number, required: true },
+  quantity: { type: Number, required: true},
   vatRate: { type: Number, required: false },
   manufacturer: { type: String, required:false },
   legalCategory: { type: String, required: false },

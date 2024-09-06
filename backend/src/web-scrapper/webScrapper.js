@@ -11,7 +11,7 @@ const webScrapper = async () => {
 
   await page.waitForSelector("table"); // wait for the table to load
   await page.waitForSelector("#table-short_length > label > select"); // this is the selector of the dropdown to select the number of rows per page
-  await page.select("#table-short_length > label > select", "10"); // select 100 rows per page
+  await page.select("#table-short_length > label > select", "100"); // select 100 rows per page
 
   const data = await page.evaluate(() => {
     const rows = Array.from(document.querySelectorAll("#table-short tr")); // select all the table rows

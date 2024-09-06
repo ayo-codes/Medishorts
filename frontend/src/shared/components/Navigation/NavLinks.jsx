@@ -10,7 +10,7 @@ const NavLinks = (props) => {
   return (
     <Stack direction='row' spacing={2}>
       <Button color="inherit" >
-        <NavLink to="/shorts" exact>
+        <NavLink to="/shorts" >
           Short Meds 
         </NavLink>  
       </Button>

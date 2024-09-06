@@ -57,7 +57,7 @@ const ProductRequestForm = (props) => {
       // genericName: product.genericName,
       productName: "",
       genericName: "",
-      costPrice: 0.0,
+      quantity: null,
       expiryDate: null,
       shortProduct: "false",
     };
@@ -90,6 +90,7 @@ const ProductRequestForm = (props) => {
       data.costPrice,
       data.expiryDate,
       data.shortProduct,
+      data.quantity,
       { headers: { Authorization: `Bearer ${auth.token}` } }
     );
     setIsLoading(false);
@@ -237,7 +238,6 @@ const ProductRequestForm = (props) => {
           {/* Cost Price */}
           <Box mb={2}>
             <TextField
-              fullWidth
               type="number"
               size="small"
               variant="outlined"
@@ -260,7 +260,31 @@ const ProductRequestForm = (props) => {
               }}
               {...register("costPrice", {
                 required: { value: true, message: "Cost Price is required" },
-                minLength: { value: 5, message: " Min length is 5" },
+                maxLength: { value: 6, message: "Max length is 6" },
+              })}
+            />
+          </Box>
+
+          {/* Quantity */}
+          <Box mb={2}>
+            <TextField
+              type="number"
+              size="small"
+              variant="outlined"
+              id="quantity"
+              label="Quantity"
+              placeholder="Quantity"
+              error={errors.quantity ? true : false}
+              helperText={errors.quantity ? errors.quantity.message : null}
+              step={1}
+              sx={{
+                "& input::-webkit-outer-spin-button, & input::-webkit-inner-spin-button":
+                  { display: "none" },
+                "& input[type=number]": { MozAppearance: "textfield" },
+              }}
+              {...register("quantity", {
+                required: { value: true, message: "Quantity is required" },
+                minLength: { value: 1, message: " Min length is 1" },
               })}
             />
           </Box>
